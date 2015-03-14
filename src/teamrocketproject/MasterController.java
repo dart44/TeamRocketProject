@@ -7,9 +7,9 @@
  * @author Jason
  * 2015 March 10
  */
+package TeamRocketProject;
 
-
-public class MasterController {
+public abstract class MasterController {
      
     /* empty constructor.  Controller has no data of its own */
     public MasterController(){
@@ -18,21 +18,20 @@ public class MasterController {
     /* check whether or not space is available.  Assumes grid as a
        separate type containing x & y coordinates. 
     */
-    public boolean CheckValidMove(Grid grid, int x, int y){
-        return grid.available(x,y);
-        
-    }
+    public abstract boolean CheckValidMove(Grid grid, int x, int y);
+        /* return grid.available(x,y); */
+   
     /*assumes that Character is a separate class with each instance 
       having a unique name.  The type is tentatively named "Character"
     */
-    public void SetSpeed(Player name, int speed){
-        name.speed = speed;
-    }
+    public abstract void SetSpeed(Character name, int speed);
+        /* name.speed = speed; */
+  
     
     /* get the player's speed.  Same assumption as SetSpeed */
-    public int GetSpeed(Player name){
-        return name.speed;
-    }
+    public abstract int GetSpeed(Character name);
+        /* return name.speed; */
+    
     
     /* Check the availability of the position, and go there if it's
        available.
