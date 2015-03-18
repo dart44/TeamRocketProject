@@ -20,19 +20,12 @@ public class Grid {
         grid = new Object[xAxis][yAxis];  
     }
   
-    //this method is no longer needed. THis kind of functionality should be 
-    //used in a controller for MVC
-    /*
-    void displayEntireGrid() {
-
-        for (int i = 0; i < this.xAxis; ++i) {
-            for (int j = 0; j < this.yAxis; ++j) {
-                System.out.print(getContent(i, j) + " ");
-            }
-            System.out.println();
-        }
+    boolean empty(int xx, int yy){
+        if(getContent(xx, yy) != null)
+            return false;
+        return true;
     }
-*/
+    
     Object getContent(int xx, int yy) {
         if (xx > xAxis || xx < 0 || yy > yAxis || yy < 0) {
             System.err.println("Error: the x and/or y location is out of bounds");
@@ -41,6 +34,10 @@ public class Grid {
         return this.grid[xx][yy];
     }
 
+      public void setContent(int x, int y, Object obj) {
+        this.grid[x][y] = obj;
+    }
+      
     //TODO add error checking for setters and getters
     public void setxAxis(int xAxis) {
         this.xAxis = xAxis;
@@ -48,10 +45,6 @@ public class Grid {
 
     public void setyAxis(int yAxis) {
         this.yAxis = yAxis;
-    }
-
-    public void setGridElement(int x, int y, Object obj) {
-        this.grid[x][y] = obj;
     }
 
     public int getxAxis() {
