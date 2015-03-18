@@ -1,5 +1,6 @@
 package grid;
-
+import Character.Character;
+import Character.CharacterController;
 /**
  *
  * @author Jared M Scott
@@ -10,6 +11,7 @@ public class GridController {
 
     Grid grid;
     Border border;
+    CharacterController cc;
     
     GridController(int x, int y) {
         border = new Border();
@@ -26,6 +28,87 @@ public class GridController {
         }
     }
     
+    //the following three functions come straight from the SRS, the remaining 
+    //functions are ment to be called by the three
+    
+    int[] findCharacter(Character character){
+    int[] answer = {0,0};
+    Character c;
+    
+        //find the character
+        int i, j;
+        for(i = 0; i < getGrid().getxAxis(); ++i){
+            for(j = 0; j < getGrid().getyAxis(); ++j){
+                if(getGrid().getContent(i, j) instanceof Character){
+                    c = (Character) getGrid().getContent(i, j);
+                    if(cc.Get(c, "name") == cc.Get(character, "name")){
+                    answer[0] = i;
+                    answer[1] = j;
+                    return answer;
+                    }
+                }
+            }
+        }//end outer for
+        System.out.println("Error: Did not find character\nReturning location [0,0]");
+        return answer;
+    }
+    
+    //return 1 if successfull, 0 if fail
+    //remove character from old position and move to new
+    int changePosition(Character character, int x, int y){
+        //first call to findCharacter
+    int[] location = findCharacter(character);
+    int oldX = location[0];
+    int oldY = location[1];
+    
+    //see if location desired is empty
+    if(getGrid().empty(x, y) == true){
+        //add to the new location and set the old location to null
+        getGrid().setContent(x, y, character);
+        getGrid().setContent(oldX, oldY, null);
+        return 1;
+    }
+        return 0;
+    }
+    
+    //check how far a character and a location is
+    //as long as the largest x or y has the smallest on subtracted from it
+    //we should still get an accurate answer
+    //ex)5 - 12 = -7 and 12 - 5 = 7. Both are a difference of 7
+    int checkDistance(Character character, int newX, int newY){
+                //first call to findCharacter
+    int[] location = findCharacter(character);
+    int oldX = location[0];
+    int oldY = location[1];
+
+        int distance, x1, x2, y1, y2;
+        
+        if(oldX < newX){
+            x1 = newX; 
+            x2 = oldX;
+        }else{
+        x2 = newX; 
+        x1 = oldX;
+        }
+        
+        if(oldY < newY){
+            y1 = newY; 
+            y2 = oldY;
+        }else{
+        y2 = newY; 
+        y1 = oldY;
+        }
+        
+        //find the difference of each x and y individually and add them together
+        distance = (x1-x2) + (y1-y2);
+ 
+        return distance;
+    }
+    
+    //check if anything is in the specified grid location
+    boolean occupied(int x, int y){
+            return getGrid().empty(x, y);
+    }
     /*
     Inititialized the Grid (duh), and calls createBorder
     */
@@ -55,21 +138,21 @@ public class GridController {
         
         //[row0, col0] -> [row0, colmax - 1];   
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
-            getGrid().setGridElement(0, col, border);
+            getGrid().setContent(0, col, border);
         }
         
         //System.out.println("Part 1 done ");
 
         //[row0, col0] ->[rowmax - 1, col0]
         for (row = 0; row < getGrid().getxAxis() - 1; ++row) {
-            getGrid().setGridElement(row, 0, border);
+            getGrid().setContent(row, 0, border);
         }
         //System.out.println("Part 2 done");
 
         
         //[rowMax - 1, col0] -> [rowMax, colMax - 1];
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
-            getGrid().setGridElement(getGrid().getxAxis() - 1, col, border);
+            getGrid().setContent(getGrid().getxAxis() - 1, col, border);
         }
                 
         //System.out.println("Part 3 done");
@@ -77,7 +160,7 @@ public class GridController {
         
         //[row0, colMax - 2] ->[rowMax -1, colMax - 1]
         for (row = 0; row < getGrid().getxAxis(); ++row) {
-            getGrid().setGridElement(row, getGrid().getyAxis() - 1, border);
+            getGrid().setContent(row, getGrid().getyAxis() - 1, border);
         }
                 
         //System.out.println("Part 4 done");
@@ -86,9 +169,6 @@ public class GridController {
 
     /*
     This was created soley for testing purposes.
-    Displays each element in grid via for loops and toString
-    null cant use to string so i create an if statement as a workaround
-    */
     public void display() {
         for(int i = 0; i < getGrid().getxAxis(); ++i){
             for(int j = 0; j < getGrid().getyAxis(); ++j){
@@ -105,10 +185,10 @@ public class GridController {
         }
 
     }
-
+*/
     //remove enemy/player/item
     public void emptyGridLocation(int x, int y) {
-        grid.setGridElement(x, y, null);
+        grid.setContent(x, y, null);
     }
 
     public Grid getGrid() {
