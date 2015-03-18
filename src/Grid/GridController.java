@@ -41,7 +41,7 @@ public class GridController {
             for(j = 0; j < getGrid().getyAxis(); ++j){
                 if(getGrid().getContent(i, j) instanceof Character){
                     c = (Character) getGrid().getContent(i, j);
-                    if(cc.Get(c, "name") == cc.Get(character, "name")){
+                    if(cc.GetName(c).equals(cc.GetName(character))){
                     answer[0] = i;
                     answer[1] = j;
                     return answer;
