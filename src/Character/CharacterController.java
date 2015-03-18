@@ -13,38 +13,45 @@ public class CharacterController {
     public CharacterController(){
     };
     
-    /* Setters for Character variables.
-     * Example: CharacterController.Set(Bob, speed, 5) 
+    public void SetName(Character ch, String name){
+        ch.SetName(name);
+    };
+    public String GetName(Character ch){
+        return ch.GetName();
+    };
+    
+    /* Setters for Character int variables.
+     * Example: CharacterController.Set(Bob, "speed", 5) 
      * sets Bob's speed variable to 5.
      */
-    public void Set(Character name, String function, int input){
+    public void Set(Character ch, String function, int input){
         switch (function) {
             case "HP":
-                name.SetHP(input);
+                ch.SetHP(input);
                 break;
             case "speed":
-                name.SetSpeed(input);
+                ch.SetSpeed(input);
                 break;
             case "AP":
-                name.SetAP(input);
+                ch.SetAP(input);
                 break;
             default:
                 System.out.println("Invalid Set request.");
         }
     };
     
-    /* Getters for Character variables.
-     * Example: CharacterController.Get(Bob, speed) 
+    /* Getters for Character int variables.
+     * Example: CharacterController.Get(Bob, "speed") 
      * returns Bob's speed variable as an int.
      */    
-    public int Get(Character name, String function){
+    public int Get(Character ch, String function){
         switch (function){
             case "HP":
-                return name.GetHP();
+                return ch.GetHP();
             case "speed":
-                return name.GetSpeed();
+                return ch.GetSpeed();
             case "AP":
-                return name.GetAP();
+                return ch.GetAP();
             default:
                 System.out.println("Invalid Get request.");
                 return 0;
