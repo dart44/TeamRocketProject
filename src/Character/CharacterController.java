@@ -2,7 +2,7 @@
  * This class serves as a Controller for the Character
  * class. First draft.
  */
-package Characters;
+package Character;
 /**
  *
  * @author Jeremy Crook

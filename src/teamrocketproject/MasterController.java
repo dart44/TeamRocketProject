@@ -36,9 +36,9 @@ public abstract class MasterController {
     /* Check the availability of the position, and go there if it's
        available.
     */
-    public boolean Move(Player name, Grid grid, int x, int y){
+    public boolean Move(Character name, Grid grid, int x, int y){
         if(CheckValidSpace(grid, x, y) == true){
-            name.SetPosition(x, y);
+            grid.SetPosition(name, x, y);
             return true;
         }
         else return false;

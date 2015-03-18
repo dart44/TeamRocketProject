@@ -2,7 +2,7 @@
  * Character data class. Behaves like a Dungeons and Dragons
  * character sheet.
  */
-package Characters;
+package Character;
 import java.util.Random;
 
 /**
