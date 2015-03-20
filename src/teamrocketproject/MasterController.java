@@ -8,6 +8,8 @@
  * 2015 March 10
  */
 package TeamRocketProject;
+import grid.Grid;
+
 
 public abstract class MasterController {
      
