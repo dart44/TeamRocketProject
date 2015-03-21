@@ -9,9 +9,11 @@
  */
 package TeamRocketProject;
 import grid.Grid;
+import grid.GridController;
 
 
 public abstract class MasterController {
+     GridController gridController = new GridController(10, 10);
      
     /* empty constructor.  Controller has no data of its own */
     public MasterController(){
@@ -39,8 +41,8 @@ public abstract class MasterController {
        available.
     */
     public boolean Move(Character name, Grid grid, int x, int y){
-        if(CheckValidSpace(grid, x, y) == true){
-            grid.SetPosition(name, x, y);
+        if(gridController.CheckValidSpace(x, y) == true){
+            grid.setPosition(name, x, y);
             return true;
         }
         else return false;

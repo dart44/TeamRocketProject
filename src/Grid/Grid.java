@@ -34,7 +34,12 @@ public class Grid {
         return this.grid[xx][yy];
     }
 
-      public void setContent(int x, int y, Object obj) {
+      public void setPosition(Character character, int x, int y) {
+        this.grid[x][y] = character;
+    }
+      
+      //this one is for adding the barrier
+      public void setPosition(Object obj, int x, int y) {
         this.grid[x][y] = obj;
     }
       
