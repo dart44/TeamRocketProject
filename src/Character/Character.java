@@ -7,6 +7,7 @@ import java.util.Random;
 
 /**
  *
+ * Tutorial Change demonstration
  * @author Jeremy Crook
  * 2015 March 12
  */
