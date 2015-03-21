@@ -57,7 +57,7 @@ public class Character {
          * randomNumber.nextInt((maximum - minimum) + 1) + minimum;
          */
         HP = r.nextInt((30 - 10) + 1) + 10;
-        speed = r.nextInt((4 - 6) + 1) + 6;
+        speed = r.nextInt((6 - 4) + 1) + 4;
         /* AP is constant for this build */
         AP = 10;
     }
