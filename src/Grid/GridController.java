@@ -133,10 +133,20 @@ public class GridController {
         //add a characte on the grid randomly. 
         Character character = new Character();
         int randX, randY;
-        randX = rn.nextInt(getGrid().getxAxis());
-        randY = rn.nextInt(getGrid().getyAxis());
+        randX = rn.nextInt(getGrid().getxAxis()) + 1;
+        randY = rn.nextInt(getGrid().getyAxis()) + 1;
+
+        randX -= 1;
+        randY -= 1;
+        if(randX < 0)
+            randX = 0;
+        if(randY < 0)
+            randY = 0;
+        
         getGrid().setPosition(character, randX, randY);
         
+        if(getGrid().empty(randX, randY) == false)
+            System.out.println("The character is here :)\n");
         return 1;
     }
 
