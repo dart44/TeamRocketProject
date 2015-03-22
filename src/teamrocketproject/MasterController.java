@@ -10,6 +10,8 @@
 package TeamRocketProject;
 import grid.Grid;
 import grid.GridController;
+import Character.Character;
+
 
 
 public abstract class MasterController {
