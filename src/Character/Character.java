@@ -4,31 +4,33 @@
  * Class: Character
  * Date: March 12th, 2015
  * Last Updated: March 26th, 2015
- * Character objects store all in-game attributes of
- * a player's character such as Hit Points and 
- * Action Points. They are also responsible for
- * keeping track of the character's remaining
- * hit/action points as they change throughout a
- * game session. When Hit Points reach 0, the character
- * is considered dead and removed from play.
- * When Action Points reach 0, the character class
- * calls TurnOrder to change the TurnCharacter to
- * the next character in the order.
+ * Character objects store all in-game attributes of a player's character such
+ * as Hit Points and Action Points.
  */
 package Character;
 import java.util.Random;
 import teamrocketproject.MasterModel;
-/**
- *
- * @author Jeremy Crook
- * 2015 March 12
- */
+
 public class Character extends MasterModel {
+    /* Character Attribute Declarations
+     * @param HP: Character's Maximum Hit Points
+     * @param Speed: Cost in AP to move Character 1 grid square
+     * @param AP: Character's Maximum Action Points
+     * @param Initiative: Character's priority in TurnOrder
+     * @param STR: Character's Strength attribute; informs HP
+     * @param DEX: Character's Dexterity attribute; informs Speed
+     * @param INT: Character's Intelligence attribute; informs AP
+     * @param CurrentHP: Character's current Hit Points
+     * @param CurrentAP: Character's current Action Points
+     */
     private String Name;
-    private int HP, speed, AP, initiative,
+    private int HP, Speed, AP, Initiative,
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
-    /* Getters and Setters */
+    /* Attribute Accessors
+     * When changes are made to this model they are fired such that they can be
+     * propogated across all registered views.
+     */
     public void setName(String name){
         String oldName = this.Name;
         this.Name = name;
@@ -40,27 +42,117 @@ public class Character extends MasterModel {
     public String getName(){
         return Name;
     };
+    
     public void setHP(int n){
+        int oldHP = this.HP;
         HP = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_HP_PROPERTY,
+            oldHP, HP);
     };
     public int getHP(){
         return HP;
     };
+    
     public void setSpeed(int n){
-        speed = n;
+        int oldSpeed = this.Speed;
+        Speed = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_SPEED_PROPERTY,
+            oldSpeed, Speed);
     };
     
     public int getSpeed(){
-        return speed;
+        return Speed;
     };
+    
     public void setAP(int n){
+        int oldAP = this.AP;
         AP = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_AP_PROPERTY,
+            oldAP, AP);
     };
     public int getAP(){
         return AP;
     };
     
-    /* Class Constructors */
+    public void setInitiative(int n){
+        int oldInitiative = this.Initiative;
+        Initiative = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_CURRENTAP_PROPERTY,
+            oldInitiative, Initiative);
+    };
+    public int getInitiative(){
+        return Initiative;
+    };
+    
+    public void setSTR(int n){
+        int oldSTR = this.STR;
+        STR = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_STR_PROPERTY,
+            oldSTR, STR);
+    };
+    public int getSTR(){
+        return STR;
+    };
+    
+    public void setINT(int n){
+        int oldINT = this.INT;
+        INT = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_INT_PROPERTY,
+            oldINT, INT);
+    };
+    public int getINT(){
+        return INT;
+    };
+    
+    public void setDEX(int n){
+        int oldDEX = this.DEX;
+        DEX = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_DEX_PROPERTY,
+            oldDEX, DEX);
+    };
+    public int getDEX(){
+        return DEX;
+    };
+    
+    public void setCurrentHP(int n){
+        int oldcHP = this.CurrentHP;
+        CurrentHP = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_CURRENTHP_PROPERTY,
+            oldcHP, CurrentHP);
+    };
+    public int getCurrentHP(){
+        return CurrentHP;
+    };
+    
+    public void setCurrentAP(int n){
+        int oldcAP = this.CurrentAP;
+        CurrentAP = n;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_CURRENTAP_PROPERTY,
+            oldcAP, CurrentAP);
+    };
+    public int getCurrentAP(){
+        return CurrentAP;
+    };
+    
+    /* Default Class Constructor */
     public Character(){
         /* Assign the character a random name */
         Random r = new Random();
@@ -73,6 +165,7 @@ public class Character extends MasterModel {
         /* Assign the character random stats within a range
          * Formula:
          * randomNumber.nextInt((maximum - minimum) + 1) + minimum;
+         * @param dX = random number 1 to X inclusive
          */
         int d6 = r.nextInt((6 - 1) + 1) + 1;
         STR = 3 * d6;
@@ -88,15 +181,18 @@ public class Character extends MasterModel {
                     break;
             default: break;
         }
+        /* Set derived stats */
         HP = (int) Math.floor(STR/3);
-        speed = 2 - (int) Math.floor(DEX/10);
+        CurrentHP = HP;
+        Speed = 2 - (int) Math.floor(DEX/10);
         AP = 9 + (int) Math.floor(INT/6);
+        CurrentAP = AP;
         int d20 = r.nextInt((20 - 1) + 1) + 1;
-        initiative = d20;
+        Initiative = d20;
         if (INT>DEX){
-            initiative = initiative + ((int) Math.floor(INT/2) - 5);
+            Initiative = Initiative + ((int) Math.floor(INT/2) - 5);
         } else {
-            initiative = initiative + ((int) Math.floor(DEX/2) - 5);
+            Initiative = Initiative + ((int) Math.floor(DEX/2) - 5);
         }
         
     }

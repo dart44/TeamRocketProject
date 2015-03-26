@@ -1,5 +1,7 @@
 package grid;
 
+import teamrocketproject.MasterModel; // -JC
+
 /**
  * @module Grid
  * @author Jared M Scott
@@ -20,7 +22,7 @@ package grid;
  * Other than the typical getters and setters, there is also an empty function to
  * test if an Object or Character can be placed within a specific grid location
  */
-public class Grid {
+public class Grid extends MasterModel {
 
     //the xAxis and yAxis represent the rows and columns of the double array grid
     int xAxis;

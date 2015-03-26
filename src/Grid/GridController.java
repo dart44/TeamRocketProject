@@ -3,6 +3,7 @@ package grid;
 import Character.Character;
 import Character.CharacterController;
 import java.util.Random;
+import teamrocketproject.MasterController; // -JC
 
 /**
  * @module Grid
@@ -23,7 +24,7 @@ import java.util.Random;
 //The Random class is needed as a varible to place a character in a random spot on the grid
 //the Character Controller class is required to find a specific instance of 
 //class Character in the Grid
-public class GridController {
+public class GridController extends MasterController {
     Grid grid;
     Border border;
     CharacterController cc;
