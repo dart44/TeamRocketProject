@@ -77,7 +77,7 @@ public class GridController {
             for (j = 0; j < getGrid().getyAxis(); ++j) {
                 if (getGrid().getContent(i, j) instanceof Character) {
                     c = (Character) getGrid().getContent(i, j);
-                    if (cc.GetName(c).equals(cc.GetName(character))) {
+                    if (cc.getName(c).equals(cc.getName(character))) {
                         answer[0] = i;
                         answer[1] = j;
                         return answer;
@@ -188,7 +188,7 @@ public class GridController {
         }
 
         //add a character on the grid randomly. 
-        Character character = new Character("Joe", 5, 5, 5);
+        Character character = new Character();
         int randX;
         int randY;
         
