@@ -187,25 +187,6 @@ public class GridController extends MasterController {
         if (createBorder(row, col) != 1) {
             System.err.println("Error: Could not create border");
         }
-
-        //add a character on the grid randomly. 
-        Character character = new Character("Player 1");
-        int randX;
-        int randY;
-        
-        randX = rn.nextInt(getGrid().getxAxis()) + 1;
-        randY = rn.nextInt(getGrid().getyAxis()) + 1;
-System.out.println("RandX and Rand Y are :" + randX + " " + randY);
-      
-        if(randX < 0)
-            randX = 0;
-        if(randY < 0)
-            randY = 0;
-        
-        getGrid().setPosition(character, randX, randY);
-        
-        if(getGrid().empty(randX, randY) == false)
-            System.out.println("The character is here :)\n");
         return 1;
     }
 
