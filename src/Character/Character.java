@@ -31,8 +31,8 @@ public class Character extends MasterModel {
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
     /* Attribute Accessors
-     * When changes are made to this model they are fired such that they can be
-     * propogated across all registered views.
+     * When changes are made to this model they are fired such that they can
+     * be propogated across all registered views.
      */
     public void setName(String name){
         String oldName = this.Name;

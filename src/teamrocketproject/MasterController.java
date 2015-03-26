@@ -12,6 +12,7 @@
 package teamrocketproject;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -78,7 +79,11 @@ public abstract class MasterController implements PropertyChangeListener {
                              );
                 method.invoke(model, newValue);
 
-            } catch (Exception ex) {
+            } catch (NoSuchMethodException
+                    | SecurityException
+                    | IllegalAccessException
+                    | IllegalArgumentException
+                    | InvocationTargetException ex) {
                 //  Handle exception.
             }
         }

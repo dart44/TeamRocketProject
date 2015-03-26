@@ -1,7 +1,7 @@
 /*
  * @module Character
  * @author Jeremy Crook
- * Class: Character
+ * Class: CharacterController
  * Date: March 12th, 2015
  * Last Updated: March 26th, 2015
  * This class serves as a Controller for the Character Model class.
