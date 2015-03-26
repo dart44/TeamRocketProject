@@ -6,6 +6,7 @@
  * Last Updated: March 26th, 2015
  * Character objects store all in-game attributes of a player's character such
  * as Hit Points and Action Points.
+ * TODO code Attack attributes
  */
 package Character;
 import java.util.Random;
@@ -13,6 +14,8 @@ import teamrocketproject.MasterModel;
 
 public class Character extends MasterModel {
     /* Character Attribute Declarations
+     * @param Name: Character's name
+     * @param Player: Character's Player's name
      * @param HP: Character's Maximum Hit Points
      * @param Speed: Cost in AP to move Character 1 grid square
      * @param AP: Character's Maximum Action Points
@@ -23,7 +26,7 @@ public class Character extends MasterModel {
      * @param CurrentHP: Character's current Hit Points
      * @param CurrentAP: Character's current Action Points
      */
-    private String Name;
+    private String Name, Player;
     private int HP, Speed, AP, Initiative,
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
@@ -37,10 +40,22 @@ public class Character extends MasterModel {
         
         firePropertyChange(
             CharacterController.ELEMENT_NAME_PROPERTY, 
-            oldName, name);
+            oldName, Name);
     };
     public String getName(){
         return Name;
+    };
+    
+    public void setPlayer(String player){
+        String oldPlayer = this.Player;
+        this.Player = player;
+        
+        firePropertyChange(
+            CharacterController.ELEMENT_PLAYER_PROPERTY, 
+            oldPlayer, Player);
+    };
+    public String getPlayer(){
+        return Player;
     };
     
     public void setHP(int n){
@@ -153,7 +168,9 @@ public class Character extends MasterModel {
     };
     
     /* Default Class Constructor */
-    public Character(){
+    public Character(String p){
+        /* Assign the character to its player */
+        Player = p;
         /* Assign the character a random name */
         Random r = new Random();
         int n = r.nextInt(12)+1;

@@ -189,7 +189,7 @@ public class GridController extends MasterController {
         }
 
         //add a character on the grid randomly. 
-        Character character = new Character();
+        Character character = new Character("Player 1");
         int randX;
         int randY;
         
