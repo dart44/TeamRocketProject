@@ -185,9 +185,9 @@ public class Character extends MasterModel {
          * @param dX = random number 1 to X inclusive
          */
         int d6 = r.nextInt((6 - 1) + 1) + 1;
-        STR = 3 * d6;
-        DEX = 3 * d6;
-        INT = 3 * d6;
+        STR = d6 + d6 + d6;
+        DEX = d6 + d6 + d6;
+        INT = d6 + d6 + d6;
         int d3 = r.nextInt((3 - 1) + 1) + 1;
         switch (d3) {
             case 1: STR = STR +2;

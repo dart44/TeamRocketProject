@@ -113,4 +113,18 @@ public class CharacterController extends MasterController {
         }
     };
     
+    public Boolean CheckHP(Character ch){
+        if (ch.getCurrentHP() <= 0){
+            return false;
+        }
+        return true;
+    }
+    
+    public Boolean CheckAP(Character ch){
+        if (ch.getCurrentAP() <= 0) {  
+            return false;
+        }
+        return true;
+    }
+    
 }

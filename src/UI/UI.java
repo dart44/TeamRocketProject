@@ -5,30 +5,29 @@
  */
 package UI;
 
+import Character.CharacterController;
+import UI.UI.bottomPanel;
+import UI.UI.topPanel;
+import grid.GridController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
-import javax.swing.JLabel;
-
-import Character.Character;
-import Character.CharacterController;
-import grid.GridController;
-import UI.UI.topPanel;
-import UI.UI.bottomPanel;
-import java.awt.Font;
+import teamrocketproject.MasterViewPanel; // - JC
 
 
 public class UI {
@@ -96,7 +95,11 @@ public class UI {
 
     }
 
-    private class textPanel extends JPanel {
+    private class textPanel extends MasterViewPanel {
+        
+        //TODO Code to account for changes to models -JC
+        @Override
+        public void modelPropertyChange(PropertyChangeEvent evt){}
 
         public textPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -123,7 +126,11 @@ public class UI {
     }
 
     //bottom panel where text and buttons are located.
-    public class bottomPanel extends JPanel {
+    public class bottomPanel extends MasterViewPanel {
+        
+        //TODO Code to account for changes to models -JC
+        @Override
+        public void modelPropertyChange(PropertyChangeEvent evt){}
 
         public bottomPanel() {
             setLayout(new BorderLayout());
@@ -144,7 +151,11 @@ public class UI {
     }
 
     //Panel where buttons are located
-    public class actionPanel extends JPanel {
+    public class actionPanel extends MasterViewPanel {
+        
+        //TODO Code to account for changes to models -JC
+        @Override
+        public void modelPropertyChange(PropertyChangeEvent evt){}
 
         public actionPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -171,7 +182,11 @@ public class UI {
     }
     
     //Top panel of the UI where grid is located
-    public class topPanel extends JPanel {
+    public class topPanel extends MasterViewPanel {
+        
+        //TODO Code to account for changes to models -JC
+        @Override
+        public void modelPropertyChange(PropertyChangeEvent evt){}
 
         public topPanel(GridBagConstraints gbc) {
             setLayout(new GridBagLayout());
@@ -209,7 +224,11 @@ public class UI {
     }
 
     //each tile on grid has a JPanel with its own mouseListener.
-    public class CellPane extends JPanel {
+    public class CellPane extends MasterViewPanel {
+        
+        //TODO Code to account for changes to models -JC
+        @Override
+        public void modelPropertyChange(PropertyChangeEvent evt){}
 
         private Color defaultBackground=Color.WHITE;
 
