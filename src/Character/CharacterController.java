@@ -9,6 +9,8 @@
  */
 package Character;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import teamrocketproject.MasterController;
 
 public class CharacterController extends MasterController {
@@ -30,16 +32,17 @@ public class CharacterController extends MasterController {
     public CharacterController(){
     };
     
+    
     /* Setter/Getter for Character names */
     public void setName(Character ch, String name){
-        setModelProperty(ELEMENT_NAME_PROPERTY, name);
+        ch.setName(name);
     };
     public String getName(Character ch){
         return ch.getName();
     };
     /* Setter/Getter for Character's Player name */
     public void setPlayer(Character ch, String player){
-        setModelProperty(ELEMENT_PLAYER_PROPERTY, player);
+        ch.setPlayer(player);
     };
     public String getPlayer(Character ch){
         return ch.getPlayer();
@@ -52,31 +55,31 @@ public class CharacterController extends MasterController {
     public void set(Character ch, String function, int input){
         switch (function) {
             case "HP": case "hp":
-                setModelProperty(ELEMENT_HP_PROPERTY, input);
+                ch.setHP(input);
                 break;
             case "Speed": case "speed":
-                setModelProperty(ELEMENT_SPEED_PROPERTY, input);
+                ch.setSpeed(input);
                 break;
             case "AP": case "ap":
-                setModelProperty(ELEMENT_AP_PROPERTY, input);
+                ch.setAP(input);
                 break;
             case "Initiative": case "initiative":
-                setModelProperty(ELEMENT_INITIATIVE_PROPERTY, input);
+                ch.setInitiative(input);
                 break;
             case "STR": case "str":
-                setModelProperty(ELEMENT_STR_PROPERTY, input);
+                ch.setSTR(input);
                 break;
             case "DEX": case "dex":
-                setModelProperty(ELEMENT_DEX_PROPERTY, input);
+                ch.setDEX(input);
                 break;
             case "INT": case "int":
-                setModelProperty(ELEMENT_INT_PROPERTY, input);
+                ch.setINT(input);
                 break;
             case "CurrentHP": case "currenthp": case "currentHP":
-                setModelProperty(ELEMENT_CURRENTHP_PROPERTY, input);
+                ch.setCurrentHP(input);
                 break;
             case "CurrentAP": case "currentap": case "currentAP":
-                setModelProperty(ELEMENT_CURRENTAP_PROPERTY, input);
+                ch.setCurrentAP(input);;
                 break;
             default:
                 System.out.println("Invalid Set request.");
@@ -113,6 +116,7 @@ public class CharacterController extends MasterController {
         }
     };
     
+    /* Convenience methods for checking HP/AP */
     public Boolean CheckHP(Character ch){
         if (ch.getCurrentHP() <= 0){
             return false;
