@@ -2,6 +2,7 @@ package grid;
 
 import teamrocketproject.MasterModel; // -JC
 import Character.Character;
+//import grid.GridController.Border;
 /**
  * @module Grid
  * @author Jared M Scott
@@ -28,12 +29,12 @@ public class Grid extends MasterModel {
     int xAxis;
     int yAxis;
     Object[][] grid;
-
+    Border border;
     //the constructor must accept two values to determine the grid's size
     public Grid(int rows, int cols) {
         int oldXAxis = this.xAxis;
         int oldYAxis = this.yAxis;
-        
+        border = new Border();
         this.xAxis = rows;
         this.yAxis = cols;
         //the grid array is initialized with passed parameters
@@ -44,6 +45,15 @@ public class Grid extends MasterModel {
         firePropertyChange(GridController.ELEMENT_GRID_PROPERTY, null, grid);
     }
   
+    public class Border {
+        String name = "Border";
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+    
     //determine if grid[xx][yy] contains any Object or Character
     //calls the getContent function
     boolean empty(int[] location){
@@ -59,7 +69,9 @@ public class Grid extends MasterModel {
             System.err.println("Error: the x and/or y location is out of bounds");
             return null;
         }   
-        return this.grid[position[0]][position[1]];
+        int i = position[0];
+        int j = position[1];
+        return this.grid[i][j];
     }
 
     //places an instance of class Character in the specificed row and colum
@@ -75,13 +87,26 @@ public class Grid extends MasterModel {
         firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldCharacter, character);        
     }
       
-      //this version is for adding barriers to the parameter of the grid
-      public void setPosition(Object obj, int[] position) {
-          
-         // System.out.println("Setting position with values: " + position[0] + " " + position[1]);
+      public void setPositionToNull(int[] position){
         Object oldObj = this.grid[position[0]][position[1]];
-        this.grid[position[0]][position[1]] = obj;
-        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, obj);
+        this.grid[position[0]][position[1]] = null;
+        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, null);
+      }
+      
+      //this version is for adding Borders to the parameter of the grid
+      public void setBorderPosition(int[] position) {
+         // System.out.println("Setting position with values: " + position[0] + " " + position[1]);    
+        Object oldObj = this.grid[position[0]][position[1]];
+        this.grid[position[0]][position[1]] = getBorder();
+        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, border);
+    }
+
+    public Border getBorder() {
+        return border;
+    }
+
+    public void setBorder(Border border) {
+        this.border = border;
     }
       
     //the following are basic setters and getters for the class variables 

@@ -1,6 +1,7 @@
 package grid;
 
 import Character.Character;
+import grid.Grid.Border;
 import teamrocketproject.MasterController; // -JC
 
 /**
@@ -28,11 +29,8 @@ public class GridController extends MasterController {
             ELEMENT_XAXIS_PROPERTY = "xAxis",
             ELEMENT_YAXIS_PROPERTY = "yAxis",
             ELEMENT_GRID_PROPERTY = "grid",
-            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
-    
+            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";    
     Grid grid;
-    Border border;
-
     
     /**
      * The constructor recieves the number of rows and columns needed for the Grids
@@ -44,7 +42,7 @@ public class GridController extends MasterController {
      */
     //TODO: add an exception
     public GridController(int rows, int cols) {
-        border = new Border();
+//        border = new Border();
         //System.out.println("Initing the Grid");
         if (initializeGrid(rows, cols) != 1) {
             System.err.println("Error: grid was not initialized");
@@ -55,15 +53,7 @@ public class GridController extends MasterController {
      * Class border merely has a variable and overridden toString function
      * 
      */
-    public class Border {
-        String name = "Border";
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-    
+       
     //the following three functions come straight from the SRS, the remaining 
     //functions are ment to be called by the first three
     
@@ -73,7 +63,8 @@ public class GridController extends MasterController {
  * @param character
  * @return int[]
  */
-    public int[] findCharacter(Character character) {
+    //use character.getName
+    public int[] findCharacter(String character) {
         int[] answer = {0, 0};
         Character c;
 
@@ -84,7 +75,7 @@ public class GridController extends MasterController {
                 int[] position = {i, j};
                 if (getGrid().getContent(position) instanceof Character) {
                     c = (Character) getGrid().getContent(position);
-                    if (c.getName().equals( character.getName())) {
+                    if (c.getName().equals(character)) {
                         answer[0] = i;
                         answer[1] = j;
                         return answer;
@@ -102,15 +93,11 @@ public class GridController extends MasterController {
      * If the desired location on the grid is empty, the Character is moved there,
      * its previous position becomes empty/null, and 1 is returned. Else we return 0
      * @param character
-     * @param row
-     * @param col
+     * @param newLocation
      * @return int
      */
     public int setPosition(Character character, int[] newLocation) {
-        //first call to findCharacter
-        int[] oldLocation = findCharacter(character);
-        //int oldRow = location[0];
-        //int oldCol = location[1];
+        int[] oldLocation = findCharacter(character.getName());
       
         //see if newLocation desired is empty
         if (getGrid().empty(newLocation) == true) {
@@ -119,8 +106,11 @@ public class GridController extends MasterController {
             
             //if the oldLocation is 0,0 then there the character was not on the map to begin with
             if(oldLocation[0] != 0 && oldLocation[1] != 0){
-            getGrid().setPosition(null, oldLocation);
+            getGrid().setPositionToNull(oldLocation);
             }
+            
+            //we are just notifiying that the grid itself has a change (the addition of a character)
+           // setModelProperty(ELEMENT_GRID_PROPERTY, character);
             return 1;
         }
         return 0;
@@ -139,7 +129,7 @@ public class GridController extends MasterController {
      */
     public int checkDistance(Character character, int newRow, int newCol) {
         //first call to findCharacter
-        int[] location = findCharacter(character);
+        int[] location = findCharacter(character.getName());
         int oldRow = location[0];
         int oldCol = location[1];
 
@@ -203,6 +193,11 @@ public class GridController extends MasterController {
         return 1;
     }
 
+    public Border getBorder(){
+        return getGrid().getBorder();
+    }
+    
+    
     /**
      * Adds borders around the parameter of grid[][] and returns 1 when done
      * @param x
@@ -218,7 +213,8 @@ public class GridController extends MasterController {
         //[row0, col0] -> [row0, colmax - 1];   
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
             location[1] = col;
-            getGrid().setPosition(border, location);
+            getGrid().setBorderPosition(location);
+            
         }
 
         //System.out.println("Part 1 done ");
@@ -228,7 +224,7 @@ public class GridController extends MasterController {
 
         for (row = 0; row < getGrid().getxAxis() - 1; ++row) {
             location[0] = row;
-            getGrid().setPosition(border, location);
+            getGrid().setBorderPosition(location);
         }
         //System.out.println("Part 2 done");
 
@@ -237,7 +233,7 @@ public class GridController extends MasterController {
         location[1] = 0;
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
             location[1] = col;
-            getGrid().setPosition(border, location);
+            getGrid().setBorderPosition(location);
         }
 
         //System.out.println("Part 3 done");
@@ -246,7 +242,7 @@ public class GridController extends MasterController {
         location[1] = getGrid().getyAxis() - 1;
         for (row = 0; row < getGrid().getxAxis(); ++row) {
             location[0] = row;
-            getGrid().setPosition(border, location);
+            getGrid().setBorderPosition(location);
         }
 
         //System.out.println("Part 4 done");
@@ -279,12 +275,12 @@ public class GridController extends MasterController {
      
     /**
      * Remove any content in the grid location
-     * @param row
-     * @param col 
+     * @param location
      */
      //make it not remove a border
-    public void emptyGridLocation(int[] position) {
-        grid.setPosition(null, position);
+    public void emptyGridLocation(int[] location) {
+        grid.setPositionToNull(location);
+        //setModelProperty(ELEMENT_GRID_PROPERTY, location);
     }
 
     /**

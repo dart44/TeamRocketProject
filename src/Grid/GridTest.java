@@ -16,7 +16,7 @@ public class GridTest {
         int[] position = {1, 1};
         gc.setPosition(joe, position);
         
-        int[] position2 = gc.findCharacter(joe);
+        int[] position2 = gc.findCharacter("Joe");
         System.out.println("Joe is at " + position2[0] + " " + position2[1]);
          
         System.out.println("Moving Joe to 2, 2");
