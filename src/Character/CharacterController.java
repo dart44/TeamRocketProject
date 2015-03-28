@@ -9,8 +9,6 @@
  */
 package Character;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import teamrocketproject.MasterController;
 
 public class CharacterController extends MasterController {
