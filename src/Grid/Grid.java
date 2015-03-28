@@ -1,7 +1,7 @@
 package grid;
 
 import teamrocketproject.MasterModel; // -JC
-
+import Character.Character;
 /**
  * @module Grid
  * @author Jared M Scott
@@ -31,47 +31,71 @@ public class Grid extends MasterModel {
 
     //the constructor must accept two values to determine the grid's size
     public Grid(int rows, int cols) {
+        int oldXAxis = this.xAxis;
+        int oldYAxis = this.yAxis;
+        
         this.xAxis = rows;
         this.yAxis = cols;
         //the grid array is initialized with passed parameters
         grid = new Object[rows][cols];  
+        
+        firePropertyChange(GridController.ELEMENT_XAXIS_PROPERTY, oldXAxis, rows);
+        firePropertyChange(GridController.ELEMENT_YAXIS_PROPERTY, oldYAxis, cols);
+        firePropertyChange(GridController.ELEMENT_GRID_PROPERTY, null, grid);
     }
   
     //determine if grid[xx][yy] contains any Object or Character
     //calls the getContent function
-    boolean empty(int row, int col){
-        return getContent(row, col) == null;
+    boolean empty(int[] location){
+        int[] position = {location[0], location[1]};
+        return getContent(position) == null;
     }
     
     //return the contents of grid[x,y]
-    Object getContent(int row, int col) {
+    Object getContent(int position[]) {
         //error checking is performed to prevent an out of bounds exception
         //a better form of error checking will be added in later revisions
-        if (row > xAxis || row < 0 || col > yAxis || col < 0) {
+        if (position[0] > xAxis || position[0] < 0 || position[1] > yAxis || position[1] < 0) {
             System.err.println("Error: the x and/or y location is out of bounds");
             return null;
         }   
-        return this.grid[row][col];
+        return this.grid[position[0]][position[1]];
     }
 
     //places an instance of class Character in the specificed row and colum
-      public void setPosition(Character character, int row, int col) {
-        this.grid[row][col] = character;
+      public void setPosition(Character character, int position[]) {
+          //never let a Character be set to a row 0 or col 0
+          if(position[0] == 0 || position[1] == 0){
+          System.err.println("Error: Cannot set a Character on a Border\n"
+                  + "Exception Handling needed");
+          }
+          
+        Character oldCharacter = (Character)this.grid[position[0]][position[1]]; 
+        this.grid[position[0]][position[1]] = character;
+        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldCharacter, character);        
     }
       
       //this version is for adding barriers to the parameter of the grid
-      public void setPosition(Object obj, int row, int col) {
-        this.grid[row][col] = obj;
+      public void setPosition(Object obj, int[] position) {
+          
+         // System.out.println("Setting position with values: " + position[0] + " " + position[1]);
+        Object oldObj = this.grid[position[0]][position[1]];
+        this.grid[position[0]][position[1]] = obj;
+        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, obj);
     }
       
     //the following are basic setters and getters for the class variables 
     //TODO add error checking for setters and getters
     public void setxAxis(int xAxis) {
+        int oldXAxis = this.xAxis;
         this.xAxis = xAxis;
+        firePropertyChange(GridController.ELEMENT_XAXIS_PROPERTY, oldXAxis, xAxis);
     }
 
     public void setyAxis(int yAxis) {
+        int oldYAxis = this.yAxis;
         this.yAxis = yAxis;
+        firePropertyChange(GridController.ELEMENT_YAXIS_PROPERTY, oldYAxis, yAxis);
     }
 
     public int getxAxis() {
@@ -82,6 +106,12 @@ public class Grid extends MasterModel {
         return yAxis;
     }
 
+    public void setGrid(Object[][] grid){
+        Object oldGrid = this.grid;
+        this.grid = grid;
+        firePropertyChange(GridController.ELEMENT_GRID_PROPERTY, oldGrid, grid);
+    }
+    
     public Object[][] getGrid() {
         return grid;
     }

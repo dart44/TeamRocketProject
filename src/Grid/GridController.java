@@ -1,8 +1,6 @@
 package grid;
 
 import Character.Character;
-import Character.CharacterController;
-import java.util.Random;
 import teamrocketproject.MasterController; // -JC
 
 /**
@@ -25,10 +23,16 @@ import teamrocketproject.MasterController; // -JC
 //the Character Controller class is required to find a specific instance of 
 //class Character in the Grid
 public class GridController extends MasterController {
+    //properties
+    public static final String 
+            ELEMENT_XAXIS_PROPERTY = "xAxis",
+            ELEMENT_YAXIS_PROPERTY = "yAxis",
+            ELEMENT_GRID_PROPERTY = "grid",
+            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
+    
     Grid grid;
     Border border;
-    CharacterController cc;
-    Random rn = new Random();
+
     
     /**
      * The constructor recieves the number of rows and columns needed for the Grids
@@ -41,6 +45,7 @@ public class GridController extends MasterController {
     //TODO: add an exception
     public GridController(int rows, int cols) {
         border = new Border();
+        //System.out.println("Initing the Grid");
         if (initializeGrid(rows, cols) != 1) {
             System.err.println("Error: grid was not initialized");
         }
@@ -76,9 +81,10 @@ public class GridController extends MasterController {
         int i, j;
         for (i = 0; i < getGrid().getxAxis(); ++i) {
             for (j = 0; j < getGrid().getyAxis(); ++j) {
-                if (getGrid().getContent(i, j) instanceof Character) {
-                    c = (Character) getGrid().getContent(i, j);
-                    if (cc.getName(c).equals(cc.getName(character))) {
+                int[] position = {i, j};
+                if (getGrid().getContent(position) instanceof Character) {
+                    c = (Character) getGrid().getContent(position);
+                    if (c.getName().equals( character.getName())) {
                         answer[0] = i;
                         answer[1] = j;
                         return answer;
@@ -86,7 +92,7 @@ public class GridController extends MasterController {
                 }//end outer if
             }//end inner for
         }//end outer for
-        System.out.println("Error: Did not find character\nReturning location [0,0]");
+        //System.out.println("There is no instance of target character on grid\nReturning location [0,0]");
         return answer;
     }
 
@@ -100,22 +106,27 @@ public class GridController extends MasterController {
      * @param col
      * @return int
      */
-    public int changePosition(Character character, int row, int col) {
+    public int setPosition(Character character, int[] newLocation) {
         //first call to findCharacter
-        int[] location = findCharacter(character);
-        int oldRow = location[0];
-        int oldCol = location[1];
-
-        //see if location desired is empty
-        if (getGrid().empty(row, col) == true) {
-            //add to the new location and set the old location to null
-            getGrid().setPosition(character, row, col);
-            getGrid().setPosition(null, oldRow, oldCol);
+        int[] oldLocation = findCharacter(character);
+        //int oldRow = location[0];
+        //int oldCol = location[1];
+      
+        //see if newLocation desired is empty
+        if (getGrid().empty(newLocation) == true) {
+            //add to the new location and set the old location to null if anything was there
+            getGrid().setPosition(character, newLocation);
+            
+            //if the oldLocation is 0,0 then there the character was not on the map to begin with
+            if(oldLocation[0] != 0 && oldLocation[1] != 0){
+            getGrid().setPosition(null, oldLocation);
+            }
             return 1;
         }
         return 0;
     }
 
+    
     /**
      * This determines the distance of the chracter and a specified location
      * As long as the largest of the two rows or columns has the smaller substracted
@@ -162,8 +173,8 @@ public class GridController extends MasterController {
      * @param col
      * @return 
      */
-    public boolean CheckValidSpace(int row, int col) {
-        return getGrid().empty(row, col);
+    public boolean CheckValidSpace(int[] location) {
+        return getGrid().empty(location);
     }
 
 /**
@@ -182,8 +193,10 @@ public class GridController extends MasterController {
         }
 
         grid = new Grid(row, col);
-
+        //System.out.println("New Grid successfuly created");
+        
         //create the border from here
+        //System.out.println("Creating the Border");
         if (createBorder(row, col) != 1) {
             System.err.println("Error: Could not create border");
         }
@@ -200,28 +213,40 @@ public class GridController extends MasterController {
         //System.out.println("Setting border");
 
         int row, col;
-
+        int[] location = {0, 0};
+        
         //[row0, col0] -> [row0, colmax - 1];   
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
-            getGrid().setPosition(border, 0, col);
+            location[1] = col;
+            getGrid().setPosition(border, location);
         }
 
         //System.out.println("Part 1 done ");
+        
         //[row0, col0] ->[rowmax - 1, col0]
+        location[0] = location[1] = 0;
+
         for (row = 0; row < getGrid().getxAxis() - 1; ++row) {
-            getGrid().setPosition(border, row, 0);
+            location[0] = row;
+            getGrid().setPosition(border, location);
         }
         //System.out.println("Part 2 done");
 
         //[rowMax - 1, col0] -> [rowMax, colMax - 1];
+        location[0] = getGrid().getxAxis() - 1;
+        location[1] = 0;
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
-            getGrid().setPosition(border, getGrid().getxAxis() - 1, col);
+            location[1] = col;
+            getGrid().setPosition(border, location);
         }
 
         //System.out.println("Part 3 done");
         //[row0, colMax - 2] ->[rowMax -1, colMax - 1]
+        location[0] = 0;
+        location[1] = getGrid().getyAxis() - 1;
         for (row = 0; row < getGrid().getxAxis(); ++row) {
-            getGrid().setPosition(border, row, getGrid().getyAxis() - 1);
+            location[0] = row;
+            getGrid().setPosition(border, location);
         }
 
         //System.out.println("Part 4 done");
@@ -234,11 +259,14 @@ public class GridController extends MasterController {
      * prints out exactly what is in each location of the grid
      */
      public void display() {
+         int[] location = {0,0};
         for (int i = 0; i < getGrid().getxAxis(); ++i) {
             for (int j = 0; j < getGrid().getyAxis(); ++j) {
                 String s;
-                if (getGrid().getContent(i, j) != null) {
-                    s = getGrid().getContent(i, j).toString();
+                location[0] = i;
+                location[1] = j;
+                if (getGrid().getContent(location) != null) {
+                    s = getGrid().getContent(location).toString();
                     // System.out.print("Does not == null");
                 } else {
                     s = "null";
@@ -255,8 +283,8 @@ public class GridController extends MasterController {
      * @param col 
      */
      //make it not remove a border
-    public void emptyGridLocation(int row, int col) {
-        grid.setPosition(null, row, col);
+    public void emptyGridLocation(int[] position) {
+        grid.setPosition(null, position);
     }
 
     /**
@@ -267,6 +295,10 @@ public class GridController extends MasterController {
         return grid;
     }
 
+    public Object getContent(int[] position){   
+        return getGrid().getContent(position);
+    }
+    
     /**
      * This will be used to change the grid (level) of each game if it's even needed
      * @param grid 
