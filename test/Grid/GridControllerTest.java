@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  JUnit test for GridController class.  
+    Robert Mooneyham
+    28 March 2015
 */
 package Grid;
 import grid.GridController;
@@ -207,6 +207,9 @@ public class GridControllerTest {
 
     /**
      * Test of getBorder method, of class GridController.
+       These are tests of getters and setters.  They are not required for unit
+       testing.  They are included for completeness and can be modified as need
+       arises.
      
     @org.junit.Test
     public void testGetBorder() {
@@ -236,7 +239,7 @@ public class GridControllerTest {
 
     /**
      * Test of getContent method, of class GridController.
-     */
+     
     @org.junit.Test
     public void testGetContent() {
         System.out.println("getContent");
@@ -251,7 +254,7 @@ public class GridControllerTest {
 
     /**
      * Test of setGrid method, of class GridController.
-     */
+    
     @org.junit.Test
     public void testSetGrid() {
         System.out.println("setGrid");
