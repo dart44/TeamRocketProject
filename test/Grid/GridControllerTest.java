@@ -49,11 +49,12 @@ public class GridControllerTest {
     public void testFindCharacter() {
         System.out.println("findCharacter");
         Character TestDummy = new Character("TestDummy");
+        int position[] = {3, 2};
         Grid grid = new Grid(5, 5);
-        grid.setPosition(TestDummy, 3,2);
+        grid.setPosition(TestDummy, position);
         GridController instance = new GridController(5,5);
         int[] expResult = {3, 2};        
-        int[] result = instance.findCharacter(TestDummy);
+        int[] result = instance.findCharacter(TestDummy.getName());
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("Test value does not match baseline value.");
@@ -63,16 +64,19 @@ public class GridControllerTest {
      * Test of changePosition method, of class GridController.
      */
     @Test
-    public void testChangePosition() {
+    public void testSetPosition() {
         System.out.println("changePosition");
         Grid grid = new Grid (5, 5);
         Character TestDummy = new Character("TestDummy");
         Character Lurch = new Character("Lurch");
-        grid.setPosition(TestDummy, 1, 1);
-        grid.setPosition(Lurch, 2, 3);
+        int position1[] = {2, 2};
+        int position2[] = {2, 3};
+        int position3[] = {4, 4};
+        grid.setPosition(TestDummy, position1);
+        grid.setPosition(Lurch, position2);
         GridController instance = new GridController(5, 5);
         int expResult = 0;
-        int result = instance.changePosition(TestDummy, 4, 4);
+        int result = instance.setPosition(TestDummy, position3);
         assertEquals(expResult, result);
         if(result == 1)
             System.out.println("changePosition() successful");
@@ -89,7 +93,8 @@ public class GridControllerTest {
         System.out.println("checkDistance");
         Character TestDummy = new Character("TestDummy");
         Grid grid = new Grid(5, 5);
-        grid.setPosition(TestDummy, 2, 2);        
+        int position[] = {2, 2};
+        grid.setPosition(TestDummy, position);        
         int newRow = 3;
         int newCol = 4;
         GridController instance = new GridController(5, 5);
@@ -106,21 +111,19 @@ public class GridControllerTest {
     @Test
     public void testCheckValidSpace() {
         System.out.println("CheckValidSpace");
-        int row1 = 3;
-        int col1 = 3;
-        int row2 = 2;
-        int col2 = 2;
+        int position1[] = {3, 3};
+        int position2[] = {2, 2};
         GridController instance = new GridController(5, 5);
         Character obstacle = new Character("obstacle");
         Grid grid = new Grid(5, 5);
-        grid.setPosition(obstacle, row1, col1);
+        grid.setPosition(obstacle, position1);
         boolean expResult1 = false;
         boolean expResult2 = true;
-        boolean result1 = instance.CheckValidSpace(row1, col1);
+        boolean result1 = instance.CheckValidSpace(position1);
         assertEquals(expResult1, result1);
         // TODO review the generated test code and remove the default call to fail.
         fail("CheckValidSpace() failed for invalid space.");
-        boolean result2 = instance.CheckValidSpace(row2, col2);
+        boolean result2 = instance.CheckValidSpace(position2);
         assertEquals(expResult2, result2);
         fail("CheckValidSpace() failed for valid space.");
     }
@@ -173,7 +176,7 @@ public class GridControllerTest {
         GridController instance = new GridController(5, 5);
         instance.display();
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Display() failed.");
     }
 
     /**
@@ -183,22 +186,80 @@ public class GridControllerTest {
     public void testEmptyGridLocation() {
         System.out.println("emptyGridLocation");
         Grid grid = new Grid(5, 5);
-        int row = 2;
-        int col = 3;
+        int position[] = {2, 3};
         Character obstacle = new Character("obstacle");
         GridController instance = new GridController(5, 5);
-        grid.setPosition(obstacle, row, col);
-        boolean spaceState = instance.CheckValidSpace(row, col);
+        grid.setPosition(obstacle, position);
+        boolean spaceState = instance.CheckValidSpace(position);
         if( spaceState == true )
             System.err.println("Before EmptyGridLocation(): Test space is empty");
         else
             System.err.println("Before EmptyGridLocation(): Test space is full");
-        instance.emptyGridLocation(row, col);
-        spaceState = instance.CheckValidSpace(row, col);
+        instance.emptyGridLocation(position);
+        spaceState = instance.CheckValidSpace(position);
         if( spaceState == true )
             System.err.println("After EmptyGridLocation(): Test space is empty");
         else
             System.err.println("After EmptyGridLocation(): Test space is full");
+    }
+
+
+
+    /**
+     * Test of getBorder method, of class GridController.
+     
+    @org.junit.Test
+    public void testGetBorder() {
+        System.out.println("getBorder");
+        GridController instance = null;
+        Grid.Border expResult = null;
+        Grid.Border result = instance.getBorder();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getGrid method, of class GridController.
+     
+    @org.junit.Test
+    public void testGetGrid() {
+        System.out.println("getGrid");
+        GridController instance = null;
+        Grid expResult = null;
+        Grid result = instance.getGrid();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    */
+
+    /**
+     * Test of getContent method, of class GridController.
+     */
+    @org.junit.Test
+    public void testGetContent() {
+        System.out.println("getContent");
+        int[] position = null;
+        GridController instance = null;
+        Object expResult = null;
+        Object result = instance.getContent(position);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setGrid method, of class GridController.
+     */
+    @org.junit.Test
+    public void testSetGrid() {
+        System.out.println("setGrid");
+        Grid grid = null;
+        GridController instance = null;
+        instance.setGrid(grid);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
     /** 
