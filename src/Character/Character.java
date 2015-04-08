@@ -199,7 +199,7 @@ public class Character extends MasterModel {
             default: break;
         }
         /* Set derived stats */
-        HP = (int) Math.floor(STR/3);
+        HP = 5 * (int) Math.floor(STR/3);
         CurrentHP = HP;
         Speed = 2 - (int) Math.floor(DEX/10);
         AP = 9 + (int) Math.floor(INT/6);

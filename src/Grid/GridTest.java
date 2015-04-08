@@ -1,4 +1,4 @@
-package Grid;
+package grid;
 import grid.GridController;
 import Character.Character;
 
