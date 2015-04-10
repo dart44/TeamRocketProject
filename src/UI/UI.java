@@ -16,13 +16,26 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.MenuComponent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -32,6 +45,7 @@ import teamrocketproject.MasterViewPanel; // - JC
 
 public class UI {
 
+    private JFrame frame;
     private JButton attackButton;
     private JButton abilityButton;
     private JButton moveButton;
@@ -40,11 +54,19 @@ public class UI {
     private JLabel turnPlayer;
     private JLabel turnCharacter;
     private JLabel actionPoints;
-
+    private JLabel iconLabel;
+    private topPanel tp;
+    private ImageIcon borderImage;
+    private ImageIcon grassImage;
+    private ImageIcon characterImage;
     //private Character ch; 
     private CharacterController cc;
     private GridController grid;
     private GridBagConstraints gbc;
+    
+    private int rows,cols;
+    private CellPane cellPane;
+    
 
     public UI() {
         EventQueue.invokeLater(new Runnable() {
@@ -54,11 +76,14 @@ public class UI {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 }
+                rows=5; //temporarily fixed values
+                cols=5;
+                
                 gbc = new GridBagConstraints();
-                JFrame frame = new JFrame("Team Rocket");
+                frame = new JFrame("Team Rocket");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLayout(new BorderLayout());
-                topPanel tp = new topPanel(gbc);
+                tp = new topPanel(gbc);
                 frame.add(tp);
                 frame.add(new bottomPanel(), BorderLayout.PAGE_END);
                 frame.pack();
@@ -67,8 +92,32 @@ public class UI {
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);  //do we want resizable window?
                 
-
+                InputStream borderStream = this.getClass().getResourceAsStream("/resources/border.png");
+                InputStream grassStream = this.getClass().getResourceAsStream("/resources/grass.png");
+                InputStream characterStream = this.getClass().getResourceAsStream("/resources/character.png");
+                try {
+                     BufferedImage border = ImageIO.read(borderStream);
+                     borderImage = new ImageIcon(border);
+                     BufferedImage grass = ImageIO.read(grassStream);
+                     grassImage = new ImageIcon(grass);
+                     BufferedImage character = ImageIO.read(characterStream);
+                     characterImage = new ImageIcon(character);
+                     
+                } catch (IOException ex) {
+                    Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+                }              
+                
+                               
                 initializeGame();
+                                
+                gbc.gridx=0;
+                gbc.gridy=0;
+                gbc.fill=GridBagConstraints.BOTH;
+                gbc.anchor=GridBagConstraints.CENTER;
+                gbc.insets=new Insets(-1,-1,-1,-1);                
+                
+                
+                     
             }
         });
 
@@ -76,23 +125,115 @@ public class UI {
 
     public void initializeGame() {
         
-        grid = new GridController(5, 5); //currently giving error
+       grid = new GridController(rows, cols); 
         
-        //setCharacterPos(grid.findCharacter(ch)); // can't use with CharacterController
+       fillGrid();
         
     }
 
    // public Character getCurrentCharacter(){
     //   return ch;
     //}
-    public void setCurrentCharacter() {
+    
+    /**
+     *
+     */
+        
+    public void fillGrid() {
+        int[] gridarray=new int[2];
+        
+    
+        for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    
+                    gbc.fill=GridBagConstraints.BOTH;
+                    gbc.anchor=GridBagConstraints.CENTER;
+                    gbc.insets=new Insets(-0,-0,-0,-0);
+                    
+                    gridarray[0]=row;
+                    gridarray[1]=col;
+                    gbc.gridx=row;
+                    gbc.gridy=col;
+                    Border border = null;
+                    iconLabel=new JLabel();
+                    
+                     if (row < rows) {
+                        if (col < cols) {
+                            border = new MatteBorder(1, 1, 0, 0, Color.BLACK);
+                        } else {
+                            border = new MatteBorder(1, 1, 0, 1, Color.BLACK);
+                        }
+                    } else {
+                        if (col < cols) {
+                            border = new MatteBorder(1, 1, 1, 0, Color.BLACK);
+                        } else {
+                            border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
+                        }
+                     }
+                        
+                        iconLabel.setBorder(border);
+                    if(grid.getContent(gridarray)==null){                      
+                        
+                        iconLabel.setIcon(grassImage);
+                        tp.add(iconLabel,gbc);
+                        tp.revalidate();
+                        tp.repaint();
+                        tp.updateUI();
+                    } 
+                    else if(grid.getContent(gridarray)==grid.getBorder()){ 
+                        
+                        iconLabel.setIcon(borderImage);
+                        tp.add(iconLabel,gbc);                        
+                        tp.revalidate();
+                        tp.repaint();
+                        tp.updateUI();
+                    }
+                    else if(grid.isCharacter(gridarray)){
+                        
+                        iconLabel.setIcon(characterImage);
+                        tp.add(iconLabel,gbc);                        
+                        tp.revalidate();
+                        tp.repaint();
+                        tp.updateUI();
+                                                
+                    }
+                    
+                    
+                    
+                    
+                   
+                }
+        }
+                    
+        
+
+                    
+                   
+                    
+                
         
     }
 
     public void setCharacterPos(int pos[]) {        
-        gbc.gridx = pos[0];
-        gbc.gridy = pos[1];
+       
+    }     
+   
 
+    private void doAttack() {        
+        tp.updateUI();
+        frame.repaint();               
+    }
+
+    private void doAbility() {
+        
+    }
+   
+    private void doStats() {       
+    }
+        
+    private void doMove() {        
+    }
+    private void doPass() {        
     }
 
     private class textPanel extends MasterViewPanel {
@@ -108,9 +249,7 @@ public class UI {
             turnCharacter = new JLabel("Turn Character:");
             actionPoints = new JLabel("Action Points:");
             
-            Border buttonBorders = new MatteBorder(15,10,0,0, Color.WHITE);
-            //turnPlayer.setBorder(buttonBorders);
-            //turnPlayer.setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 0));
+            Border buttonBorders = new MatteBorder(15,10,0,0, Color.WHITE);            
             add(turnPlayer);
             add(turnCharacter);
             add(actionPoints);
@@ -139,19 +278,15 @@ public class UI {
             Border border = new MatteBorder(12, 12, 12, 12, Color.BLACK);
             setBorder(border);
             
-            add(new textPanel(), BorderLayout.LINE_START);
-            
-           
-            
-            //turnPlayer.setBorder(buttonBorders);
-            
+            add(new textPanel(), BorderLayout.LINE_START);  
+                   
             
 
         }
     }
 
     //Panel where buttons are located
-    public class actionPanel extends MasterViewPanel {
+    public class actionPanel extends MasterViewPanel implements ActionListener, MouseListener {
         
         //TODO Code to account for changes to models -JC
         @Override
@@ -160,12 +295,21 @@ public class UI {
         public actionPanel() {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setPreferredSize(new Dimension(100, 120));
+            
+            
             attackButton = new JButton("Attack");
             abilityButton = new JButton("Use Ability");
             moveButton = new JButton("Move");
             statsButton = new JButton("Check Stats");
             passButton = new JButton("Pass");
-
+            
+            attackButton.addActionListener(this);            
+            abilityButton.addActionListener(this);
+            moveButton.addActionListener(this);
+            statsButton.addActionListener(this);
+            passButton.addActionListener(this);
+            
+            
             add(attackButton);
             add(abilityButton);
             add(moveButton);
@@ -177,9 +321,59 @@ public class UI {
             moveButton.setAlignmentX(CENTER_ALIGNMENT);
             statsButton.setAlignmentX(CENTER_ALIGNMENT);
             passButton.setAlignmentX(CENTER_ALIGNMENT);
+            
+            
+           attackButton.setMaximumSize(this.getPreferredSize());
+           abilityButton.setMaximumSize(this.getPreferredSize());
+           moveButton.setMaximumSize(this.getPreferredSize());
+           statsButton.setMaximumSize(this.getPreferredSize());
+           passButton.setMaximumSize(this.getPreferredSize());
 
         }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+         Object src = e.getSource();
+        if (src == attackButton)         
+         doAttack();
+        if (src == abilityButton)
+         doAbility();
+        if (src == moveButton)
+         doMove();
+        if (src == statsButton)
+          doStats();
+        if (src == passButton)
+         doPass();
+        
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {         
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+          
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+           
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+           
+        }
+
+        
     }
+    
     
     //Top panel of the UI where grid is located
     public class topPanel extends MasterViewPanel {
@@ -193,29 +387,35 @@ public class UI {
 
             //adds a JPanel to each grid tile and draw the grid by
             //changing border colors of each tile.
-            for (int row = 0; row < 5; row++) {
-                for (int col = 0; col < 5; col++) {
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    CellPane cellPane = new CellPane();
+                    cellPane = new CellPane();
                     Border border = null;
-                    if (row < 4) {
-                        if (col < 4) {
-                            border = new MatteBorder(1, 1, 0, 0, Color.GRAY);
+                    if (row < rows) {
+                        if (col < cols) {
+                            border = new MatteBorder(1, 1, 0, 0, Color.BLACK);
                         } else {
-                            border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
+                            border = new MatteBorder(1, 1, 0, 1, Color.BLACK);
                         }
                     } else {
-                        if (col < 4) {
-                            border = new MatteBorder(1, 1, 1, 0, Color.GRAY);
+                        if (col < cols) {
+                            border = new MatteBorder(1, 1, 1, 0, Color.BLACK);
                         } else {
-                            border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
+                            border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
                         }
                     }
+                    
+                    /*gbc.fill=GridBagConstraints.BOTH;
+                    gbc.anchor=GridBagConstraints.CENTER;
+                    gbc.insets=new Insets(-1,-1,-1,-1);
+                    gbc.weightx=-1;
+                    gbc.weighty=-1;
                     cellPane.setBackground(Color.WHITE);
                     cellPane.setBorder(border);
-                    add(cellPane, gbc);
+                    add(cellPane, gbc);*/
                 }
             }
 
