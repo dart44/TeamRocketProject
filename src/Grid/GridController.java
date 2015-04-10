@@ -6,39 +6,36 @@ import teamrocketproject.MasterController; // -
 
 /**
  * @module Grid
- * @author Jared M Scott 
- * Class: GridController and Border
- * Date: March 9th 2015
- * Update: 3/13/15 A Border class has been added to act
- * as the edges of the map
+ * @author Jared M Scott Class: GridController and Border Date: March 9th 2015
+ * Update: 3/13/15 A Border class has been added to act as the edges of the map
  */
-
 /**
  * Following the Model View Controller pattern, the GridController deals with
  * the finer details of class Grid that go beyond simple setters, getters, and
- * initialization.
- * This file also holds the Border class that is needed for the parameter of the grid
+ * initialization. This file also holds the Border class that is needed for the
+ * parameter of the grid
  */
-
 //The Random class is needed as a varible to place a character in a random spot on the grid
 //the Character Controller class is required to find a specific instance of 
 //class Character in the Grid
 public class GridController extends MasterController {
+
     //properties
-    public static final String 
-            ELEMENT_XAXIS_PROPERTY = "xAxis",
+
+    public static final String ELEMENT_XAXIS_PROPERTY = "xAxis",
             ELEMENT_YAXIS_PROPERTY = "yAxis",
             ELEMENT_GRID_PROPERTY = "grid",
-            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";    
+            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
     Grid grid;
-    
+
     /**
-     * The constructor recieves the number of rows and columns needed for the Grids
-     * creation. A more robust form of error checking will be implemented with function
-     * initializeGrid in a later build 
-     * It also initializes the Border variable here.
+     * The constructor recieves the number of rows and columns needed for the
+     * Grids creation. A more robust form of error checking will be implemented
+     * with function initializeGrid in a later build It also initializes the
+     * Border variable here.
+     *
      * @param rows
-     * @param cols 
+     * @param cols
      */
     //TODO: add an exception
     public GridController(int rows, int cols) {
@@ -51,18 +48,18 @@ public class GridController extends MasterController {
 
     /**
      * Class border merely has a variable and overridden toString function
-     * 
+     *
      */
-       
     //the following three functions come straight from the SRS, the remaining 
     //functions are ment to be called by the first three
-    
-/**
- * This returns a two-element array containing the row and col that the character is in
- * If the character is not found, the returned array is row 0 and col 0.
- * @param character
- * @return int[]
- */
+    /**
+     * This returns a two-element array containing the row and col that the
+     * character is in If the character is not found, the returned array is row
+     * 0 and col 0.
+     *
+     * @param character
+     * @return int[]
+     */
     //use character.getName
     public int[] findCharacter(String character) {
         int[] answer = {0, 0};
@@ -90,38 +87,40 @@ public class GridController extends MasterController {
     //return 1 if successfull, 0 if fail
     //remove character from old position and move to new
     /**
-     * If the desired location on the grid is empty, the Character is moved there,
-     * its previous position becomes empty/null, and 1 is returned. Else we return 0
+     * If the desired location on the grid is empty, the Character is moved
+     * there, its previous position becomes empty/null, and 1 is returned. Else
+     * we return 0
+     *
      * @param character
      * @param newLocation
      * @return int
      */
     public int setPosition(Character character, int[] newLocation) {
         int[] oldLocation = findCharacter(character.getName());
-      
+
         //see if newLocation desired is empty
         if (getGrid().empty(newLocation) == true) {
             //add to the new location and set the old location to null if anything was there
             getGrid().setPosition(character, newLocation);
-            
+
             //if the oldLocation is 0,0 then there the character was not on the map to begin with
-            if(oldLocation[0] != 0 && oldLocation[1] != 0){
-            getGrid().setPositionToNull(oldLocation);
+            if (oldLocation[0] != 0 && oldLocation[1] != 0) {
+                getGrid().setPositionToNull(oldLocation);
             }
-            
+
             //we are just notifiying that the grid itself has a change (the addition of a character)
-           // setModelProperty(ELEMENT_GRID_PROPERTY, character);
+            // setModelProperty(ELEMENT_GRID_PROPERTY, character);
             return 1;
         }
         return 0;
     }
 
-    
     /**
-     * This determines the distance of the chracter and a specified location
-     * As long as the largest of the two rows or columns has the smaller substracted
-     * from it, we can still get a correct answer.
-     * ex) 5 - 12 = -7 and 12 - 5 = 7. Both are a difference of 7
+     * This determines the distance of the chracter and a specified location As
+     * long as the largest of the two rows or columns has the smaller
+     * substracted from it, we can still get a correct answer. ex) 5 - 12 = -7
+     * and 12 - 5 = 7. Both are a difference of 7
+     *
      * @param character
      * @param newRow
      * @param newCol
@@ -158,23 +157,69 @@ public class GridController extends MasterController {
     }
 
     /**
+     * This determines the distance of the chracter and its target As
+     * long as the largest of the two rows or columns has the smaller
+     * substracted from it, we can still get a correct answer. ex) 5 - 12 = -7
+     * and 12 - 5 = 7. Both are a difference of 7
+     *
+     * @param attacker
+     * @param target
+     * @return int
+     */
+    public int checkDistance(Character attacker, Character target) {
+        //first call to findCharacter
+        int[] location = findCharacter(attacker.getName());
+        int oldRow = location[0];
+        int oldCol = location[1];
+        
+        //now find where the target is located
+        location = findCharacter(target.getName());
+        int targetsRow = location[0];
+        int targetsCol = location[1];
+        
+        int distance, r1, r2, c1, c2;
+
+        if (oldRow < targetsRow) {
+            r1 = targetsRow;
+            r2 = oldRow;
+        } else {
+            r2 = targetsRow;
+            r1 = oldRow;
+        }
+
+        if (oldCol < targetsCol) {
+            c1 = targetsCol;
+            c2 = oldCol;
+        } else {
+            c2 = targetsCol;
+            c1 = oldCol;
+        }
+
+        //find the difference of each x and y individually and add them together
+        distance = (r1 - r2) + (c1 - c2);
+
+        return distance;
+    }
+
+    
+    /**
      * Check if this is a valid grid space
-     * @param row
-     * @param col
-     * @return 
+     *
+     * @param location
+     * @return
      */
     public boolean CheckValidSpace(int[] location) {
         return getGrid().empty(location);
     }
 
-/**
- * Initialized class Grid. A Character will be placed on it randomly after the 
- * borders are set up
- * Must be larger than 5x5
- * @param row
- * @param col
- * @return 
- */
+    /**
+     * Initialized class Grid. A Character will be placed on it randomly after
+     * the borders are set up Must be larger than 5x5
+     *
+     * @param row
+     * @param col
+     * @return
+     */
     //TODO add better error checking via exceptions
     public int initializeGrid(int row, int col) {
         if (row < 5 || col < 5) {
@@ -184,7 +229,7 @@ public class GridController extends MasterController {
 
         grid = new Grid(row, col);
         //System.out.println("New Grid successfuly created");
-        
+
         //create the border from here
         //System.out.println("Creating the Border");
         if (createBorder(row, col) != 1) {
@@ -193,32 +238,31 @@ public class GridController extends MasterController {
         return 1;
     }
 
-    public Border getBorder(){
+    public Border getBorder() {
         return getGrid().getBorder();
     }
-    
-    
+
     /**
      * Adds borders around the parameter of grid[][] and returns 1 when done
+     *
      * @param x
      * @param y
-     * @return 
+     * @return
      */
     public int createBorder(int x, int y) {
         //System.out.println("Setting border");
 
         int row, col;
         int[] location = {0, 0};
-        
+
         //[row0, col0] -> [row0, colmax - 1];   
         for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
             location[1] = col;
             getGrid().setBorderPosition(location);
-            
+
         }
 
         //System.out.println("Part 1 done ");
-        
         //[row0, col0] ->[rowmax - 1, col0]
         location[0] = location[1] = 0;
 
@@ -249,13 +293,12 @@ public class GridController extends MasterController {
         return 1;
     }
 
-    
     // This was created soley for testing purposes.
     /**
      * prints out exactly what is in each location of the grid
      */
-     public void display() {
-         int[] location = {0,0};
+    public void display() {
+        int[] location = {0, 0};
         for (int i = 0; i < getGrid().getxAxis(); ++i) {
             for (int j = 0; j < getGrid().getyAxis(); ++j) {
                 String s;
@@ -272,32 +315,59 @@ public class GridController extends MasterController {
             System.out.println();
         }
     }
-     
+
     /**
      * Remove any content in the grid location
+     *
      * @param location
      */
-     //make it not remove a border
+    //make it not remove a border
     public void emptyGridLocation(int[] location) {
         grid.setPositionToNull(location);
         //setModelProperty(ELEMENT_GRID_PROPERTY, location);
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Grid getGrid() {
         return grid;
     }
 
-    public Object getContent(int[] position){   
+    public Object getContent(int[] position) {
         return getGrid().getContent(position);
     }
-    
+
     /**
-     * This will be used to change the grid (level) of each game if it's even needed
-     * @param grid 
+     * Checks if the item in position is of class Character
+     *
+     * @param position
+     * @return
+     */
+    public boolean isCharacter(int[] position) {
+        if (getContent(position) instanceof Character) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the item in position is of class Border
+     *
+     * @param position
+     * @return
+     */
+    public boolean isBorder(int[] position) {
+        return getContent(position) instanceof Border;
+    }
+
+    /**
+     * This will be used to change the grid (level) of each game if it's even
+     * needed
+     *
+     * @param grid
      */
     public void setGrid(Grid grid) {
         this.grid = grid;
