@@ -164,9 +164,9 @@ public class GridController extends MasterController {
      *
      * @param attacker
      * @param target
-     * @return int
+     * @return int[]
      */
-    public int checkDistance(Character attacker, Character target) {
+    public int[] checkDistance(Character attacker, Character target) {
         //first call to findCharacter
         int[] location = findCharacter(attacker.getName());
         int oldRow = location[0];
@@ -177,8 +177,9 @@ public class GridController extends MasterController {
         int targetsRow = location[0];
         int targetsCol = location[1];
         
-        int distance, r1, r2, c1, c2;
-
+        int r1, r2, c1, c2;
+        int[] distance = {0, 0};
+        
         if (oldRow < targetsRow) {
             r1 = targetsRow;
             r2 = oldRow;
@@ -195,9 +196,8 @@ public class GridController extends MasterController {
             c1 = oldCol;
         }
 
-        //find the difference of each x and y individually and add them together
-        distance = (r1 - r2) + (c1 - c2);
-
+        distance[0] = (r1 - r2);
+        distance[1] = (c1 - c2);
         return distance;
     }
 
