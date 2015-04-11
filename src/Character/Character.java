@@ -30,6 +30,8 @@ public class Character extends MasterModel {
     private int HP, Speed, AP, Initiative,
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
+    /* Random number generator */
+    private static Random r = new Random(System.currentTimeMillis());
     /* Attribute Accessors
      * When changes are made to this model they are fired such that they can
      * be propogated across all registered views.
@@ -172,7 +174,7 @@ public class Character extends MasterModel {
         /* Assign the character to its player */
         Player = p;
         /* Assign the character a random name */
-        Random r = new Random();
+        
         int n = r.nextInt(12)+1;
         String[] names = {"Solomon", "Geoff", "Katelyn",
                           "Millicent", "Braxton", "Raymond",
