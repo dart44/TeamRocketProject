@@ -7,13 +7,14 @@ package TurnOrder;
 
 import java.util.ArrayList;
 import Character.Character;
+import TeamRocketProject.MasterModel;
 /**
  *
  * @author Jeremy Crook
  */
 
 
-public class TurnOrder {
+public class TurnOrder extends MasterModel {
     
     private ArrayList<Character> turnOrder;
     /* Turn Order sorting */
