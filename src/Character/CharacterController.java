@@ -10,23 +10,10 @@
 package Character;
 
 import java.util.Random;
-import Main.MasterController;
+import TeamRocketProject.MasterController;
 
 public class CharacterController extends MasterController {
-    /* Properties for PropertyChangeEvents */
-    public static final String
-    ELEMENT_NAME_PROPERTY = "Name",
-    ELEMENT_PLAYER_PROPERTY = "Player",
-    ELEMENT_HP_PROPERTY = "HP",
-    ELEMENT_SPEED_PROPERTY = "Speed",
-    ELEMENT_AP_PROPERTY = "AP",
-    ELEMENT_INITIATIVE_PROPERTY = "Initiative",
-    ELEMENT_STR_PROPERTY = "STR",
-    ELEMENT_DEX_PROPERTY = "DEX",
-    ELEMENT_INT_PROPERTY = "INT",
-    ELEMENT_CURRENTHP_PROPERTY = "CurrentHP",
-    ELEMENT_CURRENTAP_PROPERTY = "CurrentAP";
-    
+  
     /* Empty Constructor */
     public CharacterController(){
     };

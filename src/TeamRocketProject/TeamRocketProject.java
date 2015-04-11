@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package TeamRocketProject;
 
+import java.applet.Applet;
 import grid.Grid;
 import grid.GridController;
 import Character.CharacterController;
@@ -11,18 +12,20 @@ import Character.CharacterController;
  *
  * @author Jeremy Crook
  */
-public class TeamRocketProject {
+public class TeamRocketProject extends Applet implements Runnable {
     /* TeamRocketProject class constructor */
     public TeamRocketProject(){
         //TODO Create character objects
-        GridController gridController = new GridController(10, 10);
-        
-        
+        GridController gridController = new GridController(10, 10);   
+    }
+    @Override
+    public void run(){
+    
     }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        TeamRocketProject game = new TeamRocketProject();
     }
 }

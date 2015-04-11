@@ -10,9 +10,24 @@
  */
 package Character;
 import java.util.Random;
-import Main.MasterModel;
+import TeamRocketProject.MasterModel;
 
 public class Character extends MasterModel {
+    
+    /* Properties for PropertyChangeEvents */
+    public static final String
+    ELEMENT_NAME_PROPERTY = "Name",
+    ELEMENT_PLAYER_PROPERTY = "Player",
+    ELEMENT_HP_PROPERTY = "HP",
+    ELEMENT_SPEED_PROPERTY = "Speed",
+    ELEMENT_AP_PROPERTY = "AP",
+    ELEMENT_INITIATIVE_PROPERTY = "Initiative",
+    ELEMENT_STR_PROPERTY = "STR",
+    ELEMENT_DEX_PROPERTY = "DEX",
+    ELEMENT_INT_PROPERTY = "INT",
+    ELEMENT_CURRENTHP_PROPERTY = "CurrentHP",
+    ELEMENT_CURRENTAP_PROPERTY = "CurrentAP";
+    
     /* Character Attribute Declarations
      * @param Name: Character's name
      * @param Player: Character's Player's name
@@ -41,7 +56,7 @@ public class Character extends MasterModel {
         this.Name = name;
         
         firePropertyChange(
-            CharacterController.ELEMENT_NAME_PROPERTY, 
+            ELEMENT_NAME_PROPERTY, 
             oldName, Name);
     };
     public String getName(){
@@ -53,7 +68,7 @@ public class Character extends MasterModel {
         this.Player = player;
         
         firePropertyChange(
-            CharacterController.ELEMENT_PLAYER_PROPERTY, 
+            ELEMENT_PLAYER_PROPERTY, 
             oldPlayer, Player);
     };
     public String getPlayer(){
@@ -65,7 +80,7 @@ public class Character extends MasterModel {
         HP = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_HP_PROPERTY,
+            ELEMENT_HP_PROPERTY,
             oldHP, HP);
     };
     public int getHP(){
@@ -77,7 +92,7 @@ public class Character extends MasterModel {
         Speed = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_SPEED_PROPERTY,
+            ELEMENT_SPEED_PROPERTY,
             oldSpeed, Speed);
     };
     
@@ -90,7 +105,7 @@ public class Character extends MasterModel {
         AP = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_AP_PROPERTY,
+            ELEMENT_AP_PROPERTY,
             oldAP, AP);
     };
     public int getAP(){
@@ -102,7 +117,7 @@ public class Character extends MasterModel {
         Initiative = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_CURRENTAP_PROPERTY,
+            ELEMENT_CURRENTAP_PROPERTY,
             oldInitiative, Initiative);
     };
     public int getInitiative(){
@@ -114,7 +129,7 @@ public class Character extends MasterModel {
         STR = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_STR_PROPERTY,
+            ELEMENT_STR_PROPERTY,
             oldSTR, STR);
     };
     public int getSTR(){
@@ -126,7 +141,7 @@ public class Character extends MasterModel {
         INT = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_INT_PROPERTY,
+            ELEMENT_INT_PROPERTY,
             oldINT, INT);
     };
     public int getINT(){
@@ -138,7 +153,7 @@ public class Character extends MasterModel {
         DEX = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_DEX_PROPERTY,
+            ELEMENT_DEX_PROPERTY,
             oldDEX, DEX);
     };
     public int getDEX(){
@@ -150,7 +165,7 @@ public class Character extends MasterModel {
         CurrentHP = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_CURRENTHP_PROPERTY,
+            ELEMENT_CURRENTHP_PROPERTY,
             oldcHP, CurrentHP);
     };
     public int getCurrentHP(){
@@ -162,7 +177,7 @@ public class Character extends MasterModel {
         CurrentAP = n;
         
         firePropertyChange(
-            CharacterController.ELEMENT_CURRENTAP_PROPERTY,
+            ELEMENT_CURRENTAP_PROPERTY,
             oldcAP, CurrentAP);
     };
     public int getCurrentAP(){

@@ -1,6 +1,6 @@
 package grid;
 
-import Main.MasterModel; // -JC
+import TeamRocketProject.MasterModel; // -JC
 import Character.Character;
 //import grid.GridController.Border;
 /**

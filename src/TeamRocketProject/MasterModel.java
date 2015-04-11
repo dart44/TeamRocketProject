@@ -2,7 +2,7 @@
  * Base Model class from which all other Model classes
  * are derived.
  */
-package Main;
+package TeamRocketProject;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 /**
