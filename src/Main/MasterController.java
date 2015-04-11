@@ -9,7 +9,7 @@
  * 2015 March 10
  * Edited March 26 by Jeremy Crook
  */
-package teamrocketproject;
+package Main;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

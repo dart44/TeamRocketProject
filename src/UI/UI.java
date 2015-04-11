@@ -40,7 +40,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
-import teamrocketproject.MasterViewPanel; // - JC
+import Main.MasterViewPanel; // - JC
 
 
 public class UI {

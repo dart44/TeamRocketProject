@@ -2,7 +2,7 @@ package grid;
 
 import Character.Character;
 import grid.Grid.Border;
-import teamrocketproject.MasterController; // -
+import Main.MasterController; // -
 
 /**
  * @module Grid

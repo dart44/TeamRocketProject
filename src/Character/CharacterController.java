@@ -10,7 +10,7 @@
 package Character;
 
 import java.util.Random;
-import teamrocketproject.MasterController;
+import Main.MasterController;
 
 public class CharacterController extends MasterController {
     /* Properties for PropertyChangeEvents */
@@ -139,31 +139,5 @@ public class CharacterController extends MasterController {
         return true;
     }
     
-    /* Attack method */
-    public void Attack(Character attacker, Character target, int AP){
-        if (AP > attacker.getCurrentAP()){
-            //TODO display invalid AP input
-            return;
-        }
-        int ATK = attacker.getSTR();
-        //TODO Check if attacker is in range of target
-        //TODO implement Weapons with different stats/ranges
-        /* Determine % chance to hit */
-        int hitChance = AP * ATK;
-        if (hitChance > 100){
-            hitChance = 100;
-        }
-        //TODO Display HitChance to player
-        //TODO Confirm attack
-        
-        /* Determine if the attack hits */
-        Random r = new Random();
-        int d100 = r.nextInt((100 - 1) + 1) + 1;
-        if (d100 <= hitChance){
-            /* Determine and deal damage */
-            int damage = (int) Math.floor(ATK/4) * (int) Math.floor((AP - d100)/10);
-            target.setCurrentHP(target.getCurrentHP()-damage);
-        }
-        //TODO Display miss
-    }
+
 }

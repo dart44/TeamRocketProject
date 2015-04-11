@@ -10,7 +10,7 @@
  */
 package Character;
 import java.util.Random;
-import teamrocketproject.MasterModel;
+import Main.MasterModel;
 
 public class Character extends MasterModel {
     /* Character Attribute Declarations

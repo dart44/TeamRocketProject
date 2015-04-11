@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package teamrocketproject;
+package Main;
 
 /**
  *
  * @author Administrator
  */
-public class TeamRocketProject {
+public class Main {
 
     /**
      * @param args the command line arguments

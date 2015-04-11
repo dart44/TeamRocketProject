@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package teamrocketproject;
+package Main;
 
 import java.beans.PropertyChangeEvent;
 import javax.swing.JPanel;
