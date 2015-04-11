@@ -25,6 +25,13 @@ import Character.Character;
  */
 public class Grid extends MasterModel {
 
+    //properties
+    public static final String 
+            ELEMENT_XAXIS_PROPERTY = "xAxis",
+            ELEMENT_YAXIS_PROPERTY = "yAxis",
+            ELEMENT_GRID_PROPERTY = "grid",
+            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
+    
     //the xAxis and yAxis represent the rows and columns of the double array grid
     int xAxis;
     int yAxis;
@@ -40,9 +47,9 @@ public class Grid extends MasterModel {
         //the grid array is initialized with passed parameters
         grid = new Object[rows][cols];  
         
-        firePropertyChange(GridController.ELEMENT_XAXIS_PROPERTY, oldXAxis, rows);
-        firePropertyChange(GridController.ELEMENT_YAXIS_PROPERTY, oldYAxis, cols);
-        firePropertyChange(GridController.ELEMENT_GRID_PROPERTY, null, grid);
+        firePropertyChange(ELEMENT_XAXIS_PROPERTY, oldXAxis, rows);
+        firePropertyChange(ELEMENT_YAXIS_PROPERTY, oldYAxis, cols);
+        firePropertyChange(ELEMENT_GRID_PROPERTY, null, grid);
     }
   
     public class Border {
@@ -84,13 +91,13 @@ public class Grid extends MasterModel {
           
         Character oldCharacter = (Character)this.grid[position[0]][position[1]]; 
         this.grid[position[0]][position[1]] = character;
-        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldCharacter, character);        
+        firePropertyChange(ELEMENT_GRID_CONTENTS_PROPERTY, oldCharacter, character);        
     }
       
       public void setPositionToNull(int[] position){
         Object oldObj = this.grid[position[0]][position[1]];
         this.grid[position[0]][position[1]] = null;
-        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, null);
+        firePropertyChange(ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, null);
       }
       
       //this version is for adding Borders to the parameter of the grid
@@ -98,7 +105,7 @@ public class Grid extends MasterModel {
          // System.out.println("Setting position with values: " + position[0] + " " + position[1]);    
         Object oldObj = this.grid[position[0]][position[1]];
         this.grid[position[0]][position[1]] = getBorder();
-        firePropertyChange(GridController.ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, border);
+        firePropertyChange(ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, border);
     }
 
     public Border getBorder() {
@@ -114,13 +121,13 @@ public class Grid extends MasterModel {
     public void setxAxis(int xAxis) {
         int oldXAxis = this.xAxis;
         this.xAxis = xAxis;
-        firePropertyChange(GridController.ELEMENT_XAXIS_PROPERTY, oldXAxis, xAxis);
+        firePropertyChange(ELEMENT_XAXIS_PROPERTY, oldXAxis, xAxis);
     }
 
     public void setyAxis(int yAxis) {
         int oldYAxis = this.yAxis;
         this.yAxis = yAxis;
-        firePropertyChange(GridController.ELEMENT_YAXIS_PROPERTY, oldYAxis, yAxis);
+        firePropertyChange(ELEMENT_YAXIS_PROPERTY, oldYAxis, yAxis);
     }
 
     public int getxAxis() {
@@ -134,7 +141,7 @@ public class Grid extends MasterModel {
     public void setGrid(Object[][] grid){
         Object oldGrid = this.grid;
         this.grid = grid;
-        firePropertyChange(GridController.ELEMENT_GRID_PROPERTY, oldGrid, grid);
+        firePropertyChange(ELEMENT_GRID_PROPERTY, oldGrid, grid);
     }
     
     public Object[][] getGrid() {

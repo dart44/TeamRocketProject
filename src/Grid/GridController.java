@@ -20,12 +20,6 @@ import TeamRocketProject.MasterController; // -
 //class Character in the Grid
 public class GridController extends MasterController {
 
-    //properties
-
-    public static final String ELEMENT_XAXIS_PROPERTY = "xAxis",
-            ELEMENT_YAXIS_PROPERTY = "yAxis",
-            ELEMENT_GRID_PROPERTY = "grid",
-            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
     Grid grid;
 
     /**
