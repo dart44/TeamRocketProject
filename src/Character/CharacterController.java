@@ -10,6 +10,7 @@
 package Character;
 
 import java.util.Random;
+import java.lang.Math;
 import TeamRocketProject.MasterController;
 
 public class CharacterController extends MasterController {
@@ -126,5 +127,14 @@ public class CharacterController extends MasterController {
         return true;
     }
     
-
+    public void Attack(Character attacker, Character target, int AP){
+        int ATK = attacker.getSTR();
+        Random r = new Random(System.currentTimeMillis());
+        int d100 = r.nextInt((100 - 1) + 1) + 1;
+        if(d100 <= (ATK*AP)){
+            int Damage = (int) Math.floor((d100 - ATK)/10);
+            target.setCurrentHP(target.getCurrentHP()-Damage);
+        }
+    }
+    
 }
