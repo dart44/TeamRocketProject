@@ -190,7 +190,7 @@ public class Character extends MasterModel {
         Player = p;
         /* Assign the character a random name */
         
-        int n = r.nextInt(12)+1;
+        int n = r.nextInt(12);
         String[] names = {"Solomon", "Geoff", "Katelyn",
                           "Millicent", "Braxton", "Raymond",
                           "Ozzie", "Archibald", "Sark",

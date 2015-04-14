@@ -112,6 +112,7 @@ public class CharacterController extends MasterController {
         }
     };
     
+    
     /* Convenience methods for checking HP/AP */
     public Boolean CheckHP(Character ch){
         if (ch.getCurrentHP() <= 0){

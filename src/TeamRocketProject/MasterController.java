@@ -50,6 +50,8 @@ public abstract class MasterController implements PropertyChangeListener {
             view.modelPropertyChange(evt);
         }
     }
+    
+    
     /* Robert's old code below for reference - JC */
     /* check whether or not space is available.  Assumes grid as a
        separate type containing x & y coordinates. 
