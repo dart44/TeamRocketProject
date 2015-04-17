@@ -328,6 +328,10 @@ public class GridController extends MasterController {
     public Grid getGrid() {
         return grid;
     }
+    
+    public int getGridSize(){
+        return getGrid().getSize();
+    }
 
     public Object getContent(int[] position) {
         return getGrid().getContent(position);

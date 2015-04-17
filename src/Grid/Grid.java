@@ -144,6 +144,10 @@ public class Grid extends MasterModel {
         firePropertyChange(ELEMENT_GRID_PROPERTY, oldGrid, grid);
     }
     
+    public int getSize(){
+        return (getyAxis() * getxAxis());
+    }
+    
     public Object[][] getGrid() {
         return grid;
     }
