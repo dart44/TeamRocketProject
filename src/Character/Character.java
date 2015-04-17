@@ -45,7 +45,8 @@ public class Character extends MasterModel {
     private int HP, Speed, AP, Initiative,
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
-    /* Random number generator */
+    /* 
+    number generator */
     private static Random r = new Random(System.currentTimeMillis());
     /* Attribute Accessors
      * When changes are made to this model they are fired such that they can

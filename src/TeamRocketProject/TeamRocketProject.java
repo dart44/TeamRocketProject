@@ -9,7 +9,6 @@ import grid.Grid;
 import grid.GridController;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Iterator;
 import Character.Character;
 import TurnOrder.TurnOrder;
 
@@ -26,10 +25,9 @@ public class TeamRocketProject extends Applet implements Runnable {
            players have the same number of characters
         */
          Random r = new Random(System.currentTimeMillis());
-        int x, y;
         int[] pos;
         pos = new int[2];
-        ArrayList<Character> allChars = new ArrayList<Character>();
+        ArrayList<Character> allChars = new ArrayList<>();
         Character P1Char1 = new Character("Player1");
         Character P1Char2 = new Character("Player1");
         Character P2Char1 = new Character("Player2");

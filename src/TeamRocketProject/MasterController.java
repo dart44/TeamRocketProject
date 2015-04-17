@@ -19,7 +19,7 @@ import java.util.Random;
 
 
 
-public abstract class MasterController implements PropertyChangeListener {
+public class MasterController implements PropertyChangeListener {
     private ArrayList<MasterModel> registeredModels;
     private ArrayList<MasterViewPanel> registeredViews;
     /* Default Constructor contains list of Models being controlled
