@@ -104,7 +104,7 @@ public class MasterController implements PropertyChangeListener {
     
     public int GameOver(ArrayList<Character> Players){
         int result = 0;
-        int half = Players.size();
+        int half = Players.size() / 2;
         for(int i = 0; i < half; ++i){
             if(CheckHP(Players.get(i)) == true) result = -1; 
         }
