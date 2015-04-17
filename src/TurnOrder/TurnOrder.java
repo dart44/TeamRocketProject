@@ -39,6 +39,18 @@ public class TurnOrder extends MasterModel {
     
     public Character getTurnCharacter(){
         return TurnCharacter;
+    }
+    
+    public int getSize(){
+        return turnOrder.size();
+    }
+    
+    public Character getCharacter(int i){
+        return turnOrder.get(i);
+    }
+
+    public ArrayList<Character> getTurnOrder(){
+        return turnOrder;
     };
     
     public void setTurnCharacter(Character c){
@@ -49,5 +61,4 @@ public class TurnOrder extends MasterModel {
             ELEMENT_TURNCHARACTER_PROPERTY,
             oldTurnCharacter, TurnCharacter);
     };
-    
 }

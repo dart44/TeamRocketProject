@@ -80,9 +80,9 @@ public abstract class MasterController implements PropertyChangeListener {
     }
     
     public void Turn(TurnOrder TurnOrder){
-        ArrayList mc_turnOrder = TurnOrder.getTurnOrder();
         int i = 0;
-        for (mc_turnOrder.get(i); i != mc_turnOrder.size(); i++){
+        for (TurnOrder.getCharacter(i); i != TurnOrder.getSize(); i++){
+            TurnOrder.setTurnCharacter(TurnOrder.getCharacter(i));
             Boolean PASS = false;
             while (TurnOrder.getTurnCharacter().getCurrentAP() != 0 && PASS != true){
             //TODO Game logic
