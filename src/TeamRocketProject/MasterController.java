@@ -11,6 +11,7 @@
  */
 package TeamRocketProject;
 import Character.Character;
+import TurnOrder.TurnOrder;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -75,6 +76,17 @@ public abstract class MasterController implements PropertyChangeListener {
         if(d100 <= (ATK*AP)){
             int Damage = (int) Math.floor((d100 - ATK)/10);
             target.setCurrentHP(target.getCurrentHP()-Damage);
+        }
+    }
+    
+    public void Turn(TurnOrder TurnOrder){
+        ArrayList mc_turnOrder = TurnOrder.getTurnOrder();
+        int i = 0;
+        for (mc_turnOrder.get(i); i != mc_turnOrder.size(); i++){
+            Boolean PASS = false;
+            while (TurnOrder.getTurnCharacter().getCurrentAP() != 0 && PASS != true){
+            //TODO Game logic
+            }
         }
     }
     
