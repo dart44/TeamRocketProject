@@ -16,6 +16,10 @@ import TeamRocketProject.MasterModel;
 
 public class TurnOrder extends MasterModel {
     
+    public static final String
+    ELEMENT_TURNCHARACTER_PROPERTY = "TurnCharacter";
+    
+    private Character TurnCharacter;
     private ArrayList<Character> turnOrder;
     /* Turn Order sorting */
     public TurnOrder(ArrayList<Character> characterList){
@@ -30,9 +34,20 @@ public class TurnOrder extends MasterModel {
                 turnOrder.set(i, c1);
                 turnOrder.set(i+1, c2);
             }
-            
         }
     }
-    //TODO TurnCharacter, Accessors for TurnCharacter
-    //TODO Count, Accessors for Count
+    
+    public Character getTurnCharacter(){
+        return TurnCharacter;
+    };
+    
+    public void setTurnCharacter(Character c){
+        Character oldTurnCharacter = this.TurnCharacter;
+        TurnCharacter = c;
+        
+        firePropertyChange(
+            ELEMENT_TURNCHARACTER_PROPERTY,
+            oldTurnCharacter, TurnCharacter);
+    };
+    
 }
