@@ -102,14 +102,14 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
-    public boolean GameOver(ArrayList<Character> Players){
-        boolean result = true;
+    public int GameOver(ArrayList<Character> Players){
+        int result = 0;
         int half = Players.size();
         for(int i = 0; i < half; ++i){
-            if(CheckHP(Players.get(i)) == true) result = false; 
+            if(CheckHP(Players.get(i)) == true) result = -1; 
         }
         for(int i = half; i < Players.size(); ++i){
-            if(CheckHP(Players.get(i)) == true) result = false;
+            if(CheckHP(Players.get(i)) == true) result = 1;
         }
         return result;
         }
