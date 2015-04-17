@@ -102,6 +102,18 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
+    public boolean GameOver(ArrayList<Character> Players){
+        boolean result = true;
+        int half = Players.size();
+        for(int i = 0; i < half; ++i){
+            if(CheckHP(Players.get(i)) == true) result = false; 
+        }
+        for(int i = half; i < Players.size(); ++i){
+            if(CheckHP(Players.get(i)) == true) result = false;
+        }
+        return result;
+        }
+    
     /* Robert's old code below for reference - JC */
     /* check whether or not space is available.  Assumes grid as a
        separate type containing x & y coordinates. 
