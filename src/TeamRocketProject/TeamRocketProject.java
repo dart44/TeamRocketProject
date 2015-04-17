@@ -24,8 +24,9 @@ public class TeamRocketProject extends Applet implements Runnable {
            players have the same number of characters
         */
         Random r = new Random(System.currentTimeMillis());
-        int x;
+        int x, y;
         int[] pos;
+        pos = new int[2];
         ArrayList<Character> allChars = new ArrayList<Character>();
         Character P1Char1 = new Character("Player1");
         Character P1Char2 = new Character("Player1");
@@ -38,13 +39,15 @@ public class TeamRocketProject extends Applet implements Runnable {
         GridController gridController = new GridController(10, 10);
         //TODO Randomly distribute characters onto grid
         /* Wish list: function to return total number of cells in grid */
-        Iterator i = allChars.iterator();
-        // initialize x
-        x = r.nextInt(100);
-        while(i.hasNext()){
-          while(!gridController.CheckValidSpace(pos[x])){
-            x = r.nextInt(100);
+        // initialize pos
+        pos[0] = r.nextInt(10);
+        pos[1] = r.nextInt(10);
+        for(int i = 0;  i < allChars.size(); ++i){
+          while(!gridController.CheckValidSpace(pos)){
+            pos[0] = r.nextInt(10);
+            pos[1] = r.nextInt(10);
           }
+          gridController.setPosition(allChars.get(i), pos);
         }
         
         //TODO Initialize TurnOrder by passing it Character ArrayList
