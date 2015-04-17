@@ -106,10 +106,18 @@ public class MasterController implements PropertyChangeListener {
         int result = 0;
         int half = Players.size() / 2;
         for(int i = 0; i < half; ++i){
-            if(CheckHP(Players.get(i)) == true) result = -1; 
-        }
+            result = -1;
+            if(CheckHP(Players.get(i)) == true){
+                result = 0;
+                break;
+            }                
+        }        
         for(int i = half; i < Players.size(); ++i){
-            if(CheckHP(Players.get(i)) == true) result = 1;
+            result = 1;
+            if(CheckHP(Players.get(i)) == true){
+                result = 0;
+                break;
+            }
         }
         return result;
         }
