@@ -5,7 +5,6 @@
  */
 package UI;
 
-import Character.CharacterController;
 import UI.UI.bottomPanel;
 import UI.UI.topPanel;
 import grid.GridController;
@@ -60,7 +59,7 @@ public class UI {
     private ImageIcon grassImage;
     private ImageIcon characterImage;
     //private Character ch; 
-    private CharacterController cc;
+    //private CharacterController cc;
     private GridController grid;
     private GridBagConstraints gbc;
     

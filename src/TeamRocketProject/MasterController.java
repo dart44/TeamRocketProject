@@ -10,9 +10,11 @@
  * Edited March 26 by Jeremy Crook
  */
 package TeamRocketProject;
+import Character.Character;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -51,6 +53,30 @@ public abstract class MasterController implements PropertyChangeListener {
         }
     }
     
+        /* Convenience methods for checking HP/AP */
+    public Boolean CheckHP(Character ch){
+        if (ch.getCurrentHP() <= 0){
+            return false;
+        }
+        return true;
+    }
+    
+    public Boolean CheckAP(Character ch){
+        if (ch.getCurrentAP() <= 0) {  
+            return false;
+        }
+        return true;
+    }
+    
+    public void Attack(Character attacker, Character target, int AP){
+        int ATK = attacker.getSTR();
+        Random r = new Random(System.currentTimeMillis());
+        int d100 = r.nextInt((100 - 1) + 1) + 1;
+        if(d100 <= (ATK*AP)){
+            int Damage = (int) Math.floor((d100 - ATK)/10);
+            target.setCurrentHP(target.getCurrentHP()-Damage);
+        }
+    }
     
     /* Robert's old code below for reference - JC */
     /* check whether or not space is available.  Assumes grid as a

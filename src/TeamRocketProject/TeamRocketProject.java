@@ -7,7 +7,7 @@ package TeamRocketProject;
 import java.applet.Applet;
 import grid.Grid;
 import grid.GridController;
-import Character.CharacterController;
+import java.util.ArrayList;
 /**
  *
  * @author Jeremy Crook
@@ -15,8 +15,11 @@ import Character.CharacterController;
 public class TeamRocketProject extends Applet implements Runnable {
     /* TeamRocketProject class constructor */
     public TeamRocketProject(){
-        //TODO Create character objects
-        GridController gridController = new GridController(10, 10);   
+        //TODO Create ArrayList of Character objects
+        GridController gridController = new GridController(10, 10);
+        //TODO Randomly distribute characters onto grid
+        //TODO Initialize TurnOrder by passing it Character ArrayList
+        //TODO Pass control to Player who owns TurnCharacter
     }
     @Override
     public void run(){
@@ -27,5 +30,6 @@ public class TeamRocketProject extends Applet implements Runnable {
      */
     public static void main(String[] args) {
         TeamRocketProject game = new TeamRocketProject();
+        game.run();
     }
 }
