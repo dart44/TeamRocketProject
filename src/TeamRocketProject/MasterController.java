@@ -82,6 +82,7 @@ public class MasterController implements PropertyChangeListener {
     public void Turn(TurnOrder TurnOrder){
         int i = 0;
         for (TurnOrder.getCharacter(i); i != TurnOrder.getSize(); i++){
+            if(!CheckHP(TurnOrder.getCharacter(i))) ++i;
             TurnOrder.setTurnCharacter(TurnOrder.getCharacter(i));
             Boolean PASS = false;
             while (TurnOrder.getTurnCharacter().getCurrentAP() != 0 && PASS != true){
