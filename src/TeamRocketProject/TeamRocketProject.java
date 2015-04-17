@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Iterator;
 import Character.Character;
+import TurnOrder.TurnOrder;
 
 /**
  *
@@ -19,11 +20,12 @@ import Character.Character;
 public class TeamRocketProject extends Applet implements Runnable {
     /* TeamRocketProject class constructor */
     public TeamRocketProject(){
+        MasterController mc = new MasterController();
         //TODO Create ArrayList of Character objects
         /* Get number of characters.  Use even number so both 
            players have the same number of characters
         */
-        Random r = new Random(System.currentTimeMillis());
+         Random r = new Random(System.currentTimeMillis());
         int x, y;
         int[] pos;
         pos = new int[2];
@@ -50,8 +52,11 @@ public class TeamRocketProject extends Applet implements Runnable {
           gridController.setPosition(allChars.get(i), pos);
         }
         
-        //TODO Initialize TurnOrder by passing it Character ArrayList
-        //TODO Pass control to Player who owns TurnCharacter
+        TurnOrder turnOrder = new TurnOrder(allChars);
+        Boolean GAME_OVER = false;
+        while(GAME_OVER != true){
+            mc.Turn(turnOrder);
+        }
     }
     @Override
     public void run(){
