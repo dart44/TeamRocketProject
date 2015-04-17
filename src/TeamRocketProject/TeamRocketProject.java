@@ -21,7 +21,7 @@ public class TeamRocketProject extends Applet implements Runnable {
     /* TeamRocketProject class constructor */
     public TeamRocketProject(){
         MasterController mc = new MasterController();
-        //TODO Create ArrayList of Character objects
+        /* Create ArrayList of Character objects */
         /* Get number of characters.  Use even number so both 
            players have the same number of characters
         */
@@ -38,7 +38,7 @@ public class TeamRocketProject extends Applet implements Runnable {
         allChars.add(P2Char1);
         allChars.add(P2Char2);
         GridController gridController = new GridController(10, 10);
-        //TODO Randomly distribute characters onto grid
+        /* Randomly distribute characters onto grid */
         /* Wish list: function to return total number of cells in grid */
         // initialize pos
         pos[0] = r.nextInt(10);
@@ -51,10 +51,12 @@ public class TeamRocketProject extends Applet implements Runnable {
           gridController.setPosition(allChars.get(i), pos);
         }
         UI UI = new UI();
+        //TODO Figure out how Turn function can listen for UI events
         TurnOrder turnOrder = new TurnOrder(allChars);
-        Boolean GAME_OVER = false;
-        while(GAME_OVER != true){
+        int GAME_OVER = mc.GameOver(allChars);
+        while(GAME_OVER != 0){
             mc.Turn(turnOrder);
+            GAME_OVER = mc.GameOver(allChars);
         }
     }
     @Override
