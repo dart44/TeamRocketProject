@@ -86,7 +86,18 @@ public class MasterController implements PropertyChangeListener {
             TurnOrder.setTurnCharacter(TurnOrder.getCharacter(i));
             Boolean PASS = false;
             while (TurnOrder.getTurnCharacter().getCurrentAP() != 0 && PASS != true){
-            //TODO Game logic
+                //TODO Listen for UI input events
+                /* UIEvent = evt */
+                //TODO Replace psuedocode with event-driven code
+                /* if(evt = Move){
+                Call Move functions
+                } else if (evt = Attack) {
+                Call Attack functions
+                } else if (evt = Check Stats) {
+                Display Stats view for TurnCharacter
+                } else if (evt = Pass) {
+                PASS = true;
+                } */
             }
         }
     }

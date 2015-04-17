@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import Character.Character;
 import TurnOrder.TurnOrder;
+import UI.UI;
 
 /**
  *
@@ -49,7 +50,7 @@ public class TeamRocketProject extends Applet implements Runnable {
           }
           gridController.setPosition(allChars.get(i), pos);
         }
-        
+        UI UI = new UI();
         TurnOrder turnOrder = new TurnOrder(allChars);
         Boolean GAME_OVER = false;
         while(GAME_OVER != true){
