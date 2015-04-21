@@ -7,6 +7,7 @@ package UI;
 
 import UI.UI.bottomPanel;
 import UI.UI.topPanel;
+import grid.Grid;
 import grid.GridController;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -121,6 +122,60 @@ public class UI {
             }
         });
 
+    }
+    
+    /**
+     * Jared Scott
+     * This will take a Grid parameter and use it's variables for initialization
+     * @param grid
+     */
+    public UI(final Grid grid){
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                }
+                rows = grid.getxAxis();
+                cols = grid.getyAxis();
+                
+                gbc = new GridBagConstraints();
+                frame = new JFrame("Team Rocket");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLayout(new BorderLayout());
+                tp = new topPanel(gbc);
+                frame.add(tp);
+                frame.add(new bottomPanel(), BorderLayout.PAGE_END);
+                frame.pack();
+                frame.setVisible(true);
+                frame.setBounds(0, 0, 400, 450);
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);  //do we want resizable window?
+                
+                InputStream borderStream = this.getClass().getResourceAsStream("/resources/border.png");
+                InputStream grassStream = this.getClass().getResourceAsStream("/resources/grass.png");
+                InputStream characterStream = this.getClass().getResourceAsStream("/resources/character.png");
+                try {
+                     BufferedImage border = ImageIO.read(borderStream);
+                     borderImage = new ImageIcon(border);
+                     BufferedImage grass = ImageIO.read(grassStream);
+                     grassImage = new ImageIcon(grass);
+                     BufferedImage character = ImageIO.read(characterStream);
+                     characterImage = new ImageIcon(character);                     
+                } catch (IOException ex) {
+                    Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+                }                             
+                
+                initializeGame();
+                                
+                gbc.gridx = grid.getxAxis();
+                gbc.gridy = grid.getyAxis();
+                gbc.fill=GridBagConstraints.BOTH;
+                gbc.anchor=GridBagConstraints.CENTER;
+                gbc.insets=new Insets(-1,-1,-1,-1);                         
+            }
+        });
     }
     
     public void propertyChange(PropertyChangeEvent evt){
