@@ -1,6 +1,6 @@
 package grid;
 
-import TeamRocketProject.MasterModel; // -JC
+import TeamRocketProject.AbstractModel; // -JC
 import Character.Character;
 //import grid.GridController.Border;
 /**
@@ -23,7 +23,7 @@ import Character.Character;
  * Other than the typical getters and setters, there is also an empty function to
  * test if an Object or Character can be placed within a specific grid location
  */
-public class Grid extends MasterModel {
+public class Grid extends AbstractModel {
 
     //properties
     public static final String 

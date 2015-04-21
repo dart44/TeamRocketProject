@@ -10,9 +10,9 @@
  */
 package Character;
 import java.util.Random;
-import TeamRocketProject.MasterModel;
+import TeamRocketProject.AbstractModel;
 
-public class Character extends MasterModel {
+public class Character extends AbstractModel {
     
     /* Properties for PropertyChangeEvents */
     public static final String

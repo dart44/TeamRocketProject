@@ -7,12 +7,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 /**
  *
- * @author Jeremy Crook
+ * @author Robert Eckstein
  */
-public abstract class MasterModel {
+public abstract class AbstractModel {
     protected PropertyChangeSupport propertyChangeSupport;
     
-    public MasterModel()
+    public AbstractModel()
     {
         propertyChangeSupport = new PropertyChangeSupport(this);
     }

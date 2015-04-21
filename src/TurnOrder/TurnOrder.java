@@ -7,14 +7,15 @@ package TurnOrder;
 
 import java.util.ArrayList;
 import Character.Character;
-import TeamRocketProject.MasterModel;
+import TeamRocketProject.AbstractModel;
 /**
+ **
  *
  * @author Jeremy Crook
  */
 
 
-public class TurnOrder extends MasterModel {
+public class TurnOrder extends AbstractModel {
     
     public static final String
     ELEMENT_TURNCHARACTER_PROPERTY = "TurnCharacter";
@@ -41,12 +42,26 @@ public class TurnOrder extends MasterModel {
         return TurnCharacter;
     }
     
+    public int getTurnCharacterIndex(){
+        return turnOrder.indexOf(TurnCharacter);
+    }
+    
     public int getSize(){
         return turnOrder.size();
     }
     
     public Character getCharacter(int i){
         return turnOrder.get(i);
+    }
+    
+    public void removeCharacter(Character c){
+        if(c == TurnCharacter){
+            if (turnOrder.indexOf(TurnCharacter)+1 != turnOrder.size()){
+                setTurnCharacter(turnOrder.get(turnOrder.indexOf(TurnCharacter)+1));
+            }
+            else setTurnCharacter(turnOrder.get(0));
+        }
+        turnOrder.remove(turnOrder.indexOf(c));
     }
 
     public ArrayList<Character> getTurnOrder(){

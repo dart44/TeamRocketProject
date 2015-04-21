@@ -16,43 +16,34 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
+import TurnOrder.TurnOrder;
+import grid.Grid;
+import grid.GridController;
+import UI.UI;
 
 
 
 public class MasterController implements PropertyChangeListener {
-    private ArrayList<MasterModel> registeredModels;
-    private ArrayList<MasterViewPanel> registeredViews;
+    private ArrayList<Character> allCharacters;
+    private GridController grid;
+    private TurnOrder turnOrder;
+    private UI ui;
+    private Boolean endTurn = false;
     /* Default Constructor contains list of Models being controlled
      * as well as views to populate.
      */
-    public MasterController(){
-        registeredModels = new ArrayList<>();
-        registeredViews = new ArrayList<>();
-    };
-    
-    public void addModel(MasterModel model) {
-        registeredModels.add(model);
-        model.addPropertyChangeListener(this);
-    }
-    public void removeModel(MasterModel model) {
-        registeredModels.remove(model);
-        model.removePropertyChangeListener(this);
-    }
-    
-    public void addView(MasterViewPanel view) {
-        registeredViews.add(view);  
-    }
-    
-    public void removeView(MasterViewPanel view) {
-        registeredViews.remove(view);
-    }
-    
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        for (MasterViewPanel view: registeredViews) {
-            view.modelPropertyChange(evt);
+    public MasterController(ArrayList<Character> allCharacters, GridController grid){
+        this.allCharacters = allCharacters;
+        this.turnOrder = new TurnOrder(allCharacters);
+        this.grid = grid;
+        this.ui = new UI(); // Needs to be updated to take grid as argument -JC
+        
+        for(Character c: allCharacters){
+            c.addPropertyChangeListener(this);
         }
-    }
+        turnOrder.addPropertyChangeListener(this);
+        grid.getGrid().addPropertyChangeListener(this);
+    };
     
         /* Convenience methods for checking HP/AP */
     public Boolean CheckHP(Character ch){
@@ -79,79 +70,73 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
-    public void Turn(TurnOrder TurnOrder){
-        int i = 0;
-        for (TurnOrder.getCharacter(i); i != TurnOrder.getSize(); i++){
-            if(!CheckHP(TurnOrder.getCharacter(i))) ++i;
-            TurnOrder.setTurnCharacter(TurnOrder.getCharacter(i));
-            Boolean PASS = false;
-            while (TurnOrder.getTurnCharacter().getCurrentAP() != 0 && PASS != true){
-                //TODO Listen for UI input events
-                /* UIEvent = evt */
-                //TODO Replace psuedocode with event-driven code
-                /* if(evt = Move){
-                Call Move functions
-                } else if (evt = Attack) {
-                Call Attack functions
-                } else if (evt = Check Stats) {
-                Display Stats view for TurnCharacter
-                } else if (evt = Pass) {
-                PASS = true;
-                } */
-            }
+    public void NextTurn(){
+        int nextIndex;
+        if (turnOrder.getTurnCharacterIndex()+1 != turnOrder.getSize()){
+            nextIndex = turnOrder.getTurnCharacterIndex()+1;
+        } else {
+            nextIndex = 0;
         }
+        Character c = turnOrder.getCharacter(nextIndex);
+            if(!CheckHP(c)){
+                turnOrder.removeCharacter(c);
+                NextTurn();
+            } else {
+                turnOrder.setTurnCharacter(c);
+            }
+        turnOrder.setTurnCharacter(turnOrder.getCharacter(nextIndex));
+        endTurn = false;
+    }
+    public void StartGame() throws InterruptedException{
+        turnOrder.setTurnCharacter(turnOrder.getCharacter(0));
+        int GAME_OVER = GameOver(allCharacters);
+        while(GAME_OVER == 0){
+            while(!endTurn){
+                Thread.sleep(1000);
+            }
+            GAME_OVER = GameOver(allCharacters);
+            if(GAME_OVER != 0){
+                if(GAME_OVER == -1){
+                    //Player 2 wins!
+                    break;
+                }
+                if(GAME_OVER == 1){
+                    //Player 1 wins!
+                    break;
+                }
+            }
+            NextTurn();
+        }
+        
     }
     
-    public int GameOver(ArrayList<Character> Players){
+    public void EndTurn(){
+        endTurn = true;
+    }
+    
+    public int GameOver(ArrayList<Character> Characters){
         int result = 0;
-        int half = Players.size() / 2;
+        int half = Characters.size() / 2;
         for(int i = 0; i < half; ++i){
             result = -1;
-            if(CheckHP(Players.get(i)) == true){
+            if(CheckHP(Characters.get(i)) == true){
                 result = 0;
                 break;
             }                
         }        
-        for(int i = half; i < Players.size(); ++i){
+        for(int i = half; i < Characters.size(); ++i){
             result = 1;
-            if(CheckHP(Players.get(i)) == true){
+            if(CheckHP(Characters.get(i)) == true){
                 result = 0;
                 break;
             }
         }
         return result;
-        }
+    }
     
-    /* Robert's old code below for reference - JC */
-    /* check whether or not space is available.  Assumes grid as a
-       separate type containing x & y coordinates. 
-    
-    public abstract boolean CheckValidMove(Grid grid, int x, int y);
-         return grid.available(x,y); */
-   
-    /*assumes that Character is a separate class with each instance 
-      having a unique name.  The type is tentatively named "Character"
-    
-    public abstract void SetSpeed(Character name, int speed);
-        name.speed = speed; */
-  
-    
-    /* get the player's speed.  Same assumption as SetSpeed 
-    public abstract int GetSpeed(Character name);
-         return name.speed; */
-    
-    
-    /* Check the availability of the position, and go there if it's
-       available.
-    */
-    /* public boolean Move(Character name, Grid grid, int x, int y){
-        if(GridController.CheckValidSpace(x, y) == true){
-            grid.setPosition(name, x, y);
-            return true;
-        } else {
-            return false; 
-        }
-    }*/
+    public void propertyChange(PropertyChangeEvent evt) {
+        ui.propertyChange(evt);
+    }
 }
     
     

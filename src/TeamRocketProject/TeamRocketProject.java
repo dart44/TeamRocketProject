@@ -4,7 +4,6 @@
  */
 package TeamRocketProject;
 
-import java.applet.Applet;
 import grid.Grid;
 import grid.GridController;
 import java.util.ArrayList;
@@ -17,10 +16,13 @@ import UI.UI;
  *
  * @author Jeremy Crook
  */
-public class TeamRocketProject extends Applet implements Runnable {
+public class TeamRocketProject {
+    
+    private MasterController mc;
+    private GridController grid;
+    private ArrayList<Character> allChars;
     /* TeamRocketProject class constructor */
     public TeamRocketProject(){
-        MasterController mc = new MasterController();
         /* Create ArrayList of Character objects */
         /* Get number of characters.  Use even number so both 
            players have the same number of characters
@@ -28,7 +30,7 @@ public class TeamRocketProject extends Applet implements Runnable {
          Random r = new Random(System.currentTimeMillis());
         int[] pos;
         pos = new int[2];
-        ArrayList<Character> allChars = new ArrayList<>();
+        this.allChars = new ArrayList<>();
         Character P1Char1 = new Character("Player1");
         Character P1Char2 = new Character("Player1");
         Character P2Char1 = new Character("Player2");
@@ -37,37 +39,26 @@ public class TeamRocketProject extends Applet implements Runnable {
         allChars.add(P1Char2);
         allChars.add(P2Char1);
         allChars.add(P2Char2);
-        GridController gridController = new GridController(10, 10);
+        this.grid = new GridController(10, 10);
         /* Randomly distribute characters onto grid */
         /* Wish list: function to return total number of cells in grid */
         // initialize pos
         pos[0] = r.nextInt(10);
         pos[1] = r.nextInt(10);
         for(int i = 0;  i < allChars.size(); ++i){
-          while(!gridController.CheckValidSpace(pos)){
+          while(!grid.CheckValidSpace(pos)){
             pos[0] = r.nextInt(10);
             pos[1] = r.nextInt(10);
           }
-          gridController.setPosition(allChars.get(i), pos);
+          grid.setPosition(allChars.get(i), pos);
         }
-        UI UI = new UI();
-        //TODO Figure out how Turn function can listen for UI events
-        TurnOrder turnOrder = new TurnOrder(allChars);
-        int GAME_OVER = mc.GameOver(allChars);
-        while(GAME_OVER != 0){
-            mc.Turn(turnOrder);
-            GAME_OVER = mc.GameOver(allChars);
-        }
-    }
-    @Override
-    public void run(){
-    
+        mc = new MasterController(allChars, grid);
     }
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         TeamRocketProject game = new TeamRocketProject();
-        game.run();
+        game.mc.StartGame();
     }
 }
