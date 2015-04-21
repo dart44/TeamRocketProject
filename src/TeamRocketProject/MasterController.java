@@ -11,13 +11,11 @@
  */
 package TeamRocketProject;
 import Character.Character;
-import TurnOrder.TurnOrder;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
 import TurnOrder.TurnOrder;
-import grid.Grid;
 import grid.GridController;
 import UI.UI;
 
@@ -29,6 +27,7 @@ public class MasterController implements PropertyChangeListener {
     private TurnOrder turnOrder;
     private UI ui;
     private Boolean endTurn = false;
+    private int GAME_OVER = 0;
     /* Default Constructor contains list of Models being controlled
      * as well as views to populate.
      */
@@ -70,6 +69,34 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
+
+    public void StartGame() throws InterruptedException{
+        turnOrder.setTurnCharacter(turnOrder.getCharacter(0));
+        gameLoop();
+    }
+    
+    public void gameLoop() throws InterruptedException{
+        while(GAME_OVER == 0){
+            while(!endTurn){
+                Thread.sleep(1000);
+            }
+            GAME_OVER = GameOver(allCharacters);
+            if(GAME_OVER != 0){
+                if(GAME_OVER == -1){
+                    //Player 2 wins!
+                    break;
+                }
+                if(GAME_OVER == 1){
+                    //Player 1 wins!
+                    break;
+                }
+            }
+            endTurn = false;
+            NextTurn();
+        }
+        //TODO Display winner, prompt for new game
+    }
+    
     public void NextTurn(){
         int nextIndex;
         if (turnOrder.getTurnCharacterIndex()+1 != turnOrder.getSize()){
@@ -86,28 +113,6 @@ public class MasterController implements PropertyChangeListener {
             }
         turnOrder.setTurnCharacter(turnOrder.getCharacter(nextIndex));
         endTurn = false;
-    }
-    public void StartGame() throws InterruptedException{
-        turnOrder.setTurnCharacter(turnOrder.getCharacter(0));
-        int GAME_OVER = GameOver(allCharacters);
-        while(GAME_OVER == 0){
-            while(!endTurn){
-                Thread.sleep(1000);
-            }
-            GAME_OVER = GameOver(allCharacters);
-            if(GAME_OVER != 0){
-                if(GAME_OVER == -1){
-                    //Player 2 wins!
-                    break;
-                }
-                if(GAME_OVER == 1){
-                    //Player 1 wins!
-                    break;
-                }
-            }
-            NextTurn();
-        }
-        
     }
     
     public void EndTurn(){
@@ -134,6 +139,7 @@ public class MasterController implements PropertyChangeListener {
         return result;
     }
     
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ui.propertyChange(evt);
     }
