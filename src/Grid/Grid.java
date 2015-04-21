@@ -32,7 +32,7 @@ public class Grid extends AbstractModel {
             ELEMENT_GRID_PROPERTY = "grid",
             ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
     
-    //the xAxis and yAxis represent the rows and columns of the double array grid
+    //the xAxis and yAxis represent the cols and rows of the double array grid
     int xAxis;
     int yAxis;
     Object[][] grid;
@@ -42,13 +42,13 @@ public class Grid extends AbstractModel {
         int oldXAxis = this.xAxis;
         int oldYAxis = this.yAxis;
         border = new Border();
-        this.xAxis = rows;
-        this.yAxis = cols;
+        this.xAxis = cols;
+        this.yAxis = rows;
         //the grid array is initialized with passed parameters
         grid = new Object[rows][cols];  
         
-        firePropertyChange(ELEMENT_XAXIS_PROPERTY, oldXAxis, rows);
-        firePropertyChange(ELEMENT_YAXIS_PROPERTY, oldYAxis, cols);
+        firePropertyChange(ELEMENT_XAXIS_PROPERTY, oldXAxis, cols);
+        firePropertyChange(ELEMENT_YAXIS_PROPERTY, oldYAxis, rows);
         firePropertyChange(ELEMENT_GRID_PROPERTY, null, grid);
     }
   
@@ -72,7 +72,7 @@ public class Grid extends AbstractModel {
     Object getContent(int position[]) {
         //error checking is performed to prevent an out of bounds exception
         //a better form of error checking will be added in later revisions
-        if (position[0] > xAxis || position[0] < 0 || position[1] > yAxis || position[1] < 0) {
+        if (position[0] > yAxis || position[0] < 0 || position[1] > xAxis || position[1] < 0) {
             System.err.println("Error: the x and/or y location is out of bounds");
             return null;
         }   

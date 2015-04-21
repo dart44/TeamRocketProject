@@ -56,19 +56,21 @@ public class GridController {
     //use character.getName
     public int[] findCharacter(String character) {
         int[] answer = {0, 0};
-        Character c;
+        Character ch;
 
         //find the character by searching each element in the grid
-        int i, j;
-        for (i = 0; i < getGrid().getxAxis(); ++i) {
-            for (j = 0; j < getGrid().getyAxis(); ++j) {
-                int[] position = {i, j};
+        int r, c;
+        for (r = 0; r < getGrid().getyAxis(); ++r) {
+            for (c = 0; c < getGrid().getxAxis(); ++c) {
+                int[] position = {r, c};
                 if (getGrid().getContent(position) instanceof Character) {
-                    c = (Character) getGrid().getContent(position);
-                    if (c.getName().equals(character)) {
-                        answer[0] = i;
-                        answer[1] = j;
-                        return answer;
+                    ch = (Character) getGrid().getContent(position);
+                    if (ch.getName().equals(character)) {
+                        System.out.println("Character found at " + r + " " + c);
+                        return position;
+                        //answer[0] = r;
+                        //answer[1] = c;
+                        //return answer;
                     }//end inner if
                 }//end outer if
             }//end inner for
@@ -90,15 +92,19 @@ public class GridController {
      */
     public int setPosition(Character character, int[] newLocation) {
         int[] oldLocation = findCharacter(character.getName());
-
         //see if newLocation desired is empty
         if (getGrid().empty(newLocation) == true) {
             //add to the new location and set the old location to null if anything was there
             getGrid().setPosition(character, newLocation);
 
             //if the oldLocation is 0,0 then there the character was not on the map to begin with
+            //else set the old position to null
             if (oldLocation[0] != 0 && oldLocation[1] != 0) {
+                System.out.println("Setting position to null...");
                 getGrid().setPositionToNull(oldLocation);
+                
+                if(getGrid().empty(oldLocation))
+                    System.out.println("Old location set to null successfully");
             }
 
             //we are just notifiying that the grid itself has a change (the addition of a character)
@@ -122,8 +128,8 @@ public class GridController {
     public int checkDistance(Character character, int newRow, int newCol) {
         //first call to findCharacter
         int[] location = findCharacter(character.getName());
-        int oldRow = location[0];
         int oldCol = location[1];
+        int oldRow = location[0];
 
         int distance, r1, r2, c1, c2;
 
@@ -150,9 +156,9 @@ public class GridController {
     }
 
     /**
-     * This determines the distance of the chracter and its target As
+     * This determines the distance of the character and its target As
      * long as the largest of the two rows or columns has the smaller
-     * substracted from it, we can still get a correct answer. ex) 5 - 12 = -7
+     * subtracted from it, we can still get a correct answer. ex) 5 - 12 = -7
      * and 12 - 5 = 7. Both are a difference of 7
      *
      * @param attacker
@@ -225,7 +231,7 @@ public class GridController {
 
         //create the border from here
         //System.out.println("Creating the Border");
-        if (createBorder(row, col) != 1) {
+        if (createBorder() != 1) {
             System.err.println("Error: Could not create border");
         }
         return 1;
@@ -242,33 +248,32 @@ public class GridController {
      * @param y
      * @return
      */
-    public int createBorder(int x, int y) {
+    public int createBorder() {
         //System.out.println("Setting border");
 
         int row, col;
         int[] location = {0, 0};
 
         //[row0, col0] -> [row0, colmax - 1];   
-        for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
+        for (col = 0; col < getGrid().getxAxis() - 1; ++col) {
             location[1] = col;
             getGrid().setBorderPosition(location);
-
         }
 
         //System.out.println("Part 1 done ");
         //[row0, col0] ->[rowmax - 1, col0]
         location[0] = location[1] = 0;
 
-        for (row = 0; row < getGrid().getxAxis() - 1; ++row) {
+        for (row = 0; row < getGrid().getyAxis() - 1; ++row) {
             location[0] = row;
             getGrid().setBorderPosition(location);
         }
         //System.out.println("Part 2 done");
 
         //[rowMax - 1, col0] -> [rowMax, colMax - 1];
-        location[0] = getGrid().getxAxis() - 1;
+        location[0] = getGrid().getyAxis() - 1;
         location[1] = 0;
-        for (col = 0; col < getGrid().getyAxis() - 1; ++col) {
+        for (col = 0; col < getGrid().getxAxis() - 1; ++col) {
             location[1] = col;
             getGrid().setBorderPosition(location);
         }
@@ -276,8 +281,8 @@ public class GridController {
         //System.out.println("Part 3 done");
         //[row0, colMax - 2] ->[rowMax -1, colMax - 1]
         location[0] = 0;
-        location[1] = getGrid().getyAxis() - 1;
-        for (row = 0; row < getGrid().getxAxis(); ++row) {
+        location[1] = getGrid().getxAxis() - 1;
+        for (row = 0; row < getGrid().getyAxis(); ++row) {
             location[0] = row;
             getGrid().setBorderPosition(location);
         }
@@ -292,8 +297,8 @@ public class GridController {
      */
     public void display() {
         int[] location = {0, 0};
-        for (int i = 0; i < getGrid().getxAxis(); ++i) {
-            for (int j = 0; j < getGrid().getyAxis(); ++j) {
+        for (int i = 0; i < getGrid().getyAxis(); ++i) {
+            for (int j = 0; j < getGrid().getxAxis(); ++j) {
                 String s;
                 location[0] = i;
                 location[1] = j;
@@ -343,11 +348,7 @@ public class GridController {
      * @return
      */
     public boolean isCharacter(int[] position) {
-        if (getContent(position) instanceof Character) {
-            return true;
-        }
-
-        return false;
+        return getContent(position) instanceof Character;
     }
 
     /**
