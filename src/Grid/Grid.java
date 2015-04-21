@@ -65,7 +65,10 @@ public class Grid extends AbstractModel {
     //calls the getContent function
     boolean empty(int[] location){
         int[] position = {location[0], location[1]};
-        return getContent(position) == null;
+        if(getContent(position) == null)
+            return true;
+        
+        return false;
     }
     
     //return the contents of grid[x,y]
