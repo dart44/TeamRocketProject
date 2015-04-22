@@ -63,7 +63,6 @@ public class Character extends AbstractModel {
     public String getName(){
         return Name;
     };
-    
     public void setPlayer(String player){
         String oldPlayer = this.Player;
         this.Player = player;

@@ -5,6 +5,15 @@ import Character.Character;
 public class GridTest {
 
     public static void main(String[] args) {
+      Grid grid = new Grid (10, 10);
+      Character c = new Character("Joe");
+      int[] location = {2,2};
+      System.out.println( "Is 2:2 emptyy? " + grid.empty(location));
+      grid.setPosition(c, location);
+      System.out.println( "Is 2:2 emptyn? " + grid.empty(location));
+      grid.setPositionToNull(location);
+      System.out.println( "Is 2:2 emptyy? " + grid.empty(location));
+        /*
         GridController gc = new GridController(10, 7);
        // gc.display();
         //gc.display();
@@ -28,5 +37,6 @@ public class GridTest {
         
         System.out.println("Position 8:5 is empty? " + gc.CheckValidSpace(old));
         System.out.println("Position 4:4 now contains " + gc.getContent(position));
-    }    
+    */
+                }    
 }

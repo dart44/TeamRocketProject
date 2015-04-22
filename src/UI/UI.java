@@ -42,7 +42,8 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
+import Character.Character;
+import TurnOrder.TurnOrder;
 
 public class UI {
 
@@ -60,11 +61,11 @@ public class UI {
     private ImageIcon borderImage;
     private ImageIcon grassImage;
     private ImageIcon characterImage;
-    //private Character ch; 
+    private Character character; 
     //private CharacterController cc;
-    private GridController grid;
+    private GridController gridController;
     private GridBagConstraints gbc;
-    
+    private TurnOrder turnOrder;
     private int rows,cols;
     private CellPane cellPane;
     
@@ -115,13 +116,9 @@ public class UI {
                 gbc.gridy=0;
                 gbc.fill=GridBagConstraints.BOTH;
                 gbc.anchor=GridBagConstraints.CENTER;
-                gbc.insets=new Insets(-1,-1,-1,-1);                
-                
-                
-                     
+                gbc.insets=new Insets(-1,-1,-1,-1);                                              
             }
         });
-
     }
     
     /**
@@ -180,11 +177,54 @@ public class UI {
     
     public void propertyChange(PropertyChangeEvent evt){
         //TODO add the code to respond to property changes -JC
+        
+    //added by Jared Scott
+        if (evt.getPropertyName().equals(turnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
+      // Call functions to refresh the values displayed by the BottomPanel using
+            // turnOrder.getTurnCharacter().getStatNameHere() accessors
+        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_XAXIS_PROPERTY)) {
+            int newXValue = (int) evt.getNewValue();
+            gridController.getGrid().setxAxis(newXValue);
+        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_YAXIS_PROPERTY)){
+            int newYValue = (int) evt.getNewValue();
+            gridController.getGrid().setyAxis(newYValue);
+        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_PROPERTY)){
+            Object[][] newObjValue = (Object[][]) evt.getNewValue();
+            gridController.getGrid().setGrid(newObjValue);
+        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
+            //TODO figure out how to do this one
+            //Object newObjValue = evt.getNewValue();
+            //gridController.getGrid().se
+        } else if (evt.getPropertyName().equals(character.ELEMENT_NAME_PROPERTY)){
+        String newName = (String) evt.getNewValue();
+        character.setName(newName);
+        } else if (evt.getPropertyName().equals(character.ELEMENT_PLAYER_PROPERTY)){
+        String newPlayer = (String) evt.getNewValue();
+        character.setPlayer(newPlayer);
+        } else if (evt.getPropertyName().equals(character.ELEMENT_HP_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_SPEED_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_AP_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_INITIATIVE_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_STR_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_DEX_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_INT_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_CURRENTHP_PROPERTY)){
+        
+        } else if (evt.getPropertyName().equals(character.ELEMENT_CURRENTAP_PROPERTY)){
+        
+        } 
     }
 
     public void initializeGame() {
         
-       grid = new GridController(rows, cols); 
+       gridController = new GridController(rows, cols); 
         
        fillGrid();
         
@@ -231,7 +271,7 @@ public class UI {
                      }
                         
                         iconLabel.setBorder(border);
-                    if(grid.getContent(gridarray)==null){                      
+                    if(gridController.getContent(gridarray)==null){                      
                         
                         iconLabel.setIcon(grassImage);
                         tp.add(iconLabel,gbc);
@@ -239,7 +279,7 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                     } 
-                    else if(grid.getContent(gridarray)==grid.getBorder()){ 
+                    else if(gridController.getContent(gridarray)== gridController.getBorder()){ 
                         
                         iconLabel.setIcon(borderImage);
                         tp.add(iconLabel,gbc);                        
@@ -247,7 +287,7 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                     }
-                    else if(grid.isCharacter(gridarray)){
+                    else if(gridController.isCharacter(gridarray)){
                         
                         iconLabel.setIcon(characterImage);
                         tp.add(iconLabel,gbc);                        
@@ -255,29 +295,16 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                                                 
-                    }
-                    
-                    
-                    
-                    
-                   
+                    }    
                 }
         }
-                    
-        
-
-                    
-                   
-                    
-                
-        
+          
     }
 
-    public void setCharacterPos(int pos[]) {        
-       
+    public void setCharacterPos(Character ch, int pos[]) {        
+       gridController.setPosition(ch, pos);
     }     
    
-
     private void doAttack() {        
         tp.updateUI();
         frame.repaint();               
