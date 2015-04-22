@@ -61,7 +61,7 @@ public class UI {
     private ImageIcon borderImage;
     private ImageIcon grassImage;
     private ImageIcon characterImage;
-    private Character character; 
+    //private Character character; 
     //private CharacterController cc;
     private GridController gridController;
     private GridBagConstraints gbc;
@@ -195,31 +195,8 @@ public class UI {
             //TODO figure out how to do this one
             //Object newObjValue = evt.getNewValue();
             //gridController.getGrid().se
-        } else if (evt.getPropertyName().equals(character.ELEMENT_NAME_PROPERTY)){
-        String newName = (String) evt.getNewValue();
-        character.setName(newName);
-        } else if (evt.getPropertyName().equals(character.ELEMENT_PLAYER_PROPERTY)){
-        String newPlayer = (String) evt.getNewValue();
-        character.setPlayer(newPlayer);
-        } else if (evt.getPropertyName().equals(character.ELEMENT_HP_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_SPEED_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_AP_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_INITIATIVE_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_STR_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_DEX_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_INT_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_CURRENTHP_PROPERTY)){
-        
-        } else if (evt.getPropertyName().equals(character.ELEMENT_CURRENTAP_PROPERTY)){
-        
-        } 
+        }         
+      
     }
 
     public void initializeGame() {
