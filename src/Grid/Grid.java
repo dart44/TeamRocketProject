@@ -30,7 +30,8 @@ public class Grid extends AbstractModel {
             ELEMENT_XAXIS_PROPERTY = "xAxis",
             ELEMENT_YAXIS_PROPERTY = "yAxis",
             ELEMENT_GRID_PROPERTY = "grid",
-            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents";
+            ELEMENT_GRID_CONTENTS_PROPERTY = "gridContents",
+            ELEMENT_NULL_LOCATION_PROPERTY = "nullLocation";
     
     //the xAxis and yAxis represent the cols and rows of the double array grid
     int xAxis;
@@ -100,7 +101,8 @@ public class Grid extends AbstractModel {
       public void setPositionToNull(int[] position){
         Object oldObj = this.grid[position[0]][position[1]];
         this.grid[position[0]][position[1]] = null;
-        firePropertyChange(ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, null);
+        firePropertyChange(ELEMENT_NULL_LOCATION_PROPERTY, position, position);
+       // firePropertyChange(ELEMENT_GRID_CONTENTS_PROPERTY, oldObj, null);
       }
       
       //this version is for adding Borders to the parameter of the grid

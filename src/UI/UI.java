@@ -191,12 +191,18 @@ public class UI {
         } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_PROPERTY)){
             Object[][] newObjValue = (Object[][]) evt.getNewValue();
             gridController.getGrid().setGrid(newObjValue);
-        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
-            //TODO figure out how to do this one
-            //Object newObjValue = evt.getNewValue();
-            //gridController.getGrid().se
-        }         
-      
+        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
+            int[] nullLocation = (int[]) evt.getNewValue();
+            gridController.setPosition(null, nullLocation);
+        }else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
+            if (evt.getNewValue() instanceof Character) {
+                Character newCharacterValue = (Character) evt.getNewValue();
+                int[] location = gridController.findCharacter(newCharacterValue.getName());
+                gridController.setPosition(newCharacterValue, location);
+            }else{
+            System.err.println("Error: a Character should have been passed, not a " + evt.getNewValue().toString());
+            }
+        }               
     }
 
     public void initializeGame() {
