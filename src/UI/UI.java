@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Bugra Akdogan
+ * User interface module.
+ * 
  */
 package UI;
 
@@ -60,69 +60,17 @@ public class UI {
     private topPanel tp;
     private ImageIcon borderImage;
     private ImageIcon grassImage;
-    private ImageIcon characterImage;
-    //private Character character; 
-    //private CharacterController cc;
+    private ImageIcon characterImage;    
     private GridController gridController;
     private GridBagConstraints gbc;
     private TurnOrder turnOrder;
     private int rows,cols;
     private CellPane cellPane;
     
-/*
-    public UI() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                }
-                rows=5; //temporarily fixed values
-                cols=5;
-                
-                gbc = new GridBagConstraints();
-                frame = new JFrame("Team Rocket");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLayout(new BorderLayout());
-                tp = new topPanel(gbc);
-                frame.add(tp);
-                frame.add(new bottomPanel(), BorderLayout.PAGE_END);
-                frame.pack();
-                frame.setVisible(true);
-                frame.setBounds(0, 0, 400, 450);
-                frame.setLocationRelativeTo(null);
-                frame.setResizable(false);  //do we want resizable window?
-                
-                InputStream borderStream = this.getClass().getResourceAsStream("/resources/border.png");
-                InputStream grassStream = this.getClass().getResourceAsStream("/resources/grass.png");
-                InputStream characterStream = this.getClass().getResourceAsStream("/resources/character.png");
-                try {
-                     BufferedImage border = ImageIO.read(borderStream);
-                     borderImage = new ImageIcon(border);
-                     BufferedImage grass = ImageIO.read(grassStream);
-                     grassImage = new ImageIcon(grass);
-                     BufferedImage character = ImageIO.read(characterStream);
-                     characterImage = new ImageIcon(character);
-                     
-                } catch (IOException ex) {
-                    Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
-                }              
-                
-                               
-                initializeGame();
-                                
-                gbc.gridx=0;
-                gbc.gridy=0;
-                gbc.fill=GridBagConstraints.BOTH;
-                gbc.anchor=GridBagConstraints.CENTER;
-                gbc.insets=new Insets(-1,-1,-1,-1);                                              
-            }
-        });
-    }
-    */
+
+
     /**
-     * Jared Scott
+     * Jared Scott, Bugra Akdogan
      * This will take a Grid parameter and use it's variables for initialization
      * @param grid
      */
@@ -146,7 +94,7 @@ public class UI {
                 frame.add(new bottomPanel(), BorderLayout.PAGE_END);
                 frame.pack();
                 frame.setVisible(true);
-                frame.setBounds(0, 0, 400, 450);
+                frame.setBounds(0, 0, (rows*35)+150, (cols*35)+250);
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);  //do we want resizable window?
                 
@@ -163,7 +111,7 @@ public class UI {
                 } catch (IOException ex) {
                     Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
                 }                             
-                gridController = new GridController(grid.getxAxis(), grid.getyAxis());
+                gridController = new GridController(rows, cols);
                 initializeGame();
                                 
                 gbc.gridx = grid.getxAxis();
@@ -221,10 +169,12 @@ public class UI {
         
     public void fillGrid() {
         int[] gridarray=new int[2];
-        
+        tp.removeAll();   
+       
     
         for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
+                    
                     
                     gbc.fill=GridBagConstraints.BOTH;
                     gbc.anchor=GridBagConstraints.CENTER;
@@ -236,6 +186,9 @@ public class UI {
                     gbc.gridy=col;
                     Border border = null;
                     iconLabel=new JLabel();
+                    
+                     
+                    
                     
                      if (row < rows) {
                         if (col < cols) {
@@ -250,20 +203,62 @@ public class UI {
                             border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
                         }
                      }
+                     
+                     
                         
                         iconLabel.setBorder(border);
-                    if(gridController.getContent(gridarray)==null){                      
                         
+                        iconLabel.addMouseListener(new MouseListener() {
+
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                           
+                           tp.getPaneLayout().getConstraints(e.getComponent());                          
+                                                      
+                           System.out.println("\ngrid x: " + tp.getPaneLayout().getConstraints(e.getComponent()).gridx + " grid y: "+ tp.getPaneLayout().getConstraints(e.getComponent()).gridy);
+                           
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                           
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                           
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            
+                        }
+                      });
+                        
+                    if(gridController.getContent(gridarray)==null){                   
+                                              
                         iconLabel.setIcon(grassImage);
-                        tp.add(iconLabel,gbc);
+                        iconLabel.setOpaque(true);
+                        iconLabel.repaint();
+                        tp.getPaneLayout().setConstraints(iconLabel, gbc);                        
+                        tp.add(iconLabel);
                         tp.revalidate();
                         tp.repaint();
                         tp.updateUI();
                     } 
-                    else if(gridController.getContent(gridarray)== gridController.getBorder()){ 
+                    else if(gridController.getContent(gridarray)==gridController.getBorder()){ 
                         
+                        this.iconLabel.setLocation(gbc.gridx, gbc.gridy);
                         iconLabel.setIcon(borderImage);
-                        tp.add(iconLabel,gbc);                        
+                        iconLabel.setOpaque(true);
+                        iconLabel.repaint();
+                        tp.getPaneLayout().setConstraints(iconLabel, gbc);
+                        tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
                         tp.updateUI();
@@ -271,15 +266,20 @@ public class UI {
                     else if(gridController.isCharacter(gridarray)){
                         
                         iconLabel.setIcon(characterImage);
-                        tp.add(iconLabel,gbc);                        
+                        iconLabel.setOpaque(true);
+                        iconLabel.repaint();
+                        tp.getPaneLayout().setConstraints(iconLabel, gbc);
+                        tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
                         tp.updateUI();
                                                 
-                    }    
+                    }              
+                                      
+                                       
                 }
+                
         }
-          
     }
     
     public void setCharacterPos(Character ch, int pos[]) {        
@@ -438,10 +438,11 @@ public class UI {
     //Top panel of the UI where grid is located
     public class topPanel extends JPanel {
         
-        //TODO Code to account for changes to models -JC
-
+        GridBagLayout gbl;
+        
         public topPanel(GridBagConstraints gbc) {
-            setLayout(new GridBagLayout());
+            gbl = new GridBagLayout();
+            setLayout(gbl);
 
             //adds a JPanel to each grid tile and draw the grid by
             //changing border colors of each tile.
@@ -476,9 +477,13 @@ public class UI {
                     cellPane.setBorder(border);
                     add(cellPane, gbc);*/
                 }
-            }
+            }           
 
-        }        
+        }  
+         public GridBagLayout getPaneLayout(){
+            
+            return gbl;
+        }
 
     }
 
