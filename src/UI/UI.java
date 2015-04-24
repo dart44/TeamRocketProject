@@ -304,7 +304,7 @@ public class UI {
     }     
    
     private void doAttack() {
-        int[] position = {clickedTile.getX(), clickedTile.getY()};
+        int[] position = {tp.getPaneLayout().getConstraints(clickedTile).gridx, tp.getPaneLayout().getConstraints(clickedTile).gridy};
         if ("character".equals(clickedTile.getName()) && masterController.getGridController().getContent(position) instanceof Character) {
             System.out.println(clickedTile.getName());
             Character target;
@@ -322,7 +322,7 @@ public class UI {
         
     private void doMove() {
         if("grass".equals(clickedTile.getName())){
-            int pos[] = {clickedTile.getX(), clickedTile.getY()};
+            int pos[] = {tp.getPaneLayout().getConstraints(clickedTile).gridx ,tp.getPaneLayout().getConstraints(clickedTile).gridy};
             masterController.Move(pos);
         }
     }
