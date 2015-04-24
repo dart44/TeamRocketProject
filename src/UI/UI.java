@@ -307,7 +307,7 @@ public class UI {
     private void doAttack() {
         int[] position = {tp.getPaneLayout().getConstraints(clickedTile).gridx, tp.getPaneLayout().getConstraints(clickedTile).gridy};
         if ("character".equals(clickedTile.getName()) && masterController.getGridController().getContent(position) instanceof Character) {
-            System.out.println(clickedTile.getName());
+            System.out.println(clickedTile.getName() + "target position is: " + position[0] + ":" + position[1]);
             Character target;
             target = (Character) masterController.getGridController().getContent(position);
             masterController.Attack(turnOrder.getTurnCharacter(), target, turnOrder.getTurnCharacter().getCurrentAP());
