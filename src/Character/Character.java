@@ -12,7 +12,7 @@ package Character;
 import java.util.Random;
 import TeamRocketProject.AbstractModel;
 
-public class Character extends AbstractModel {
+public class Character extends AbstractModel implements Comparable{
     
     /* Properties for PropertyChangeEvents */
     public static final String
@@ -229,6 +229,12 @@ public class Character extends AbstractModel {
             Initiative = Initiative + ((int) Math.floor(DEX/2) - 5);
         }
         
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        int compareinit=((Character)t).getInitiative();
+        return compareinit-this.getInitiative();
     }
     
 }
