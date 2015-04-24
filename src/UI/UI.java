@@ -43,8 +43,10 @@ import javax.swing.border.MatteBorder;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import Character.Character;
+import TeamRocketProject.MasterController;
 import TurnOrder.TurnOrder;
 import java.awt.Component;
+import java.util.ArrayList;
 
 public class UI {
 
@@ -62,14 +64,14 @@ public class UI {
     private ImageIcon borderImage;
     private ImageIcon grassImage;
     private ImageIcon characterImage;    
-    private GridController gridController;
+    private GridController gc;
     private GridBagConstraints gbc;
     private TurnOrder turnOrder;
     private int rows,cols;
     private CellPane cellPane;
     private Component clickedTile;
-   
-
+    private MasterController masterController;
+    private ArrayList<Character> allCharacters;
 
     /**
      * Jared Scott, Bugra Akdogan
@@ -113,7 +115,8 @@ public class UI {
                 } catch (IOException ex) {
                     Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
                 }                             
-                gridController = new GridController(rows, cols);
+                gc = new GridController(rows, cols);
+                masterController = new MasterController(allCharacters, gc);
                 initializeGame();
                                 
                 gbc.gridx = grid.getxAxis();
@@ -133,21 +136,21 @@ public class UI {
     //added by Jared Scott
         if (evt.getPropertyName().equals(turnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
             turnOrder.getTurnCharacter();
-        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_XAXIS_PROPERTY)) {
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
             fillGrid();
-        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_YAXIS_PROPERTY)){
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_YAXIS_PROPERTY)){
           //  rows = (int) evt.getNewValue();
             fillGrid();
-        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_PROPERTY)){
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_GRID_PROPERTY)){
             Grid newGrid = (Grid) evt.getNewValue();          
           // gridController.setGrid(newGrid);
             fillGrid();
-        } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
             //int[] nullLocation = (int[]) evt.getNewValue();
             //gridController.setPosition(null, nullLocation);
             fillGrid();
-        }else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
+        }else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
             if (evt.getNewValue() instanceof Character) {
             //    Character newCharacterValue = (Character) evt.getNewValue();
               //  int[] location = gridController.findCharacter(newCharacterValue.getName());
@@ -254,7 +257,7 @@ public class UI {
                         }
                       });
                         
-                    if(gridController.getContent(gridarray)==null){                   
+                    if(masterController.getGridController().getContent(gridarray)==null){                   
                                               
                         iconLabel.setIcon(grassImage);
                         iconLabel.setOpaque(true);
@@ -266,7 +269,7 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                     } 
-                    else if(gridController.isBorder(gridarray)){ 
+                    else if(masterController.getGridController().isBorder(gridarray)){ 
                         
                        
                         iconLabel.setIcon(borderImage);
@@ -279,7 +282,7 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                     }
-                    else if(gridController.isCharacter(gridarray)){
+                    else if(masterController.getGridController().isCharacter(gridarray)){
                         
                         iconLabel.setIcon(characterImage);
                         iconLabel.setOpaque(true);                       
@@ -297,15 +300,17 @@ public class UI {
     }
     
     public void setCharacterPos(Character ch, int pos[]) {        
-       gridController.setPosition(ch, pos);
+       masterController.getGridController().setPosition(ch, pos);
     }     
    
     private void doAttack() {
-        if(clickedTile!=null)            
-        System.out.println(clickedTile.getName());
-        
-        
-                       
+        int[] position = {clickedTile.getX(), clickedTile.getY()};
+        if ("character".equals(clickedTile.getName()) && masterController.getGridController().getContent(position) instanceof Character) {
+            System.out.println(clickedTile.getName());
+            Character target;
+            target = (Character) masterController.getGridController().getContent(position);
+            masterController.Attack(turnOrder.getTurnCharacter(), target, turnOrder.getTurnCharacter().getCurrentAP());
+        }                 
     }
 
     private void doAbility() {
@@ -315,11 +320,15 @@ public class UI {
     private void doStats() {       
     }
         
-    private void doMove() {        
+    private void doMove() {
+        if("grass".equals(clickedTile.getName())){
+            int pos[] = {clickedTile.getX(), clickedTile.getY()};
+            masterController.Move(pos);
+        }
     }
     private void doPass() {
        
-       // masterController.nextTurn();
+       masterController.NextTurn();
         
     }
 
