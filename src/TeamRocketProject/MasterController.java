@@ -159,6 +159,10 @@ public class MasterController implements PropertyChangeListener {
         return result;
     }
     
+    public GridController getGridController(){
+        return gc;
+    }
+    
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ui.propertyChange(evt);
