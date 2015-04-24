@@ -24,16 +24,16 @@ public class TurnOrder extends AbstractModel {
     private ArrayList<Character> turnOrder;
     /* Turn Order sorting */
     public TurnOrder(ArrayList<Character> characterList){
-        for (int i = 0; i < characterList.size() - 1; i++){
+        for (int i = 0; i < characterList.size(); ++i){
             Character c1 = characterList.get(i);
             Character c2 = characterList.get(i+1);
             
             if ((Integer.compare(c1.getInitiative(), c2.getInitiative())) < 0){
-                turnOrder.set(i+1, c1);
-                turnOrder.set(i, c2);
+                turnOrder.add(i+1, c1);
+                turnOrder.add(i, c2);
             } else {
-                turnOrder.set(i, c1);
-                turnOrder.set(i+1, c2);
+                turnOrder.add(i, c1);
+                turnOrder.add(i+1, c2);
             }
         }
         setTurnCharacter(turnOrder.get(0));
