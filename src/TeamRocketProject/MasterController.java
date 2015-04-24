@@ -94,7 +94,7 @@ public class MasterController implements PropertyChangeListener {
     
     public void gameLoop() throws InterruptedException{
         while(GAME_OVER == 0){
-            while(!endTurn){
+            while(!endTurn || turnOrder.getTurnCharacter().getCurrentAP() != 0){
                 Thread.sleep(1000);
             }
             GAME_OVER = GameOver(allCharacters);
