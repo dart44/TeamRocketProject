@@ -455,6 +455,7 @@ public class UI {
 
                     cellPane = new CellPane();
                     Border border = null;
+                    
                     if (row < rows) {
                         if (col < cols) {
                             border = new MatteBorder(1, 1, 0, 0, Color.BLACK);
@@ -507,7 +508,12 @@ public class UI {
                 public void mouseReleased(MouseEvent e) {
                     setBackground(defaultBackground);
                 }
-
+                
+                @Override
+                public void mouseClicked(MouseEvent e) {
+       
+                }
+            
             });
         }
         

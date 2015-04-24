@@ -17,6 +17,7 @@ public class UIController {
          //UI UI=new UI();
         Grid grid = new Grid(7, 5);
          UI ui = new UI(grid);
+//         UIJPanel uij = new UIJPanel();
          
          
     }
