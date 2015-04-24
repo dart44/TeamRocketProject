@@ -35,7 +35,7 @@ public class MasterController implements PropertyChangeListener {
         this.allCharacters = allCharacters;
         this.turnOrder = new TurnOrder(allCharacters);
         this.gc = gridController;
-        this.ui = new UI(this.gc.getGrid()); // Needs to be updated to take grid as argument -JC
+        this.ui = new UI(this); //Edit UI to take MC as argument -JC
         
         for(Character c: allCharacters){
             c.addPropertyChangeListener(this);
