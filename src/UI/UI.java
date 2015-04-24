@@ -78,7 +78,7 @@ public class UI {
      * This will take a Grid parameter and use it's variables for initialization
      * @param grid
      */
-    public UI(final Grid grid){
+    public UI(final MasterController mc){
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -86,8 +86,8 @@ public class UI {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 }
-                rows = grid.getxAxis();
-                cols = grid.getyAxis();
+                rows = mc.getGridController().getGrid().getxAxis();
+                cols = mc.getGridController().getGrid().getyAxis();
                 
                 gbc = new GridBagConstraints();
                 frame = new JFrame("Team Rocket");
@@ -115,12 +115,12 @@ public class UI {
                 } catch (IOException ex) {
                     Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
                 }                             
-                gc = new GridController(rows, cols);
-                masterController = new MasterController(allCharacters, gc);
+                //gc = new GridController(rows, cols);
+                masterController = mc;
                 initializeGame();
                                 
-                gbc.gridx = grid.getxAxis();
-                gbc.gridy = grid.getyAxis();
+                gbc.gridx = rows;
+                gbc.gridy = cols;
                 gbc.fill=GridBagConstraints.BOTH;
                 gbc.anchor=GridBagConstraints.CENTER;
                 gbc.insets=new Insets(-1,-1,-1,-1);   
@@ -320,12 +320,13 @@ public class UI {
     private void doStats() {       
     }
         
-    private void doMove() {
+    private void doMove() {        
         if("grass".equals(clickedTile.getName())){
             int pos[] = {tp.getPaneLayout().getConstraints(clickedTile).gridx ,tp.getPaneLayout().getConstraints(clickedTile).gridy};
             masterController.Move(pos);
         }
     }
+        
     private void doPass() {
        
        masterController.NextTurn();
