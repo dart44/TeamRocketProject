@@ -24,7 +24,7 @@ public class TurnOrder extends AbstractModel {
     private ArrayList<Character> turnOrder;
     /* Turn Order sorting */
     public TurnOrder(ArrayList<Character> characterList){
-        for (int i = 0; i < characterList.size(); i++){
+        for (int i = 0; i < characterList.size() - 1; i++){
             Character c1 = characterList.get(i);
             Character c2 = characterList.get(i+1);
             
