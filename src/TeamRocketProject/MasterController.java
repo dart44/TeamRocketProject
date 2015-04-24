@@ -18,12 +18,13 @@ import java.util.Random;
 import TurnOrder.TurnOrder;
 import grid.GridController;
 import UI.UI;
+import grid.Grid;
 
 
 
 public class MasterController implements PropertyChangeListener {
     private ArrayList<Character> allCharacters;
-    private GridController grid;
+    private GridController gridController;
     private TurnOrder turnOrder;
     private UI ui;
     private Boolean endTurn = false;
@@ -31,17 +32,17 @@ public class MasterController implements PropertyChangeListener {
     /* Default Constructor contains list of Models being controlled
      * as well as views to populate.
      */
-    public MasterController(ArrayList<Character> allCharacters, GridController grid){
+    public MasterController(ArrayList<Character> allCharacters, GridController gridController){
         this.allCharacters = allCharacters;
         this.turnOrder = new TurnOrder(allCharacters);
-        this.grid = grid;
-        this.ui = new UI(); // Needs to be updated to take grid as argument -JC
+        this.gridController = gridController;
+        this.ui = new UI(this.gridController.getGrid()); // Needs to be updated to take grid as argument -JC
         
         for(Character c: allCharacters){
             c.addPropertyChangeListener(this);
         }
         turnOrder.addPropertyChangeListener(this);
-        grid.getGrid().addPropertyChangeListener(this);
+        gridController.getGrid().addPropertyChangeListener(this);
     };
     
         /* Convenience methods for checking HP/AP */

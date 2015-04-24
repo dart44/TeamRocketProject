@@ -69,7 +69,7 @@ public class UI {
     private int rows,cols;
     private CellPane cellPane;
     
-
+/*
     public UI() {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -120,7 +120,7 @@ public class UI {
             }
         });
     }
-    
+    */
     /**
      * Jared Scott
      * This will take a Grid parameter and use it's variables for initialization
@@ -163,7 +163,7 @@ public class UI {
                 } catch (IOException ex) {
                     Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
                 }                             
-                
+                gridController = new GridController(grid.getxAxis(), grid.getyAxis());
                 initializeGame();
                                 
                 gbc.gridx = grid.getxAxis();
@@ -180,37 +180,35 @@ public class UI {
         
     //added by Jared Scott
         if (evt.getPropertyName().equals(turnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
-      // Call functions to refresh the values displayed by the BottomPanel using
-            // turnOrder.getTurnCharacter().getStatNameHere() accessors
+            turnOrder.getTurnCharacter();
         } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_XAXIS_PROPERTY)) {
-            int newXValue = (int) evt.getNewValue();
-            gridController.getGrid().setxAxis(newXValue);
+            //cols = (int) evt.getNewValue();
+            fillGrid();
         } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_YAXIS_PROPERTY)){
-            int newYValue = (int) evt.getNewValue();
-            gridController.getGrid().setyAxis(newYValue);
+          //  rows = (int) evt.getNewValue();
+            fillGrid();
         } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_PROPERTY)){
-            Object[][] newObjValue = (Object[][]) evt.getNewValue();
-            gridController.getGrid().setGrid(newObjValue);
+            Grid newGrid = (Grid) evt.getNewValue();          
+          // gridController.setGrid(newGrid);
+            fillGrid();
         } else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
-            int[] nullLocation = (int[]) evt.getNewValue();
-            gridController.setPosition(null, nullLocation);
+            //int[] nullLocation = (int[]) evt.getNewValue();
+            //gridController.setPosition(null, nullLocation);
+            fillGrid();
         }else if (evt.getPropertyName().equals(gridController.getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
             if (evt.getNewValue() instanceof Character) {
-                Character newCharacterValue = (Character) evt.getNewValue();
-                int[] location = gridController.findCharacter(newCharacterValue.getName());
-                gridController.setPosition(newCharacterValue, location);
+            //    Character newCharacterValue = (Character) evt.getNewValue();
+              //  int[] location = gridController.findCharacter(newCharacterValue.getName());
+               // gridController.setPosition(newCharacterValue, location);
+            fillGrid();
             }else{
             System.err.println("Error: a Character should have been passed, not a " + evt.getNewValue().toString());
             }
         }               
     }
 
-    public void initializeGame() {
-        
-       gridController = new GridController(rows, cols); 
-        
-       fillGrid();
-        
+    public void initializeGame() { 
+       fillGrid();     
     }
 
    // public Character getCurrentCharacter(){
@@ -283,7 +281,7 @@ public class UI {
         }
           
     }
-
+    
     public void setCharacterPos(Character ch, int pos[]) {        
        gridController.setPosition(ch, pos);
     }     
@@ -406,8 +404,7 @@ public class UI {
         if (src == statsButton)
           doStats();
         if (src == passButton)
-         doPass();
-        
+         doPass();       
         }
 
         @Override
