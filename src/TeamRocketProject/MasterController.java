@@ -5,9 +5,9 @@
  */
 /**
  *
- * @author Jason
- * 2015 March 10
- * Edited March 26 by Jeremy Crook
+ * 
+ * @author Jeremy Crook
+ *
  */
 package TeamRocketProject;
 import Character.Character;

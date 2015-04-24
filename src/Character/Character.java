@@ -6,7 +6,7 @@
  * Last Updated: March 26th, 2015
  * Character objects store all in-game attributes of a player's character such
  * as Hit Points and Action Points.
- * TODO code Attack attributes
+ * 
  */
 package Character;
 import java.util.Random;

@@ -13,6 +13,7 @@ import grid.Grid.Border;
  * the finer details of class Grid that go beyond simple setters, getters, and
  * initialization. This file also holds the Border class that is needed for the
  * parameter of the grid
+ * 
  */
 //The Random class is needed as a varible to place a character in a random spot on the grid
 //the Character Controller class is required to find a specific instance of 

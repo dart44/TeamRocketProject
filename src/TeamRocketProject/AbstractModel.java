@@ -1,6 +1,6 @@
 /*
  * Base Model class from which all other Model classes
- * are derived.
+ * are derived. 
  */
 package TeamRocketProject;
 import java.beans.PropertyChangeListener;
