@@ -160,7 +160,8 @@ public class UI {
     }
 
     public void initializeGame() { 
-       fillGrid();     
+       fillGrid();
+       updatePlayerInfo();
     }
 
    // public Character getCurrentCharacter(){
@@ -171,6 +172,12 @@ public class UI {
      *
      */
         
+    public void updatePlayerInfo(){
+        turnPlayer.setText("Turn Player: " + Character.ELEMENT_PLAYER_PROPERTY);
+        turnCharacter.setText("Turn Character: " + Character.ELEMENT_NAME_PROPERTY);
+        actionPoints.setText("Action Points: " + Character.ELEMENT_AP_PROPERTY);
+        
+    }
     public void fillGrid() {
         int[] gridarray=new int[2];
         tp.removeAll();   
@@ -294,8 +301,9 @@ public class UI {
     }     
    
     private void doAttack() {
-        if(clickedTile!=null)
+        if(clickedTile!=null)            
         System.out.println(clickedTile.getName());
+        
         
                        
     }
@@ -309,7 +317,10 @@ public class UI {
         
     private void doMove() {        
     }
-    private void doPass() {        
+    private void doPass() {
+       
+       // masterController.nextTurn();
+        
     }
 
     private class textPanel extends JPanel {
