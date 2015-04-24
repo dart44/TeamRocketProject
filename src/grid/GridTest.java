@@ -1,3 +1,4 @@
+/*
 package grid;
 import Character.Character;
 
@@ -36,6 +37,5 @@ public class GridTest {
         
         System.out.println("Position 8:5 is empty? " + gc.CheckValidSpace(old));
         System.out.println("Position 4:4 now contains " + gc.getContent(position));
-    */
                 }    
-}
+}*/

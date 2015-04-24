@@ -9,6 +9,7 @@ import Character.Character;
  * Class: Grid
  * Date: March 9th 2015
  * Update:3/13/15
+ * 
  * Its been decided that String[][] is too limiting. I am changing it to Object[][]
  * so that a Character, Item, etc can be inserted into an [x, y] location
  * /

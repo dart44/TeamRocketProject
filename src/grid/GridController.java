@@ -4,6 +4,8 @@ import Character.Character;
 import grid.Grid.Border;
 
 /**
+ * 
+ * 
  * @module Grid
  * @author Jared M Scott Class: GridController and Border Date: March 9th 2015
  * Update: 3/13/15 A Border class has been added to act as the edges of the map
