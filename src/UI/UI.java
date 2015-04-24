@@ -251,7 +251,7 @@ public class UI {
                         tp.repaint();
                         tp.updateUI();
                     } 
-                    else if(gridController.getContent(gridarray)==gridController.getBorder()){ 
+                    else if(gridController.isBorder(gridarray)){ 
                         
                         this.iconLabel.setLocation(gbc.gridx, gbc.gridy);
                         iconLabel.setIcon(borderImage);
@@ -266,19 +266,16 @@ public class UI {
                     else if(gridController.isCharacter(gridarray)){
                         
                         iconLabel.setIcon(characterImage);
-                        iconLabel.setOpaque(true);
-                        iconLabel.repaint();
+                        iconLabel.setOpaque(true);                       
                         tp.getPaneLayout().setConstraints(iconLabel, gbc);
                         tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
-                        tp.updateUI();
-                                                
-                    }              
+                        tp.updateUI();                                                
+                    }            
+                                     
                                       
-                                       
-                }
-                
+                }               
         }
     }
     
