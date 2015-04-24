@@ -36,6 +36,7 @@ public class TurnOrder extends AbstractModel {
                 turnOrder.set(i+1, c2);
             }
         }
+        setTurnCharacter(turnOrder.get(0));
     }
     
     public Character getTurnCharacter(){
