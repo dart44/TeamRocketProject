@@ -1,7 +1,6 @@
 /*
  * Bugra Akdogan
  * User interface module.
- *  
  */
 package UI;
 
