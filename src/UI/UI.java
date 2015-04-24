@@ -44,6 +44,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import Character.Character;
 import TurnOrder.TurnOrder;
+import java.awt.Component;
 
 public class UI {
 
@@ -66,7 +67,8 @@ public class UI {
     private TurnOrder turnOrder;
     private int rows,cols;
     private CellPane cellPane;
-    
+    private Component clickedTile;
+   
 
 
     /**
@@ -94,9 +96,9 @@ public class UI {
                 frame.add(new bottomPanel(), BorderLayout.PAGE_END);
                 frame.pack();
                 frame.setVisible(true);
-                frame.setBounds(0, 0, (rows*35)+150, (cols*35)+250);
+                frame.setBounds(0, 0, (rows*35)+150, (cols*35)+250); //resize frame accordingly
                 frame.setLocationRelativeTo(null);
-                frame.setResizable(false);  //do we want resizable window?
+                frame.setResizable(false);  
                 
                 InputStream borderStream = this.getClass().getResourceAsStream("/resources/border.png");
                 InputStream grassStream = this.getClass().getResourceAsStream("/resources/grass.png");
@@ -118,7 +120,9 @@ public class UI {
                 gbc.gridy = grid.getyAxis();
                 gbc.fill=GridBagConstraints.BOTH;
                 gbc.anchor=GridBagConstraints.CENTER;
-                gbc.insets=new Insets(-1,-1,-1,-1);                         
+                gbc.insets=new Insets(-1,-1,-1,-1);   
+                
+                
             }
         });
     }
@@ -217,10 +221,13 @@ public class UI {
 
                         @Override
                         public void mousePressed(MouseEvent e) {
+                           clickedTile=e.getComponent();
                            
                            tp.getPaneLayout().getConstraints(e.getComponent());                          
-                                                      
-                           System.out.println("\ngrid x: " + tp.getPaneLayout().getConstraints(e.getComponent()).gridx + " grid y: "+ tp.getPaneLayout().getConstraints(e.getComponent()).gridy);
+                                    
+                           
+                           System.out.println("\ngrid x: " + tp.getPaneLayout().getConstraints(e.getComponent()).gridx + 
+                                   " grid y: "+ tp.getPaneLayout().getConstraints(e.getComponent()).gridy);
                            
                         }
 
@@ -245,7 +252,8 @@ public class UI {
                         iconLabel.setIcon(grassImage);
                         iconLabel.setOpaque(true);
                         iconLabel.repaint();
-                        tp.getPaneLayout().setConstraints(iconLabel, gbc);                        
+                        tp.getPaneLayout().setConstraints(iconLabel, gbc);
+                        iconLabel.setName("grass");
                         tp.add(iconLabel);
                         tp.revalidate();
                         tp.repaint();
@@ -253,11 +261,12 @@ public class UI {
                     } 
                     else if(gridController.isBorder(gridarray)){ 
                         
-                        this.iconLabel.setLocation(gbc.gridx, gbc.gridy);
+                       
                         iconLabel.setIcon(borderImage);
                         iconLabel.setOpaque(true);
                         iconLabel.repaint();
                         tp.getPaneLayout().setConstraints(iconLabel, gbc);
+                        iconLabel.setName("border");
                         tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
@@ -268,6 +277,7 @@ public class UI {
                         iconLabel.setIcon(characterImage);
                         iconLabel.setOpaque(true);                       
                         tp.getPaneLayout().setConstraints(iconLabel, gbc);
+                        iconLabel.setName("character");
                         tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
@@ -283,9 +293,11 @@ public class UI {
        gridController.setPosition(ch, pos);
     }     
    
-    private void doAttack() {        
-        tp.updateUI();
-        frame.repaint();               
+    private void doAttack() {
+        if(clickedTile!=null)
+        System.out.println(clickedTile.getName());
+        
+                       
     }
 
     private void doAbility() {
