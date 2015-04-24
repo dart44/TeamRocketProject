@@ -18,13 +18,12 @@ import java.util.Random;
 import TurnOrder.TurnOrder;
 import grid.GridController;
 import UI.UI;
-import grid.Grid;
 
 
 
 public class MasterController implements PropertyChangeListener {
     private ArrayList<Character> allCharacters;
-    private GridController gridController;
+    private GridController gc;
     private TurnOrder turnOrder;
     private UI ui;
     private Boolean endTurn = false;
@@ -35,8 +34,8 @@ public class MasterController implements PropertyChangeListener {
     public MasterController(ArrayList<Character> allCharacters, GridController gridController){
         this.allCharacters = allCharacters;
         this.turnOrder = new TurnOrder(allCharacters);
-        this.gridController = gridController;
-        this.ui = new UI(this.gridController.getGrid()); // Needs to be updated to take grid as argument -JC
+        this.gc = gridController;
+        this.ui = new UI(this.gc.getGrid()); // Needs to be updated to take grid as argument -JC
         
         for(Character c: allCharacters){
             c.addPropertyChangeListener(this);
@@ -61,12 +60,29 @@ public class MasterController implements PropertyChangeListener {
     }
     
     public void Attack(Character attacker, Character target, int AP){
-        int ATK = attacker.getSTR();
-        Random r = new Random(System.currentTimeMillis());
-        int d100 = r.nextInt((100 - 1) + 1) + 1;
-        if(d100 <= (ATK*AP)){
-            int Damage = (int) Math.floor((d100 - ATK)/10);
-            target.setCurrentHP(target.getCurrentHP()-Damage);
+        if (AP <= attacker.getCurrentAP()){
+            attacker.setCurrentAP(attacker.getCurrentAP() - AP);
+            int ATK = attacker.getSTR();
+            Random r = new Random(System.currentTimeMillis());
+            int d100 = r.nextInt((100 - 1) + 1) + 1;
+            if(d100 <= (ATK*AP)){
+                int Damage = (int) Math.floor((d100 - ATK)/10);
+                target.setCurrentHP(target.getCurrentHP()-Damage);
+            }
+        } else {
+            //Insufficient AP
+        }
+    }
+    
+    public void Move(int[] pos){
+        Character c = turnOrder.getTurnCharacter();
+        int distance = gc.checkDistance(c, pos[0], pos[1]);
+        int AP = c.getSpeed() * distance;
+        if (AP <= c.getCurrentAP()){
+            c.setCurrentAP(c.getCurrentAP() - AP);
+            gc.setPosition(c, pos);
+        } else {
+            //Insufficient AP
         }
     }
     
@@ -104,6 +120,9 @@ public class MasterController implements PropertyChangeListener {
             nextIndex = turnOrder.getTurnCharacterIndex()+1;
         } else {
             nextIndex = 0;
+            for (Character c : turnOrder.getTurnOrder()){
+                c.setCurrentAP(c.getAP());
+            }
         }
         Character c = turnOrder.getCharacter(nextIndex);
             if(!CheckHP(c)){
