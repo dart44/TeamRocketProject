@@ -161,9 +161,12 @@ public class UI {
             turnOrderCharacter=  (Character) evt.getNewValue();
              updatePlayerInfo();
              fillGrid();
+        } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTAP_PROPERTY)) {
+            updatePlayerInfo();
              
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
+            
             fillGrid();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_YAXIS_PROPERTY)){
           //  rows = (int) evt.getNewValue();
@@ -205,7 +208,7 @@ public class UI {
     public void updatePlayerInfo(){
         turnPlayer.setText("Turn Player: " + turnOrderCharacter.getPlayer());
         turnCharacter.setText("Turn Character: " + turnOrderCharacter.getName());
-        actionPoints.setText("Action Points: " + turnOrderCharacter.getAP());
+        actionPoints.setText("Action Points: " + turnOrderCharacter.getCurrentAP());
         bp.revalidate();
         bp.repaint();
         bp.updateUI();
