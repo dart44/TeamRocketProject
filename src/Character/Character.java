@@ -218,7 +218,7 @@ public class Character extends AbstractModel implements Comparable{
         /* Set derived stats */
         HP = 5 * (int) Math.floor(STR/3);
         CurrentHP = HP;
-        Speed = 2 - (int) Math.floor(DEX/10);
+        Speed = 2 - (int) Math.floor(DEX/11);
         AP = 9 + (int) Math.floor(INT/6);
         CurrentAP = AP;
         int d20 = r.nextInt((20 - 1) + 1) + 1;
