@@ -12,20 +12,68 @@ package Character;
 import java.util.Random;
 import TeamRocketProject.AbstractModel;
 
+/**
+ *
+ * @author Jason
+ */
 public class Character extends AbstractModel implements Comparable{
     
     /* Properties for PropertyChangeEvents */
     public static final String
     ELEMENT_NAME_PROPERTY = "Name",
+
+    /**
+     * Name constant used in UI
+     */
+
+    /**
+     * Player element used in UI
+     */
     ELEMENT_PLAYER_PROPERTY = "Player",
+
+    /**
+     * Hit Points element used in UI
+     */
     ELEMENT_HP_PROPERTY = "HP",
+
+    /**
+     * Speed element used in UI
+     */
     ELEMENT_SPEED_PROPERTY = "Speed",
+
+    /**
+     * Action Points element used in UI
+     */
     ELEMENT_AP_PROPERTY = "AP",
+
+    /**
+     * Initiative element used in UI
+     */
     ELEMENT_INITIATIVE_PROPERTY = "Initiative",
+
+    /**
+     * Strength element used in UI
+     */
     ELEMENT_STR_PROPERTY = "STR",
+
+    /**
+     *  Player Dexterity element used in UI
+     */
     ELEMENT_DEX_PROPERTY = "DEX",
+
+    /**
+     * Intelligence element used in UI
+     */
     ELEMENT_INT_PROPERTY = "INT",
+
+    /**
+     * Current Hit Points element used during game play
+     */
     ELEMENT_CURRENTHP_PROPERTY = "CurrentHP",
+
+    /**
+     * Current Action Points element used during game play
+     */
     ELEMENT_CURRENTAP_PROPERTY = "CurrentAP";
     
     /* Character Attribute Declarations
@@ -54,7 +102,10 @@ public class Character extends AbstractModel implements Comparable{
     /* Attribute Accessors
      * When changes are made to this model they are fired such that they can
      * be propogated across all registered views.
+     * @ param String
+     * @ return void
      */
+    
     public void setName(String name){
         String oldName = this.Name;
         this.Name = name;
@@ -63,9 +114,18 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_NAME_PROPERTY, 
             oldName, Name);
     };
+    /* get Character name
+     * @return String
+    */
+    
     public String getName(){
         return Name;
     };
+    /* 
+     * @param player
+     * @return void
+    */
+    
     public void setPlayer(String player){
         String oldPlayer = this.Player;
         this.Player = player;
@@ -74,10 +134,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_PLAYER_PROPERTY, 
             oldPlayer, Player);
     };
+
+    /**
+     * Player accessor
+     * @return Player
+     */
     public String getPlayer(){
         return Player;
     };
     
+    /**
+     * Hit Points mutator
+     * @param n
+     */
     public void setHP(int n){
         int oldHP = this.HP;
         HP = n;
@@ -86,10 +155,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_HP_PROPERTY,
             oldHP, HP);
     };
+
+    /**
+     * Hit Points accessor
+     * @return HP
+     */
     public int getHP(){
         return HP;
     };
     
+    /**
+     * Mutator for character speed
+     * @param n
+     */
     public void setSpeed(int n){
         int oldSpeed = this.Speed;
         Speed = n;
@@ -99,10 +177,18 @@ public class Character extends AbstractModel implements Comparable{
             oldSpeed, Speed);
     };
     
+    /**
+     * Accessor for character speed
+     * @return Speed
+     */
     public int getSpeed(){
         return Speed;
     };
     
+    /**
+     * mutator for character Action Points
+     * @param n
+     */
     public void setAP(int n){
         int oldAP = this.AP;
         AP = n;
@@ -111,10 +197,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_AP_PROPERTY,
             oldAP, AP);
     };
+
+    /**
+     * Accessor for character Action Points
+     * @return
+     */
     public int getAP(){
         return AP;
     };
     
+    /**
+     * mutator for character Initiative
+     * @param n
+     */
     public void setInitiative(int n){
         int oldInitiative = this.Initiative;
         Initiative = n;
@@ -123,10 +218,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_CURRENTAP_PROPERTY,
             oldInitiative, Initiative);
     };
+
+    /**
+     * accessor for character initiative
+     * @return Initiative
+     */
     public int getInitiative(){
         return Initiative;
     };
     
+    /**
+     * mutator for character Strength
+     * @param n
+     */
     public void setSTR(int n){
         int oldSTR = this.STR;
         STR = n;
@@ -135,10 +239,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_STR_PROPERTY,
             oldSTR, STR);
     };
+
+    /**
+     * accessor for character Strength
+     * @return
+     */
     public int getSTR(){
         return STR;
     };
     
+    /**
+     * mutator for character Intelligence
+     * @param n
+     */
     public void setINT(int n){
         int oldINT = this.INT;
         INT = n;
@@ -147,10 +260,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_INT_PROPERTY,
             oldINT, INT);
     };
+
+    /**
+     * accessor for character Intelligence
+     * @return
+     */
     public int getINT(){
         return INT;
     };
     
+    /**
+     * mutator for character Dexterity
+     * @param n
+     */
     public void setDEX(int n){
         int oldDEX = this.DEX;
         DEX = n;
@@ -159,10 +281,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_DEX_PROPERTY,
             oldDEX, DEX);
     };
+
+    /**
+     * accessor for character Dexterity
+     * @return
+     */
     public int getDEX(){
         return DEX;
     };
     
+    /**
+     * mutator for character's current hit points
+     * @param n
+     */
     public void setCurrentHP(int n){
         int oldcHP = this.CurrentHP;
         CurrentHP = n;
@@ -171,10 +302,19 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_CURRENTHP_PROPERTY,
             oldcHP, CurrentHP);
     };
+
+    /**
+     * accessor for character's current hit points
+     * @return
+     */
     public int getCurrentHP(){
         return CurrentHP;
     };
     
+    /**
+     * mutator for character's current action points
+     * @param n
+     */
     public void setCurrentAP(int n){
         int oldcAP = this.CurrentAP;
         CurrentAP = n;
@@ -183,11 +323,21 @@ public class Character extends AbstractModel implements Comparable{
             ELEMENT_CURRENTAP_PROPERTY,
             oldcAP, CurrentAP);
     };
+
+    /**
+     * Accessor for character's current action points
+     * @return
+     */
     public int getCurrentAP(){
         return CurrentAP;
     };
     
-    /* Default Class Constructor */
+
+    /**
+     * Constructor for class Character
+     * @param p
+     */
+    
     public Character(String p){
         /* Assign the character to its player */
         Player = p;

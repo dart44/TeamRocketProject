@@ -85,7 +85,7 @@ public class UI {
     /**
      * Jared Scott, Bugra Akdogan
      * This will take a Grid parameter and use it's variables for initialization
-     * @param grid
+     * @param mc
      */
     public UI(final MasterController mc){
         EventQueue.invokeLater(new Runnable() {
