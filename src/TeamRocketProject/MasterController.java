@@ -99,7 +99,7 @@ public class MasterController implements PropertyChangeListener {
                 if (turnOrder.getTurnCharacter().getCurrentAP() == 0){
                     break;
                 }
-                Thread.sleep(1000);
+                Thread.sleep(100);
             }
             GAME_OVER = GameOver(allCharacters);
             if(GAME_OVER != 0){
