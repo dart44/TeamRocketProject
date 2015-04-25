@@ -141,7 +141,7 @@ public class UI {
     //added by Jared Scott
         if (evt.getPropertyName().equals(TurnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
             turnOrderCharacter=  (Character) evt.getNewValue();
-            updatePlayerInfo();
+             //updatePlayerInfo();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
             fillGrid();
@@ -171,6 +171,7 @@ public class UI {
     public void initializeGame() { 
        fillGrid();
        updatePlayerInfo();
+      
     }
 
    // public Character getCurrentCharacter(){
