@@ -25,8 +25,8 @@ import UI.UI;
 public class MasterController implements PropertyChangeListener {
     private ArrayList<Character> allCharacters;
     private GridController gc;
-    private TurnOrder turnOrder;
     private UI ui;
+    private TurnOrder turnOrder;
     private Boolean endTurn = false;
     private int GAME_OVER = 0;
     /* Default Constructor contains list of Models being controlled
@@ -95,7 +95,7 @@ public class MasterController implements PropertyChangeListener {
     
     public void gameLoop() throws InterruptedException{
         while(GAME_OVER == 0){
-            while(!endTurn || turnOrder.getTurnCharacter().getCurrentAP() != 0){
+            while(!endTurn && turnOrder.getTurnCharacter().getCurrentAP() == 0){
                 Thread.sleep(1000);
             }
             GAME_OVER = GameOver(allCharacters);
