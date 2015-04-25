@@ -326,19 +326,20 @@ public class UI {
         
     }
    
-    private void doStats() {       
+    private void doStats() { 
+            masterController.Stats();        
     }
         
-    private void doMove() {        
+    private void doMove() { 
+        if(clickedTile != null)
         if("grass".equals(clickedTile.getName())){
             int pos[] = {tp.getPaneLayout().getConstraints(clickedTile).gridx ,tp.getPaneLayout().getConstraints(clickedTile).gridy};
             masterController.Move(pos);
         }
     }
         
-    private void doPass() {
-       
-       masterController.EndTurn();
+    private void doPass() {      
+       masterController.NextTurn();//EndTurn();
         
     }
 

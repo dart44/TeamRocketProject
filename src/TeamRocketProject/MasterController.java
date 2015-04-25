@@ -118,6 +118,22 @@ public class MasterController implements PropertyChangeListener {
         //TODO Display winner, prompt for new game
     }
     
+    public void Stats() {
+        Character c = turnOrder.getTurnCharacter();
+        System.out.println(
+                "Character Name: " + c.getName()
+                + "\nHP: " + c.getHP()
+                + "\nCurrent HP: " + c.getCurrentHP()
+                + "\nMax AP: " + c.getAP()
+                + "\nCurrent AP: " + c.getCurrentAP()
+                + "\nStrength: " + c.getSTR()
+                + "\nDexterity: " + c.getDEX()
+                + "\nSpeed: " + c.getSpeed()
+                + "\nINT: " + c.getINT()
+                + "\nInitiative: " + c.getInitiative()
+        );
+    }
+    
     public void NextTurn(){
         int nextIndex;
         if (turnOrder.getTurnCharacterIndex()+1 != turnOrder.getSize()){
