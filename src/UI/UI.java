@@ -1,6 +1,6 @@
 /*
  * Bugra Akdogan
- * User interface module.
+ * User interface module, Resources.
  *
  *
  */
@@ -332,7 +332,10 @@ public class UI {
                         tp.add(iconLabel);                        
                         tp.revalidate();
                         tp.repaint();
-                        tp.updateUI();                                                
+                        tp.updateUI();
+                        
+                        
+                      
                     }            
                                      
                                       
