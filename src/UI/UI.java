@@ -62,6 +62,7 @@ public class UI {
     private JLabel actionPoints;
     private JLabel iconLabel;
     private topPanel tp;
+    private bottomPanel bp;
     private ImageIcon borderImage;
     private ImageIcon grassImage;
     private ImageIcon characterImage;    
@@ -73,7 +74,8 @@ public class UI {
     private Component clickedTile;
     private MasterController masterController;
     private ArrayList<Character> allCharacters;
-
+    private Character turnOrderCharacter;
+    
     /**
      * Jared Scott, Bugra Akdogan
      * This will take a Grid parameter and use it's variables for initialization
@@ -96,7 +98,8 @@ public class UI {
                 frame.setLayout(new BorderLayout());
                 tp = new topPanel(gbc);
                 frame.add(tp);
-                frame.add(new bottomPanel(), BorderLayout.PAGE_END);
+                bp = new bottomPanel();
+                frame.add(bp, BorderLayout.PAGE_END); 
                 frame.pack();
                 frame.setVisible(true);
                 frame.setBounds(0, 0, (rows*35)+150, (cols*35)+250); //resize frame accordingly
@@ -118,6 +121,7 @@ public class UI {
                 }                             
                 //gc = new GridController(rows, cols);
                 masterController = mc;
+                turnOrderCharacter= new Character("init");
                 initializeGame();
                                 
                 gbc.gridx = rows;
@@ -135,8 +139,9 @@ public class UI {
         //TODO add the code to respond to property changes -JC
         
     //added by Jared Scott
-        if (evt.getPropertyName().equals(turnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
-            turnOrder.getTurnCharacter();
+        if (evt.getPropertyName().equals(TurnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
+            turnOrderCharacter=  (Character) evt.getNewValue();
+            updatePlayerInfo();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
             fillGrid();
@@ -177,10 +182,12 @@ public class UI {
      */
         
     public void updatePlayerInfo(){
-        turnPlayer.setText("Turn Player: " + Character.ELEMENT_PLAYER_PROPERTY);
-        turnCharacter.setText("Turn Character: " + Character.ELEMENT_NAME_PROPERTY);
-        actionPoints.setText("Action Points: " + Character.ELEMENT_AP_PROPERTY);
-        
+        turnPlayer.setText("Turn Player: " + turnOrderCharacter.getPlayer());
+        turnCharacter.setText("Turn Character: " + turnOrderCharacter.getName());
+        actionPoints.setText("Action Points: " + turnOrderCharacter.getAP());
+        bp.revalidate();
+        bp.repaint();
+        bp.updateUI();
     }
     public void fillGrid() {
         int[] gridarray=new int[2];
@@ -330,7 +337,7 @@ public class UI {
         
     private void doPass() {
        
-       masterController.NextTurn();
+       masterController.EndTurn();
         
     }
 
