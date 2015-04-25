@@ -48,6 +48,9 @@ import TeamRocketProject.MasterController;
 import TurnOrder.TurnOrder;
 import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
 public class UI {
 
@@ -65,7 +68,10 @@ public class UI {
     private bottomPanel bp;
     private ImageIcon borderImage;
     private ImageIcon grassImage;
-    private ImageIcon characterImage;    
+    private ImageIcon characterImage;  
+    private ImageIcon grassHLImage;
+    private ImageIcon characterHLImage;
+    private ImageIcon characterTurnImage;
     private GridController gc;
     private GridBagConstraints gbc;
     private TurnOrder turnOrder;
@@ -109,13 +115,24 @@ public class UI {
                 InputStream borderStream = this.getClass().getResourceAsStream("/resources/border.png");
                 InputStream grassStream = this.getClass().getResourceAsStream("/resources/grass.png");
                 InputStream characterStream = this.getClass().getResourceAsStream("/resources/character.png");
+                InputStream grassHLStream = this.getClass().getResourceAsStream("/resources/grassHL.png");
+                InputStream characterHLStream = this.getClass().getResourceAsStream("/resources/characterHL.png");
+                InputStream characterTurnStream = this.getClass().getResourceAsStream("/resources/characterTurn.png");
+                
                 try {
                      BufferedImage border = ImageIO.read(borderStream);
                      borderImage = new ImageIcon(border);
                      BufferedImage grass = ImageIO.read(grassStream);
                      grassImage = new ImageIcon(grass);
                      BufferedImage character = ImageIO.read(characterStream);
-                     characterImage = new ImageIcon(character);                     
+                     characterImage = new ImageIcon(character); 
+                     BufferedImage grassHL = ImageIO.read(grassHLStream);
+                     grassHLImage = new ImageIcon(grassHL); 
+                     BufferedImage characterHL = ImageIO.read(characterHLStream);
+                     characterHLImage = new ImageIcon(characterHL); 
+                     BufferedImage characterTurn = ImageIO.read(characterTurnStream);
+                     characterTurnImage = new ImageIcon(characterTurn); 
+                     
                 } catch (IOException ex) {
                     Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
                 }                             
@@ -143,6 +160,7 @@ public class UI {
             turnOrderCharacter=  (Character) evt.getNewValue();
              updatePlayerInfo();
              fillGrid();
+             
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
             fillGrid();
@@ -193,7 +211,8 @@ public class UI {
     }
     public void fillGrid() {
         int[] gridarray=new int[2];
-        tp.removeAll();   
+        tp.removeAll();
+        
        
     
         for (int row = 0; row < rows; row++) {
@@ -233,7 +252,10 @@ public class UI {
                         iconLabel.setBorder(border);
                         
                         iconLabel.addMouseListener(new MouseListener() {
-
+                            Component c;
+                            JLabel label;
+                            Border defaultBorder; 
+                            ImageIcon defaultIcon;
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             
@@ -258,12 +280,21 @@ public class UI {
 
                         @Override
                         public void mouseEntered(MouseEvent e) {
-                           
+                           c=e.getComponent();                        
+                                                    
+                           if(c instanceof JLabel){
+                               label=(JLabel) c;
+                               defaultIcon=(ImageIcon) label.getIcon();
+                               if(label.getName().equals("grass"))
+                                   label.setIcon(grassHLImage);
+                               else if(label.getIcon().equals(characterImage))
+                                   label.setIcon(characterHLImage);                                   
+                           }                               
                         }
 
                         @Override
                         public void mouseExited(MouseEvent e) {
-                            
+                            label.setIcon(defaultIcon);
                         }
                       });
                         
@@ -337,6 +368,7 @@ public class UI {
             int pos[] = {tp.getPaneLayout().getConstraints(clickedTile).gridx ,tp.getPaneLayout().getConstraints(clickedTile).gridy};
             masterController.Move(pos);
         }
+        fillGrid();
     }
         
     private void doPass() {      
