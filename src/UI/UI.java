@@ -141,7 +141,8 @@ public class UI {
     //added by Jared Scott
         if (evt.getPropertyName().equals(TurnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
             turnOrderCharacter=  (Character) evt.getNewValue();
-             //updatePlayerInfo();
+             updatePlayerInfo();
+             fillGrid();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
             fillGrid();
@@ -339,7 +340,7 @@ public class UI {
     }
         
     private void doPass() {      
-       masterController.NextTurn();//EndTurn();
+       masterController.EndTurn();
         
     }
 
