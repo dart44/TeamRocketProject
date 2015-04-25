@@ -153,11 +153,11 @@ public class UI {
             Grid newGrid = (Grid) evt.getNewValue();          
           // gridController.setGrid(newGrid);
             fillGrid();
-        } /*else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
             //int[] nullLocation = (int[]) evt.getNewValue();
             //gridController.setPosition(null, nullLocation);
             fillGrid();
-        }*/else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
+        } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_GRID_CONTENTS_PROPERTY)){
             if (evt.getNewValue() instanceof Character) {
             //    Character newCharacterValue = (Character) evt.getNewValue();
               //  int[] location = gridController.findCharacter(newCharacterValue.getName());
