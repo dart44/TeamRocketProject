@@ -183,6 +183,10 @@ public class MasterController implements PropertyChangeListener {
         return gc;
     }
     
+    public Character getTurnCharacter(){
+        return turnOrder.getTurnCharacter();
+    }
+    
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         ui.propertyChange(evt);

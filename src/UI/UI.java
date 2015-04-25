@@ -121,7 +121,7 @@ public class UI {
                 }                             
                 //gc = new GridController(rows, cols);
                 masterController = mc;
-                turnOrderCharacter= new Character("init");
+                turnOrderCharacter= mc.getTurnCharacter();
                 initializeGame();
                                 
                 gbc.gridx = rows;
