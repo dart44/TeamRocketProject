@@ -164,6 +164,9 @@ public class UI {
         } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTAP_PROPERTY)) {
             updatePlayerInfo();
             
+        } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTHP_PROPERTY)) {
+            updatePlayerInfo();    
+            
         } else if (evt.getPropertyName().equals(Character.ELEMENT_NAME_PROPERTY)){
             updatePlayerInfo();
              
@@ -333,8 +336,7 @@ public class UI {
                     else if(masterController.getGridController().isCharacter(gridarray)){
                         int[] chararray=masterController.getGridController().findCharacter(turnOrderCharacter.getName());                        
                         
-                        if(gbc.gridx==chararray[0] && gbc.gridy==chararray[1]){
-                            System.out.print(" this char " + chararray[0] + " asd" + chararray[1]);
+                        if(gbc.gridx==chararray[0] && gbc.gridy==chararray[1]){                           
                             iconLabel.setIcon(characterTurnImage);
                         }
                         else                     
@@ -363,13 +365,29 @@ public class UI {
     }     
    
     private void doAttack() {
+        int[] position=new int[2];
+        if(clickedTile!=null && clickedTile.getName().equals("character")){
+            position[0] = tp.getPaneLayout().getConstraints(clickedTile).gridx;
+            position[1]=tp.getPaneLayout().getConstraints(clickedTile).gridy;
+        
+            
+            Character target;
+            target = (Character) masterController.getGridController().getContent(position);
+            if(masterController.getGridController().findCharacter(turnOrderCharacter.getName())[0]!=position[0]
+                   && masterController.getGridController().findCharacter(turnOrderCharacter.getName())[1]!=position[1]){
+            masterController.Attack(masterController.getTurnCharacter(), target , turnOrderCharacter.getCurrentAP());
+            System.out.println("Attack successful");
+            }
+        }
+        
+        /*
         int[] position = {tp.getPaneLayout().getConstraints(clickedTile).gridx, tp.getPaneLayout().getConstraints(clickedTile).gridy};
         if ("character".equals(clickedTile.getName()) && masterController.getGridController().getContent(position) instanceof Character) {
             System.out.println(clickedTile.getName() + "target position is: " + position[0] + ":" + position[1]);
             Character target;
             target = (Character) masterController.getGridController().getContent(position);
             masterController.Attack(turnOrder.getTurnCharacter(), target, turnOrder.getTurnCharacter().getCurrentAP());
-        }                 
+        }   */              
     }
 
     private void doAbility() {
