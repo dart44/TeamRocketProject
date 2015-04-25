@@ -45,9 +45,12 @@ public class Character extends AbstractModel implements Comparable{
     private int HP, Speed, AP, Initiative,
                 STR, DEX, INT,
                 CurrentHP, CurrentAP;
-    /* 
-    number generator */
-    private static Random r = new Random(System.currentTimeMillis());
+    /* number generator */
+    private Random r = new Random(System.currentTimeMillis());
+    private int dX(int x){
+        int dX = r.nextInt((x - 1) + 1) + 1;
+        return dX;
+    }
     /* Attribute Accessors
      * When changes are made to this model they are fired such that they can
      * be propogated across all registered views.
@@ -201,11 +204,10 @@ public class Character extends AbstractModel implements Comparable{
          * randomNumber.nextInt((maximum - minimum) + 1) + minimum;
          * @param dX = random number 1 to X inclusive
          */
-        int d6 = r.nextInt((6 - 1) + 1) + 1;
-        STR = d6 + d6 + d6;
-        DEX = d6 + d6 + d6;
-        INT = d6 + d6 + d6;
-        int d3 = r.nextInt((3 - 1) + 1) + 1;
+        STR = dX(6) + dX(6) + dX(6);
+        DEX = dX(6) + dX(6) + dX(6);
+        INT = dX(6) + dX(6) + dX(6);
+        int d3 = dX(3);
         switch (d3) {
             case 1: STR = STR +2;
                     break;
