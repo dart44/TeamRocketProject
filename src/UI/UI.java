@@ -158,10 +158,13 @@ public class UI {
         
     //added by Jared Scott
         if (evt.getPropertyName().equals(TurnOrder.ELEMENT_TURNCHARACTER_PROPERTY)) {
-            turnOrderCharacter=  (Character) evt.getNewValue();
+            turnOrderCharacter=  masterController.getTurnCharacter();            
              updatePlayerInfo();
              fillGrid();
         } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTAP_PROPERTY)) {
+            updatePlayerInfo();
+            
+        } else if (evt.getPropertyName().equals(Character.ELEMENT_NAME_PROPERTY)){
             updatePlayerInfo();
              
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
@@ -328,9 +331,16 @@ public class UI {
                         tp.updateUI();
                     }
                     else if(masterController.getGridController().isCharacter(gridarray)){
+                        int[] chararray=masterController.getGridController().findCharacter(turnOrderCharacter.getName());                        
                         
-                        
-                        iconLabel.setIcon(characterImage);
+                        if(gbc.gridx==chararray[0] && gbc.gridy==chararray[1]){
+                            System.out.print(" this char " + chararray[0] + " asd" + chararray[1]);
+                            iconLabel.setIcon(characterTurnImage);
+                        }
+                        else                     
+                            iconLabel.setIcon(characterImage);                        
+                       
+                       
                         iconLabel.setOpaque(true);                       
                         tp.getPaneLayout().setConstraints(iconLabel, gbc);
                         iconLabel.setName("character");
