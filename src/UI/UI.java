@@ -148,6 +148,7 @@ public class UI {
                 gbc.insets=new Insets(-1,-1,-1,-1);   
                 
                 
+                
             }
         });
     }
@@ -324,6 +325,7 @@ public class UI {
                         tp.updateUI();
                     }
                     else if(masterController.getGridController().isCharacter(gridarray)){
+                        
                         
                         iconLabel.setIcon(characterImage);
                         iconLabel.setOpaque(true);                       
