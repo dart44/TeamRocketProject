@@ -1,7 +1,7 @@
 /*
  * Bugra Akdogan
  * User interface module, Resources.
- *
+ *  
  *
  */
 package UI;

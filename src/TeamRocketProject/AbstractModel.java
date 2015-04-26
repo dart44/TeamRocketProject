@@ -8,7 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 /**
  **
- * 
+ *  
  * @author Robert Eckstein
  */
 public abstract class AbstractModel {
