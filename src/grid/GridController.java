@@ -88,7 +88,7 @@ public class GridController {
      * there, its previous position becomes empty/null, and 1 is returned. Else
      * we return 0
      *
-     * @param character
+     * @param character 
      * @param newLocation
      * @return int
      */
@@ -207,7 +207,7 @@ public class GridController {
      * Check if this is a valid grid space
      *
      * @param location
-     * @return
+     * @return boolean
      */
     public boolean CheckValidSpace(int[] location) {
         return getGrid().empty(location);
@@ -219,7 +219,7 @@ public class GridController {
      *
      * @param row
      * @param col
-     * @return
+     * @return int 
      */
     //TODO add better error checking via exceptions
     public int initializeGrid(int row, int col) {
@@ -246,9 +246,8 @@ public class GridController {
     /**
      * Adds borders around the parameter of grid[][] and returns 1 when done
      *
-     * @param x
-     * @param y
-     * @return
+     *
+     * @return int 
      */
     public int createBorder() {
         //System.out.println("Setting border");
@@ -329,7 +328,7 @@ public class GridController {
 
     /**
      *
-     * @return
+     * @return Grid
      */
     public Grid getGrid() {
         return grid;
@@ -347,7 +346,7 @@ public class GridController {
      * Checks if the item in position is of class Character
      *
      * @param position
-     * @return
+     * @return boolean
      */
     public boolean isCharacter(int[] position) {
         return getContent(position) instanceof Character;
@@ -357,7 +356,7 @@ public class GridController {
      * Checks if the item in position is of class Border
      *
      * @param position
-     * @return
+     * @return boolean
      */
     public boolean isBorder(int[] position) {
         return getContent(position) instanceof Border;
