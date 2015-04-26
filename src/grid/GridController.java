@@ -68,7 +68,7 @@ public class GridController {
                 if (getGrid().getContent(position) instanceof Character) {
                     ch = (Character) getGrid().getContent(position);
                     if (ch.getName().equals(character)) {
-                        //System.out.println("Character found at " + r + " " + c);
+                     //   System.out.println("Character found at " + r + " " + c);
                         return position;
                         //answer[0] = r;
                         //answer[1] = c;
