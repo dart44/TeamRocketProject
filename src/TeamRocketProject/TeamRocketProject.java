@@ -97,6 +97,7 @@ public class TeamRocketProject {
     }
     /**
      * @param args the command line arguments
+     * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
         TeamRocketProject game = new TeamRocketProject();

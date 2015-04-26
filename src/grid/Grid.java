@@ -4,7 +4,7 @@ import TeamRocketProject.AbstractModel; // -JC
 import Character.Character;
 //import grid.GridController.Border;
 /**
- * @module Grid
+ *
  * @author Jared M Scott
  * Class: Grid
  * Date: March 9th 2015
