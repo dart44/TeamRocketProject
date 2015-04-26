@@ -418,7 +418,7 @@ public class UI {
     private void doPass() {      
        masterController.EndTurn();
         updatePlayerInfo();
-        fillGrid();
+        //fillGrid();
     }
 
     private class textPanel extends JPanel {
