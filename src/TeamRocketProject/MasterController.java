@@ -180,7 +180,7 @@ public class MasterController implements PropertyChangeListener {
      */
     public void NextTurn(){
         int nextIndex;
-        if (turnOrder.getTurnCharacterIndex()+1 != turnOrder.getSize()){
+         if (!(turnOrder.getTurnCharacterIndex()+1 >= turnOrder.getSize())){
             nextIndex = turnOrder.getTurnCharacterIndex()+1;
         } else {
             nextIndex = 0;
