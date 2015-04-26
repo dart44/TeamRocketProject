@@ -16,7 +16,10 @@ public class GridController {
         if(initializeGrid(x, y) != 1)
             System.err.println("Error: grid was not initialized");
     }
-
+    
+    /** 
+     * Default Border Constructor
+     */
     public class Border {
         String name = "Border";
 
@@ -26,8 +29,13 @@ public class GridController {
         }
     }
     
-    /*
-    Inititialized the Grid (duh), and calls createBorder
+    /**
+     * 
+     * Inititialize the Grid, and calls createBorder
+     * 
+     * @param x
+     * @param y
+     * @return int
     */
     int initializeGrid(int x, int y) {
         if (x < 5 || y < 5) {
@@ -106,11 +114,19 @@ public class GridController {
 
     }
 
-    //remove enemy/player/item
+    /**
+     *  remove enemy/player/item
+     *  @param x
+     *  @param y 
+     */
     public void emptyGridLocation(int x, int y) {
         grid.setGridElement(x, y, null);
     }
 
+    /**
+     * Get the grid
+     * @return Grid
+     */
     public Grid getGrid() {
         return grid;
     }

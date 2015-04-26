@@ -29,8 +29,8 @@ public class GridController {
      * with function initializeGrid in a later build It also initializes the
      * Border variable here.
      *
-     * @param rows
-     * @param cols
+     * @param rows int
+     * @param cols int
      */
     //TODO: add an exception
     public GridController(int rows, int cols) {
@@ -52,7 +52,7 @@ public class GridController {
      * character is in If the character is not found, the returned array is row
      * 0 and col 0.
      *
-     * @param character
+     * @param character String
      * @return int[]
      */
     //use character.getName
@@ -88,8 +88,8 @@ public class GridController {
      * there, its previous position becomes empty/null, and 1 is returned. Else
      * we return 0
      *
-     * @param character 
-     * @param newLocation
+     * @param character Character 
+     * @param newLocation int[]
      * @return int
      */
     public int setPosition(Character character, int[] newLocation) {
@@ -122,9 +122,9 @@ public class GridController {
      * substracted from it, we can still get a correct answer. ex) 5 - 12 = -7
      * and 12 - 5 = 7. Both are a difference of 7
      *
-     * @param character
-     * @param newRow
-     * @param newCol
+     * @param character Character
+     * @param newRow int
+     * @param newCol int
      * @return int
      */
     public int checkDistance(Character character, int newRow, int newCol) {
@@ -163,8 +163,8 @@ public class GridController {
      * subtracted from it, we can still get a correct answer. ex) 5 - 12 = -7
      * and 12 - 5 = 7. Both are a difference of 7
      *
-     * @param attacker
-     * @param target
+     * @param attacker Character
+     * @param target Character
      * @return int[]
      */
     public int[] checkDistance(Character attacker, Character target) {
@@ -206,7 +206,7 @@ public class GridController {
     /**
      * Check if this is a valid grid space
      *
-     * @param location
+     * @param location int[]
      * @return boolean
      */
     public boolean CheckValidSpace(int[] location) {
@@ -217,8 +217,8 @@ public class GridController {
      * Initialized class Grid. A Character will be placed on it randomly after
      * the borders are set up Must be larger than 5x5
      *
-     * @param row
-     * @param col
+     * @param row int
+     * @param col int
      * @return int 
      */
     //TODO add better error checking via exceptions
@@ -318,7 +318,7 @@ public class GridController {
     /**
      * Remove any content in the grid location
      *
-     * @param location
+     * @param location int[]
      */
     //make it not remove a border
     public void emptyGridLocation(int[] location) {
@@ -345,7 +345,7 @@ public class GridController {
     /**
      * Checks if the item in position is of class Character
      *
-     * @param position
+     * @param position int[]
      * @return boolean
      */
     public boolean isCharacter(int[] position) {
@@ -355,7 +355,7 @@ public class GridController {
     /**
      * Checks if the item in position is of class Border
      *
-     * @param position
+     * @param position int[]
      * @return boolean
      */
     public boolean isBorder(int[] position) {
@@ -366,7 +366,7 @@ public class GridController {
      * This will be used to change the grid (level) of each game if it's even
      * needed
      *
-     * @param grid
+     * @param grid Grid
      */
     public void setGrid(Grid grid) {
         this.grid = grid;

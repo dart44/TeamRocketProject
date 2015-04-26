@@ -20,8 +20,10 @@ import TurnOrder.TurnOrder;
 import grid.GridController;
 import UI.UI;
 
-
-
+/**
+ *
+ * @author Jason
+ */
 public class MasterController implements PropertyChangeListener {
     private ArrayList<Character> allCharacters;
     private GridController gc;
@@ -29,8 +31,12 @@ public class MasterController implements PropertyChangeListener {
     private TurnOrder turnOrder;
     private Boolean endTurn = false;
     private int GAME_OVER = 0;
-    /* Default Constructor contains list of Models being controlled
+    
+    /**
+     * Default Constructor contains list of Models being controlled
      * as well as views to populate.
+     * @param allCharacters ArrayList
+     * @param gridController GridController
      */
     public MasterController(ArrayList<Character> allCharacters, GridController gridController){
         this.allCharacters = allCharacters;
@@ -46,6 +52,14 @@ public class MasterController implements PropertyChangeListener {
     };
     
         /* Convenience methods for checking HP/AP */
+
+    /**
+     * Determine if the parameter's hit point count is greater than 0.
+     * Return true iff ch.AP is greater than 0. 
+     * @param ch Character
+     * @return boolean
+     */
+    
     public Boolean CheckHP(Character ch){
         if (ch.getCurrentHP() <= 0){
             return false;
@@ -53,6 +67,12 @@ public class MasterController implements PropertyChangeListener {
         return true;
     }
     
+    /**
+     * Determine if the parameter's Action Point count is greater than 0. 
+     * Return true if ch.AP is greater than 0. 
+     * @param ch Character
+     * @return boolean
+     */
     public Boolean CheckAP(Character ch){
         if (ch.getCurrentAP() <= 0) {  
             return false;
@@ -60,6 +80,13 @@ public class MasterController implements PropertyChangeListener {
         return true;
     }
     
+    /**
+     * Attacker attacks target, and attacker's action points are deducted 
+     * according to the type of attack. 
+     * @param attacker Character
+     * @param target Character
+     * @param AP int
+     */
     public void Attack(Character attacker, Character target, int AP){
         if (AP <= attacker.getCurrentAP()){
             attacker.setCurrentAP(attacker.getCurrentAP() - AP);
@@ -75,6 +102,10 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
+    /**
+     * Move the character whose turn it is to the position indicated by pos. 
+     * @param pos int[]
+     */
     public void Move(int[] pos){
         Character c = turnOrder.getTurnCharacter();
         int distance = gc.checkDistance(c, pos[0], pos[1]);
@@ -87,12 +118,19 @@ public class MasterController implements PropertyChangeListener {
         }
     }
     
-
+    /**
+     * Starts the game. 
+     * @throws InterruptedException Exception
+     */
     public void StartGame() throws InterruptedException{
         turnOrder.setTurnCharacter(turnOrder.getCharacter(0));
         gameLoop();
     }
     
+    /**
+     * The loop that drives the game. 
+     * @throws InterruptedException Exception
+     */
     public void gameLoop() throws InterruptedException{
         while(GAME_OVER == 0){
             while(!endTurn){
@@ -118,6 +156,9 @@ public class MasterController implements PropertyChangeListener {
         //TODO Display winner, prompt for new game
     }
     
+    /**
+     * Calculates the stats of the character whose turn it is. 
+     */
     public void Stats() {
         Character c = turnOrder.getTurnCharacter();
         System.out.println(
@@ -134,6 +175,9 @@ public class MasterController implements PropertyChangeListener {
         );
     }
     
+    /**
+     * Determine next player turn. 
+     */
     public void NextTurn(){
         int nextIndex;
         if (turnOrder.getTurnCharacterIndex()+1 != turnOrder.getSize()){
@@ -155,10 +199,19 @@ public class MasterController implements PropertyChangeListener {
         endTurn = false;
     }
     
+    /**
+     * Signal end of current player's turn. 
+     */
     public void EndTurn(){
         endTurn = true;
     }
     
+    /**
+     * Calculate if game is over.  
+     * Return 1 if Player 1 wins, -1 if player 2 wins, and 0 if game is not over
+     * @param Characters ArrayList
+     * @return ArrayList
+     */
     public int GameOver(ArrayList<Character> Characters){
         int result = 0;
         int half = Characters.size() / 2;
@@ -179,10 +232,19 @@ public class MasterController implements PropertyChangeListener {
         return result;
     }
     
+    /**
+     * Access GridController.
+     * @return GridController
+     */
     public GridController getGridController(){
         return gc;
     }
     
+    /**
+     * Access Get character whose next turn it is. 
+     * @see TurnOrder
+     * @return Character
+     */
     public Character getTurnCharacter(){
         return turnOrder.getTurnCharacter();
     }

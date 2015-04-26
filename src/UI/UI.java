@@ -83,9 +83,10 @@ public class UI {
     private Character turnOrderCharacter;
     
     /**
-     * Jared Scott, Bugra Akdogan
+     * @author Jared Scott
+     * @author Bugra Akdogan
      * This will take a Grid parameter and use it's variables for initialization
-     * @param MasterController mc 
+     * @param mc MasterController 
      */
     public UI(final MasterController mc){
         EventQueue.invokeLater(new Runnable() {

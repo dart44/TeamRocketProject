@@ -24,6 +24,11 @@ public class TeamRocketProject {
     private GridController grid;
     private ArrayList<Character> allChars;
     /* TeamRocketProject class constructor */
+
+    /**
+     * Constructor used to set up game. 
+     */
+    
     public TeamRocketProject(){
         /* Create ArrayList of Character objects */
         /* Get number of characters.  Use even number so both 
@@ -97,7 +102,7 @@ public class TeamRocketProject {
     }
     /**
      * @param args the command line arguments
-     * @throws InterruptedException
+     * @throws InterruptedException Exception
      */
     public static void main(String[] args) throws InterruptedException {
         TeamRocketProject game = new TeamRocketProject();
