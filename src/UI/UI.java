@@ -163,25 +163,31 @@ public class UI {
              fillGrid();
         } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTAP_PROPERTY)) {
             updatePlayerInfo();
+            fillGrid();
             
         } else if (evt.getPropertyName().equals(Character.ELEMENT_CURRENTHP_PROPERTY)) {
-            updatePlayerInfo();    
+            updatePlayerInfo(); 
+            fillGrid();
             
         } else if (evt.getPropertyName().equals(Character.ELEMENT_NAME_PROPERTY)){
             updatePlayerInfo();
+            fillGrid();
              
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_XAXIS_PROPERTY)) {
             //cols = (int) evt.getNewValue();
-            
+            updatePlayerInfo();
             fillGrid();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_YAXIS_PROPERTY)){
           //  rows = (int) evt.getNewValue();
+            updatePlayerInfo();
             fillGrid();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_GRID_PROPERTY)){
-            Grid newGrid = (Grid) evt.getNewValue();          
+            Grid newGrid = (Grid) evt.getNewValue();   
+            updatePlayerInfo();
           // gridController.setGrid(newGrid);
             fillGrid();
         } else if (evt.getPropertyName().equals(masterController.getGridController().getGrid().ELEMENT_NULL_LOCATION_PROPERTY)){
+            updatePlayerInfo();
             //int[] nullLocation = (int[]) evt.getNewValue();
             //gridController.setPosition(null, nullLocation);
             fillGrid();
@@ -191,6 +197,7 @@ public class UI {
               //  int[] location = gridController.findCharacter(newCharacterValue.getName());
                // gridController.setPosition(newCharacterValue, location);
             fillGrid();
+            updatePlayerInfo();
             }else{
             System.err.println("Error: a Character should have been passed, not a " + evt.getNewValue().toString());
             }
@@ -409,7 +416,8 @@ public class UI {
         
     private void doPass() {      
        masterController.EndTurn();
-        
+        updatePlayerInfo();
+        fillGrid();
     }
 
     private class textPanel extends JPanel {
