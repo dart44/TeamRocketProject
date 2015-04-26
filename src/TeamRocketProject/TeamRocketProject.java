@@ -85,30 +85,39 @@ public class TeamRocketProject {
         P2Char2.setName("Agatha");
 
         P1Char1.setDEX(10);
+        P1Char1.setAP(10);
+        P1Char1.setCurrentAP(10);
         P1Char1.setINT(10);
         P1Char1.setInitiative(10);
         P1Char1.setSTR(10);
         P1Char1.setSpeed(10);
         
+        P1Char2.setAP(7);
+        P1Char2.setCurrentAP(7);
         P1Char2.setDEX(7);
         P1Char2.setINT(7);
         P1Char2.setInitiative(7);
         P1Char2.setSTR(7);
         P1Char2.setSpeed(7);
         
+        P2Char1.setAP(9);
+        P2Char1.setCurrentAP(9);        
         P2Char1.setDEX(9);
         P2Char1.setINT(9);
         P2Char1.setInitiative(9);
         P2Char1.setSTR(9);
         P2Char1.setSpeed(9);
         
+        P2Char2.setAP(8);
+        P2Char2.setCurrentAP(8);
         P2Char2.setDEX(8);
         P2Char2.setINT(8);
         P2Char2.setInitiative(8);
         P2Char2.setSTR(8);
         P2Char2.setSpeed(8);
         
-        /*DO NOT DELETE!!! This serves as a way to test character issues
+        //DO NOT DELETE!!! This serves as a way to test character issues
+        /*
         System.out.println(
                 "Character Name: " + P1Char1.getName()
                 + "\nHP: " + P1Char1.getHP()
@@ -160,6 +169,7 @@ public class TeamRocketProject {
                 + "\nINT: " + P2Char2.getINT()
                 + "\nInitiative: " + P2Char2.getInitiative()
         );
+        
         */
         
         allChars.add(P1Char1);
