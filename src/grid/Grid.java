@@ -107,7 +107,7 @@ public class Grid extends AbstractModel {
         //a better form of error checking will be added in later revisions
         if (position[0] > yAxis || position[0] < 0 || position[1] > xAxis || position[1] < 0) {
             System.err.println("Error: the x and/or y location is out of bounds");
-            return null;
+            //return null;
         }   
         int i = position[0];
         int j = position[1];
