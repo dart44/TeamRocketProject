@@ -381,11 +381,12 @@ public class UI {
             
             Character target;
             target = (Character) masterController.getGridController().getContent(position);
-            if(masterController.getGridController().findCharacter(turnOrderCharacter.getName())[0]!=position[0]
-                   && masterController.getGridController().findCharacter(turnOrderCharacter.getName())[1]!=position[1]){
+            
+            //if(masterController.getGridController().findCharacter(turnOrderCharacter.getName())[0]!=position[0] 
+            //   && masterController.getGridController().findCharacter(turnOrderCharacter.getName())[1]!=position[1]){
             masterController.Attack(masterController.getTurnCharacter() , target , turnOrderCharacter.getCurrentAP());
             System.out.println("Attack successful");
-            }
+            //}
         }
         
         /*
